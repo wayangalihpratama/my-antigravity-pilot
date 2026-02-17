@@ -246,6 +246,92 @@ router.delete(`/posts/${id}`)
 </div>
 ```
 
+**Manual Dark Mode Toggle (Tailwind v4):**
+```css
+/* In app.css — replaces tailwind.config darkMode setting */
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+```
+Then toggle the `dark` class on `<html>` via JavaScript/React state + `localStorage`.
+
+### State Variants
+
+```jsx
+// Hover, focus, active
+<button className="bg-violet-500 hover:bg-violet-600 focus:outline-2
+  focus:outline-offset-2 focus:outline-violet-500 active:bg-violet-700" />
+
+// Focus-visible (keyboard-only focus)
+<input className="ring-0 focus-visible:ring-2 focus-visible:ring-blue-500" />
+
+// Disabled state
+<button disabled className="disabled:opacity-50 disabled:cursor-not-allowed" />
+
+// Group hover — style children when parent is hovered
+<a className="group block p-4 hover:bg-sky-50">
+  <h3 className="text-gray-900 group-hover:text-sky-600">Project</h3>
+  <p className="text-gray-500 group-hover:text-sky-400">Description</p>
+</a>
+
+// Named groups for nested hover contexts
+<li className="group/item">
+  <a className="group/edit invisible group-hover/item:visible">
+    <span className="group-hover/edit:text-gray-700">Edit</span>
+  </a>
+</li>
+
+// List styling
+<li className="first:pt-0 last:pb-0">
+<tr className="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900 dark:even:bg-gray-950">
+```
+
+### Color Opacity Modifier
+
+```jsx
+// Opacity shorthand with /value
+<div className="bg-sky-500/20" />      {/* 20% opacity */}
+<div className="text-white/75" />      {/* 75% opacity */}
+<div className="border-gray-300/25" /> {/* 25% opacity */}
+<div className="bg-black/50" />        {/* 50% opacity */}
+
+// Works with all color utilities: bg-*, text-*, border-*, ring-*, shadow-*
+```
+
+### Arbitrary Values
+
+```jsx
+// One-off values with [] syntax
+<div className="bg-[#316ff6]" />            {/* Custom hex color */}
+<div className="top-[117px]" />              {/* Exact pixel value */}
+<div className="grid-cols-[24rem_2.5rem_minmax(0,1fr)]" />
+
+// CSS variables with () shorthand
+<div className="fill-(--my-brand-color)" />  {/* Same as fill-[var(--my-brand-color)] */}
+
+// Combine with variants
+<div className="lg:top-[344px] hover:bg-[#1a73e8]" />
+
+// Arbitrary CSS property
+<div className="[--gutter-width:1rem] lg:[--gutter-width:2rem]" />
+```
+
+### Container Queries
+
+```jsx
+// Component-level responsive (based on container width, not viewport)
+<div className="@container">
+  <div className="flex flex-col @min-md:flex-row @min-md:gap-6">
+    <img className="w-full @min-md:w-48" />
+    <div className="p-4">Content</div>
+  </div>
+</div>
+
+// Named containers
+<div className="@container/sidebar">
+  <div className="@min-sm/sidebar:grid-cols-2" />
+</div>
+```
+
 ### Conditional Classes Pattern
 
 Use `clsx` for conditional Tailwind classes:
@@ -269,6 +355,58 @@ function Button({ variant = 'primary', disabled, children }) {
     </button>
   )
 }
+```
+
+**⚠️ Never construct dynamic class names:**
+```jsx
+// ❌ WRONG — Tailwind scans files as plain text, can't resolve interpolation
+<div className={`bg-${color}-500`} />
+
+// ✅ CORRECT — Map props to complete, static class name strings
+const colorVariants = {
+  blue: "bg-blue-600 hover:bg-blue-500 text-white",
+  red: "bg-red-500 hover:bg-red-400 text-white",
+  yellow: "bg-yellow-300 hover:bg-yellow-400 text-black",
+}
+<div className={colorVariants[color]} />
+```
+
+### Tailwind v4 CSS Directives
+
+```css
+/* Theme customization — replaces tailwind.config.ts */
+@import "tailwindcss";
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --color-brand-500: oklch(0.84 0.18 117.33);
+  --breakpoint-3xl: 120rem;
+}
+
+/* Reusable component classes */
+@layer components {
+  .card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: --spacing(6);
+    box-shadow: var(--shadow-xl);
+  }
+}
+
+/* Custom utility that works with all variants */
+@utility tab-4 {
+  tab-size: 4;
+}
+
+/* Use @variant in custom CSS */
+.my-element {
+  background: white;
+  @variant dark {
+    background: black;
+  }
+}
+
+/* Register extra source paths for class detection */
+@source "../node_modules/@my-company/ui-lib";
 ```
 
 ### Animation Utilities

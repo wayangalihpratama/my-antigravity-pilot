@@ -28,12 +28,60 @@ description: When writing or modifying frontend code (Next.js pages, React compo
 - Use `@apply` only in `globals.css` for base styles (e.g., typography)
 
 **Responsive Design:**
-- Mobile-first: start with base styles, add breakpoints (`sm:`, `md:`, `lg:`, `xl:`)
+- Mobile-first: start with base styles, add breakpoints (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`)
 - Use Tailwind responsive prefixes, not CSS media queries
+- Use container queries (`@container`, `@min-md:`) for component-level responsive
 
-**Dark Mode:**
-- Use `dark:` variant for dark mode support
-- Configure in `tailwind.config.ts` with `darkMode: 'class'` or `'media'`
+**State Variants (hover, focus, and other states):**
+- Use `hover:`, `focus:`, `active:` for interactive states
+- Use `focus-visible:` for keyboard focus (accessibility)
+- Use `disabled:` for disabled form elements
+- Use `group` parent + `group-hover:` to style children based on parent state
+- Use `first:`, `last:`, `odd:`, `even:` for list/table styling
+```tsx
+// Interactive button with state variants
+<button className="bg-violet-500 hover:bg-violet-600 focus:outline-2
+  focus:outline-offset-2 focus:outline-violet-500 active:bg-violet-700
+  disabled:opacity-50 disabled:cursor-not-allowed">
+
+// Group hover — style children when parent is hovered
+<a className="group">
+  <h3 className="text-gray-900 group-hover:text-white">Title</h3>
+  <p className="text-gray-500 group-hover:text-white">Description</p>
+</a>
+
+// List styling with first/last/odd/even
+<tr className="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900 dark:even:bg-gray-950">
+```
+
+**Color Opacity Modifier:**
+- Use `bg-black/50` syntax for opacity: `bg-sky-500/20`, `text-white/75`, `border-gray-300/25`
+- Works with all color utilities: `bg-*`, `text-*`, `border-*`, `ring-*`, `shadow-*`
+
+**Arbitrary Values:**
+- Use `[]` for one-off values: `bg-[#316ff6]`, `top-[117px]`, `grid-cols-[repeat(auto-fit,minmax(280px,1fr))]`
+- Use `()` for CSS variables: `fill-(--my-brand-color)`
+- Combine with variants: `lg:top-[344px]`, `hover:bg-[#1a73e8]`
+
+**Dark Mode (Tailwind v4):**
+- Default: uses `prefers-color-scheme` media query
+- Use `dark:` variant: `bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100`
+- For manual toggle, use `@custom-variant` in CSS (not `tailwind.config.ts`):
+```css
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+```
+
+**Container Queries:**
+- Use `@container` for component-level responsive design
+- Use `@min-sm:`, `@min-md:`, `@min-lg:` prefixes inside containers
+```tsx
+<div className="@container">
+  <div className="@min-md:flex @min-md:flex-row flex-col">
+    {/* Layout changes based on container width, not viewport */}
+  </div>
+</div>
+```
 
 **Component Extraction Pattern:**
 ```tsx
@@ -57,6 +105,68 @@ function Button({ children, ...props }) {
 - Inline `style` attributes when Tailwind has the equivalent utility
 - Mixing Tailwind with CSS modules in the same component
 - `!important` overrides — restructure class order instead
+
+**⚠️ Never Construct Dynamic Class Names:**
+```tsx
+// ❌ WRONG — Tailwind cannot detect dynamically constructed classes
+<div className={`bg-${color}-500 text-${size}`}>
+
+// ✅ CORRECT — Map props to complete, static class name strings
+const colorVariants = {
+  blue: "bg-blue-600 hover:bg-blue-500 text-white",
+  red: "bg-red-500 hover:bg-red-400 text-white",
+}
+<div className={colorVariants[color]}>
+```
+
+### Tailwind v4 CSS Directives
+
+**Theme Customization (`@theme`):**
+- Define design tokens in CSS, not `tailwind.config.ts`
+```css
+@import "tailwindcss";
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --color-brand-500: oklch(0.84 0.18 117.33);
+  --breakpoint-3xl: 120rem;
+}
+```
+
+**Custom CSS Layers:**
+- `@layer base` — default element styles (headings, body)
+- `@layer components` — reusable component classes (`btn`, `card`)
+- Custom classes in `@layer components` can be overridden by utilities
+```css
+@layer components {
+  .btn-primary {
+    border-radius: calc(infinity * 1px);
+    background-color: var(--color-violet-500);
+    padding-inline: --spacing(5);
+    padding-block: --spacing(2);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-white);
+  }
+}
+```
+
+**Custom Utilities & Variants:**
+```css
+/* Custom utility that works with all variants */
+@utility tab-4 {
+  tab-size: 4;
+}
+
+/* Use @variant in custom CSS for dark mode etc. */
+.my-element {
+  background: white;
+  @variant dark {
+    background: black;
+  }
+}
+
+/* Register additional source paths for class detection */
+@source "../node_modules/@my-company/ui-lib";
+```
 
 ### Responsive Design (Mandatory)
 
