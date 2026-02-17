@@ -13,7 +13,7 @@ Think of it as a "starter kit" for your AI pair programmer — pre-loaded with b
 | Stack | Directory | Status |
 |-------|-----------|--------|
 | **FastAPI + Next.js** | [`fastapi-nextjs/`](./fastapi-nextjs/) | ✅ Ready |
-| **Laravel** | `laravel/` | 🔜 Planned |
+| **Laravel** | [`laravel/`](./laravel/) | ✅ Ready |
 | *More coming...* | | |
 
 ## Stack Contents
@@ -56,6 +56,30 @@ Each stack directory follows this structure:
 - `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
 - `orchestrator` — Coordinates the full development cycle
 
+### Laravel
+
+**9 Rules** — Two-tier trigger system (`always_on` / `model_decision`):
+- `rule-priority.md` — Conflict resolution hierarchy
+- `security-mandate.md` — Always-on security (Laravel + Inertia + Filament)
+- `docker-commands.md` — Always-on Docker Compose execution rules
+- `error-handling.md` — Laravel exception handling + Inertia error patterns
+- `api-design.md` — RESTful routes, resource controllers, response formats
+- `testing-strategy.md` — Pest PHP, TDD cycle, test pyramid
+- `git-workflow.md` — Conventional commits, branch naming
+- `laravel-backend.md` — PSR-2/PSR-4, service pattern, Eloquent, Form Requests
+- `inertia-react-frontend.md` — Inertia.js + React 19 + Tailwind CSS 4 + responsive
+
+**5 Skills:**
+- `debugging-protocol` — Systematic debugging with Laravel Artisan introspection
+- `guardrails` — Pre-flight & post-implementation checklists for Laravel stack
+- `laravel-crud` — Full vertical feature generation (Migration → Model → Service → Controller → React → Tests)
+- `filament-admin` — Filament 3 admin panel: resources, widgets, access control
+- `inertia-react-patterns` — Inertia.js forms, navigation, Tailwind responsive patterns
+
+**6 Workflows:**
+- `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
+- `orchestrator` — Coordinates the full development cycle (Laravel docs-aligned)
+
 ## How to Use
 
 ### 1. Copy to Your Project
@@ -86,6 +110,7 @@ These configurations are adapted from:
 | [Microsoft Skills](https://github.com/microsoft/skills) | FastAPI router & Pydantic model patterns |
 | [Vercel Skills](https://github.com/vercel-labs/next-skills) | Next.js 15 & React best practices |
 | [obra/superpowers](https://github.com/obra/superpowers) | Systematic debugging methodology |
+| [laravelapp-skeleton](https://github.com/wayangalihpratama/laravelapp-skeleton) | Laravel architecture, Docker setup, Filament, Inertia patterns |
 
 ## Contributing
 
