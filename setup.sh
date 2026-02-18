@@ -74,17 +74,17 @@ discover_stacks() {
 # Show interactive stack selection menu
 select_stack() {
     local stacks=($1)
-    echo -e "${BOLD}Available stacks:${NC}"
-    echo ""
+    echo -e "${BOLD}Available stacks:${NC}" >&2
+    echo "" >&2
     for i in "${!stacks[@]}"; do
         local stack="${stacks[$i]}"
         local rules_count=$(find "${SCRIPT_DIR}/${stack}/.agent/rules" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
         local skills_count=$(find "${SCRIPT_DIR}/${stack}/.agent/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
         local workflows_count=$(find "${SCRIPT_DIR}/${stack}/.agent/workflows" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-        echo -e "  ${CYAN}$((i + 1))${NC}) ${BOLD}${stack}${NC}"
-        echo -e "     📏 ${rules_count} rules | 🛠️  ${skills_count} skills | 🔄 ${workflows_count} workflows"
+        echo -e "  ${CYAN}$((i + 1))${NC}) ${BOLD}${stack}${NC}" >&2
+        echo -e "     📏 ${rules_count} rules | 🛠️  ${skills_count} skills | 🔄 ${workflows_count} workflows" >&2
     done
-    echo ""
+    echo "" >&2
 
     while true; do
         read -rp "$(echo -e "${BOLD}Select a stack (1-${#stacks[@]}): ${NC}")" choice
@@ -92,7 +92,7 @@ select_stack() {
             echo "${stacks[$((choice - 1))]}"
             return
         fi
-        print_error "Invalid choice. Please enter a number between 1 and ${#stacks[@]}."
+        echo -e "${RED}❌ Invalid choice. Please enter a number between 1 and ${#stacks[@]}.${NC}" >&2
     done
 }
 
@@ -174,11 +174,15 @@ main() {
         read -rp "$(echo -e "${BOLD}Target project path: ${NC}")" target_path
     fi
 
-    # Resolve target path
+    # Resolve target path (supports ~, relative paths, and paths outside this repo)
     target_path="${target_path/#\~/$HOME}"
+    # Convert relative path to absolute using caller's working directory
     if [[ ! "$target_path" = /* ]]; then
         target_path="$(pwd)/${target_path}"
     fi
+    # Canonicalize: resolve .., ., and symlinks by creating the dir then using cd+pwd
+    mkdir -p "${target_path}"
+    target_path="$(cd "${target_path}" && pwd)"
     local target_agent_dir="${target_path}/.agent"
 
     echo ""
