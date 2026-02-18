@@ -85,7 +85,7 @@ select_stack() {
         echo -e "     📏 ${rules_count} rules | 🛠️  ${skills_count} skills | 🔄 ${workflows_count} workflows" >&2
     done
     echo "" >&2
-
+    
     while true; do
         read -rp "$(echo -e "${BOLD}Select a stack (1-${#stacks[@]}): ${NC}")" choice
         if [[ "$choice" =~ ^[0-9]+$ ]] && (( choice >= 1 && choice <= ${#stacks[@]} )); then
@@ -100,22 +100,22 @@ select_stack() {
 merge_directory() {
     local src="$1"
     local dst="$2"
-
+    
     if [[ ! -d "$src" ]]; then
         return
     fi
-
+    
     mkdir -p "$dst"
-
+    
     # Copy files and directories, preserving structure
     # Use rsync-like behavior: copy without overwriting existing files
     find "$src" -type f | while read -r file; do
         local relative="${file#"$src"/}"
         local target="${dst}/${relative}"
         local target_dir="$(dirname "$target")"
-
+        
         mkdir -p "$target_dir"
-
+        
         if [[ -f "$target" ]]; then
             print_warn "Skipping (already exists): ${relative}"
         else
@@ -128,14 +128,14 @@ merge_directory() {
 
 main() {
     print_banner
-
+    
     # Validate bmad-team exists
     if [[ ! -d "$BMAD_TEAM_DIR" ]]; then
         print_error "BMAD team directory not found at: ${BMAD_TEAM_DIR}"
         print_info "Make sure bmad-team/ exists in the same directory as this script."
         exit 1
     fi
-
+    
     # Discover available stacks
     local stacks_string
     stacks_string="$(discover_stacks)"
@@ -144,16 +144,16 @@ main() {
         exit 1
     fi
     local stacks=($stacks_string)
-
+    
     # Get stack selection
     local selected_stack=""
     local target_path=""
-
+    
     if [[ $# -ge 2 ]]; then
         # Non-interactive mode
         selected_stack="$1"
         target_path="$2"
-
+        
         # Validate stack exists
         local valid=false
         for s in "${stacks[@]}"; do
@@ -173,7 +173,7 @@ main() {
         echo ""
         read -rp "$(echo -e "${BOLD}Target project path: ${NC}")" target_path
     fi
-
+    
     # Resolve target path (supports ~, relative paths, and paths outside this repo)
     target_path="${target_path/#\~/$HOME}"
     # Convert relative path to absolute using caller's working directory
@@ -184,13 +184,13 @@ main() {
     mkdir -p "${target_path}"
     target_path="$(cd "${target_path}" && pwd)"
     local target_agent_dir="${target_path}/.agent"
-
+    
     echo ""
     echo -e "${BOLD}Configuration:${NC}"
     echo -e "  Stack:  ${CYAN}${selected_stack}${NC}"
     echo -e "  Target: ${CYAN}${target_path}${NC}"
     echo ""
-
+    
     # Confirm
     if [[ $# -lt 2 ]]; then
         read -rp "$(echo -e "${BOLD}Proceed? (y/n): ${NC}")" confirm
@@ -200,31 +200,28 @@ main() {
         fi
         echo ""
     fi
-
+    
     # Step 1: Create target directory
     mkdir -p "$target_path"
     print_success "Created target directory"
-
-    # Step 2: Copy stack .agent/ directory
-    print_info "Copying ${selected_stack} stack .agent/ ..."
-    if [[ -d "$target_agent_dir" ]]; then
-        print_warn "Target .agent/ already exists — merging (won't overwrite existing files)"
-    fi
-    merge_directory "${SCRIPT_DIR}/${selected_stack}/.agent" "$target_agent_dir"
-    print_success "Stack rules, skills, and workflows copied"
-
+    
+    # Step 2: Copy stack files (including .agent/)
+    print_info "Copying ${selected_stack} stack files ..."
+    merge_directory "${SCRIPT_DIR}/${selected_stack}" "${target_path}"
+    print_success "Stack files copied"
+    
     # Step 3: Merge BMAD team assets
     print_info "Merging BMAD team assets ..."
     merge_directory "${BMAD_TEAM_DIR}/rules" "${target_agent_dir}/rules"
     merge_directory "${BMAD_TEAM_DIR}/skills" "${target_agent_dir}/skills"
     merge_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
     print_success "BMAD team rules, skills, and workflows merged"
-
+    
     # Step 4: Summary
     local total_rules=$(find "${target_agent_dir}/rules" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
     local total_skills=$(find "${target_agent_dir}/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
     local total_workflows=$(find "${target_agent_dir}/workflows" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-
+    
     echo ""
     echo -e "${GREEN}${BOLD}╔══════════════════════════════════════════════════╗${NC}"
     echo -e "${GREEN}${BOLD}║       ✨ Setup Complete!                         ║${NC}"
