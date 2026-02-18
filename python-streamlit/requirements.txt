@@ -1,0 +1,6 @@
+streamlit
+pandas
+numpy
+watchdog
+black
+flake8
