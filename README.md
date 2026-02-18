@@ -21,22 +21,90 @@ Think of it as a "starter kit" for your AI pair programmer — pre-loaded with b
 
 The **BMAD (Business-Model-Architecture-Development) Method** provides 8 specialized AI agent roles that guide your project through a structured product development lifecycle. These are included automatically with every stack via `setup.sh`.
 
-| Agent | Name | Role | Skill |
-|-------|------|------|-------|
-| 📋 PM | John | Product Manager | `bmad-pm` |
-| 📊 Analyst | Mary | Business Analyst | `bmad-analyst` |
-| 🏗️ Architect | Winston | Architect | `bmad-architect` |
-| 🎨 UX | Sally | UX Designer | `bmad-ux` |
-| 🏃 SM | Bob | Scrum Master | `bmad-sm` |
-| 💻 Dev | Amelia | Developer | `bmad-dev` |
-| 🧪 Tester | Murat | Test Architect | `bmad-tester` |
-| 📚 Writer | Paige | Tech Writer | `bmad-writer` |
+| Agent | Name | Role | Skill | Input | Output |
+|-------|------|------|-------|-------|--------|
+| 📋 PM | John | Product Manager | `bmad-pm` | Ideas | Product Brief, PRD |
+| 📊 Analyst | Mary | Business Analyst | `bmad-analyst` | PRD | Research, Refined PRD |
+| 🏗️ Architect | Winston | Architect | `bmad-architect` | PRD | Architecture, ADRs |
+| 🎨 UX | Sally | UX Designer | `bmad-ux` | Requirements | Design Spec |
+| 🏃 SM | Bob | Scrum Master | `bmad-sm` | Specs | User Stories |
+| 💻 Dev | Amelia | Developer | `bmad-dev` | User Story | Code + Tests |
+| 🧪 Tester | Murat | Test Architect | `bmad-tester` | Code | Test Strategy |
+| 📚 Writer | Paige | Tech Writer | `bmad-writer` | Artifacts | Documentation |
 
 **Lifecycle:** Ideate (PM) → Analyze (Analyst) → Architect → Design (UX) → Plan (SM) → Implement (Dev) → Test (Tester) → Document (Writer)
 
-Use the `/bmad-orchestrator` workflow to run the full lifecycle, or invoke individual agents with their skill name.
+---
 
-> Based on the [BMAD Method](https://github.com/bmadcode/BMAD-METHOD) by Ichsan Rahardianto.
+## Workflow Guide: When to Use What
+
+This repository offers two ways to work: **BMAD Lifecycle** (Process-Driven) and **Stack Workflows** (Task-Driven).
+
+### 1. When to use the BMAD Lifecycle?
+Use BMAD when **building a feature from scratch** or when you need **strategic guidance**.
+
+- **Scenario**: "I have an idea for a new dashboard."
+  - **Action**: Run `/bmad-orchestrator` (starts at Ideation).
+- **Scenario**: "I need to design the database schema for the user profile."
+  - **Action**: Call `@Winston` (Architecture phase).
+- **Scenario**: "I need user stories for the login system."
+  - **Action**: Call `@Bob` (Planning phase).
+
+**Why?** BMAD ensures you don't skip critical steps like requirements gathering, architecture design, or testing strategy. It produces artifacts in `agent_docs/` that keep the team aligned.
+
+### 2. When to use Stack Workflows?
+Use Stack Workflows when you **know exactly what to do** and just need to execute efficiently.
+
+- **Scenario**: "Implement the LoginController based on the auth specs."
+  - **Action**: Run `/2-implement` (Red-Green-Refactor cycle).
+- **Scenario**: "Run the test suite and fix linting errors."
+  - **Action**: Run `/4-verify`.
+- **Scenario**: "Commit these changes."
+  - **Action**: Run `/5-commit`.
+
+**Why?** These are optimized for speed and adherence to coding standards. They don't ask "why" – they just do "how".
+
+### 3. How they work together
+BMAD Agents **delegate** to Stack Workflows.
+
+- **Amelia (Dev Agent)** picks a User Story → understands *WHAT* to build → triggers `/2-implement` to build it *HOW* the stack requires.
+- **Murat (Test Agent)** designs the strategy → triggers `/4-verify` to execute it.
+
+> **Rule of Thumb**: Use **BMAD** to figure out *what* to build. Use **Stack Workflows** to *build* it.
+
+## Development Approach: TDD First
+
+This repository enforces **Test-Driven Development (TDD)** as the standard way of working.
+
+### The Core Cycle (Red-Green-Refactor)
+1.  🔴 **Red**: Write a failing test for the functionality you want.
+2.  🟢 **Green**: Write the *minimal* code required to pass the test.
+3.  🔵 **Refactor**: Improve code quality without changing behavior (clean up).
+
+### How to use TDD with BMAD
+
+We have built-in tooling to make this easier:
+
+| Component | Role | Description |
+|-----------|------|-------------|
+| **`/2-implement`** | Workflow | Automates the TDD cycle. Hardcodes the steps so you don't forget them. |
+| **`bmad-dev`** | Agent | Amelia is prompted to *refuse* code requests without a test plan. |
+| **`testing-strategy.md`** | Rule | Defines valid test patterns (Pytest classes, Jest specs). |
+
+### Example Workflow
+1.  **Ask Amelia**: "I want to add a `calculate_total` function to the Cart model."
+2.  **She Responds**: "I'll create a test case for `calculate_total` first."
+3.  **She Executes**: Creates `tests/unit/test_cart.py` with a failing assertion.
+4.  **She Implements**: Writes the logic in `app/models/cart.py`.
+5.  **She Verifies**: Runs the test to confirm it passes.
+
+### Benefits
+- **AI Safety**: Agents can hallucinate. Tests catch bugs immediately.
+- **Documentation**: Tests show exactly how your code is *supposed* to be used.
+- **Confidence**: Refactor fearlessly knowing your suite has your back.
+
+> **Pro Tip**: Always ask for the test *before* the implementation. "Create a test for X feature" is a better prompt than "Create X feature".
+
 
 ## Quick Start
 
