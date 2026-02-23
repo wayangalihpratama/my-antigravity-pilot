@@ -21,7 +21,8 @@ Before starting:
 3. Create an `agent_docs/` directory for artifacts
 4. **Check for existing artifacts** in `agent_docs/`. Explain the distinction between **Living Documents** (updated to maintain current state) and **Chronological Records** (newly created to preserve history).
 
-5. Ask if the user wants to run all phases or start from a specific phase
+5. Ask the user: "**Is this a new feature, refinement, refactor, or a general task?**"
+6. Ask if the user wants to run all phases or start from a specific phase
 
 
 ## Lifecycle Phases
@@ -37,15 +38,16 @@ For every phase, if a corresponding artifact already exists in `agent_docs/`, yo
 
 ### Phase 1: Ideate 📋
 **Agent**: bmad-pm (John, Product Manager)
-**Goal**: Define product vision and initial requirements
+**Goal**: Define project vision (Skeleton) or feature requirements
 **Steps**:
 1. Load the bmad-pm skill
-2. Run the Stakeholder Workshop or Create Product Brief
-3. Generate initial PRD
+2. Update **Living Documents** (`product-brief.md`, `prd.md`) ONLY if the task is a "General Task" or "Vision Change" that affects the project skeleton.
+3. For "Feature" or "Refinement" tasks, create a **Feature Document** in `agent_docs/features/`.
 **Artifacts Produced**:
-- `agent_docs/product-brief.md`
-- `agent_docs/prd.md`
-**Gate**: User approves the PRD before proceeding
+- `agent_docs/product-brief.md` (Update only)
+- `agent_docs/prd.md` (Update only)
+- `agent_docs/features/[issue-id]-[slug].md` (New/Update)
+**Gate**: User approves the updated Skeleton or the new Feature Document before proceeding
 
 ---
 
@@ -54,12 +56,12 @@ For every phase, if a corresponding artifact already exists in `agent_docs/`, yo
 **Goal**: Deepen and validate requirements
 **Steps**:
 1. Load the bmad-analyst skill
-2. Review PRD from Phase 1
+2. Review Feature Document from Phase 1
 3. Conduct deep research on key areas
-4. Refine PRD with hardened requirements
+4. Refine Feature Document with hardened requirements
 **Artifacts Produced**:
 - `agent_docs/research-findings.md`
-- `agent_docs/prd.md` (refined)
+- `agent_docs/features/[issue-id]-[slug].md` (refined)
 **Gate**: All requirements are testable and traceable
 
 ---

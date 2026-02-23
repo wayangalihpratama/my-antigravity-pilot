@@ -85,7 +85,7 @@ select_stack() {
         echo -e "     📏 ${rules_count} rules | 🛠️  ${skills_count} skills | 🔄 ${workflows_count} workflows" >&2
     done
     echo "" >&2
-
+    
     while true; do
         read -rp "$(echo -e "${BOLD}Select a stack (1-${#stacks[@]}): ${NC}")" choice
         if [[ "$choice" =~ ^[0-9]+$ ]] && (( choice >= 1 && choice <= ${#stacks[@]} )); then
@@ -103,18 +103,23 @@ select_mode() {
     echo -e "     Copies the entire project skeleton + agent configuration." >&2
     echo -e "  ${CYAN}2${NC}) ${BOLD}Agent Config Only${NC} (For existing projects)" >&2
     echo -e "     Copies only the .agent/ directory and BMAD team." >&2
+    echo -e "  ${CYAN}3${NC}) ${BOLD}BMAD Only${NC} (No stack config)" >&2
+    echo -e "     Copies ONLY the BMAD team agents into .agent/ directory." >&2
     echo "" >&2
-
+    
     while true; do
-        read -rp "$(echo -e "${BOLD}Select mode (1-2): ${NC}")" choice
+        read -rp "$(echo -e "${BOLD}Select mode (1-3): ${NC}")" choice
         if [[ "$choice" == "1" ]]; then
             echo "full"
             return
-        elif [[ "$choice" == "2" ]]; then
+            elif [[ "$choice" == "2" ]]; then
             echo "agent"
             return
+            elif [[ "$choice" == "3" ]]; then
+            echo "bmad"
+            return
         fi
-        echo -e "${RED}❌ Invalid choice. Please enter 1 or 2.${NC}" >&2
+        echo -e "${RED}❌ Invalid choice. Please enter 1, 2, or 3.${NC}" >&2
     done
 }
 
@@ -122,22 +127,22 @@ select_mode() {
 merge_directory() {
     local src="$1"
     local dst="$2"
-
+    
     if [[ ! -d "$src" ]]; then
         return
     fi
-
+    
     mkdir -p "$dst"
-
+    
     # Copy files and directories, preserving structure
     # Use rsync-like behavior: copy without overwriting existing files
     find "$src" -type f | while read -r file; do
         local relative="${file#"$src"/}"
         local target="${dst}/${relative}"
         local target_dir="$(dirname "$target")"
-
+        
         mkdir -p "$target_dir"
-
+        
         if [[ -f "$target" ]]; then
             print_warn "Skipping (already exists): ${relative}"
         else
@@ -150,14 +155,14 @@ merge_directory() {
 
 main() {
     print_banner
-
+    
     # Validate bmad-team exists
     if [[ ! -d "$BMAD_TEAM_DIR" ]]; then
         print_error "BMAD team directory not found at: ${BMAD_TEAM_DIR}"
         print_info "Make sure bmad-team/ exists in the same directory as this script."
         exit 1
     fi
-
+    
     # Discover available stacks
     local stacks_string
     stacks_string="$(discover_stacks)"
@@ -166,12 +171,12 @@ main() {
         exit 1
     fi
     local stacks=($stacks_string)
-
+    
     # Get stack selection
     local selected_stack=""
     local target_path=""
     local mode="full"
-
+    
     if [[ $# -ge 2 ]]; then
         # Non-interactive mode
         selected_stack="$1"
@@ -179,35 +184,43 @@ main() {
         if [[ $# -ge 3 ]]; then
             mode="$3"
         fi
-
-        # Validate stack exists
-        local valid=false
-        for s in "${stacks[@]}"; do
-            if [[ "$s" == "$selected_stack" ]]; then
-                valid=true
-                break
+        
+        # Validate stack exists (unless mode is 'bmad')
+        if [[ "$mode" != "bmad" ]]; then
+            local valid=false
+            for s in "${stacks[@]}"; do
+                if [[ "$s" == "$selected_stack" ]]; then
+                    valid=true
+                    break
+                fi
+            done
+            if [[ "$valid" == false ]]; then
+                print_error "Stack '${selected_stack}' not found."
+                print_info "Available stacks: ${stacks[*]}"
+                exit 1
             fi
-        done
-        if [[ "$valid" == false ]]; then
-            print_error "Stack '${selected_stack}' not found."
-            print_info "Available stacks: ${stacks[*]}"
-            exit 1
         fi
-
+        
         # Validate mode
-        if [[ "$mode" != "full" && "$mode" != "agent" ]]; then
-            print_error "Invalid mode '${mode}'. Use 'full' or 'agent'."
+        if [[ "$mode" != "full" && "$mode" != "agent" && "$mode" != "bmad" ]]; then
+            print_error "Invalid mode '${mode}'. Use 'full', 'agent', or 'bmad'."
             exit 1
         fi
     else
         # Interactive mode
-        selected_stack=$(select_stack "${stacks_string}")
-        echo ""
-        read -rp "$(echo -e "${BOLD}Target project path: ${NC}")" target_path
-        echo ""
         mode=$(select_mode)
+        echo ""
+        
+        if [[ "$mode" != "bmad" ]]; then
+            selected_stack=$(select_stack "${stacks_string}")
+            echo ""
+        else
+            selected_stack="none (BMAD Only)"
+        fi
+        
+        read -rp "$(echo -e "${BOLD}Target project path: ${NC}")" target_path
     fi
-
+    
     # Resolve target path (supports ~, relative paths, and paths outside this repo)
     target_path="${target_path/#\~/$HOME}"
     # Convert relative path to absolute using caller's working directory
@@ -218,14 +231,14 @@ main() {
     mkdir -p "${target_path}"
     target_path="$(cd "${target_path}" && pwd)"
     local target_agent_dir="${target_path}/.agent"
-
+    
     echo ""
     echo -e "${BOLD}Configuration:${NC}"
     echo -e "  Stack:  ${CYAN}${selected_stack}${NC}"
     echo -e "  Target: ${CYAN}${target_path}${NC}"
     echo -e "  Mode:   ${CYAN}${mode}${NC}"
     echo ""
-
+    
     # Confirm
     if [[ $# -lt 2 ]]; then
         read -rp "$(echo -e "${BOLD}Proceed? (y/n): ${NC}")" confirm
@@ -235,34 +248,36 @@ main() {
         fi
         echo ""
     fi
-
+    
     # Step 1: Create target directory
     mkdir -p "$target_path"
     print_success "Created target directory"
-
+    
     # Step 2: Copy stack files
     if [[ "$mode" == "full" ]]; then
         print_info "Copying ${selected_stack} stack files (Full Stack)..."
         merge_directory "${SCRIPT_DIR}/${selected_stack}" "${target_path}"
         print_success "Stack files copied"
-    else
+        elif [[ "$mode" == "agent" ]]; then
         print_info "Copying ${selected_stack} agent config (Agent Only)..."
         merge_directory "${SCRIPT_DIR}/${selected_stack}/.agent" "${target_path}/.agent"
         print_success "Agent configuration copied"
+    else
+        print_info "Skipping stack files (BMAD Only mode)..."
     fi
-
+    
     # Step 3: Merge BMAD team assets
     print_info "Merging BMAD team assets ..."
     merge_directory "${BMAD_TEAM_DIR}/rules" "${target_agent_dir}/rules"
     merge_directory "${BMAD_TEAM_DIR}/skills" "${target_agent_dir}/skills"
     merge_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
     print_success "BMAD team rules, skills, and workflows merged"
-
+    
     # Step 4: Summary
     local total_rules=$(find "${target_agent_dir}/rules" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
     local total_skills=$(find "${target_agent_dir}/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
     local total_workflows=$(find "${target_agent_dir}/workflows" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-
+    
     echo ""
     echo -e "${GREEN}${BOLD}╔══════════════════════════════════════════════════╗${NC}"
     echo -e "${GREEN}${BOLD}║       ✨ Setup Complete!                         ║${NC}"
