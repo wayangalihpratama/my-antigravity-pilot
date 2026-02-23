@@ -14,6 +14,7 @@ Think of it as a "starter kit" for your AI pair programmer — pre-loaded with b
 |-------|-----------|--------|
 | **FastAPI + Next.js** | [`fastapi-nextjs/`](./fastapi-nextjs/) | ✅ Ready |
 | **Laravel** | [`laravel/`](./laravel/) | ✅ Ready |
+| **FastAPI AI Stack** | [`fastapi-ai-stack/`](./fastapi-ai-stack/) | ✅ Ready |
 | **Python + Streamlit** | [`python-streamlit/`](./python-streamlit/) | ✅ Ready |
 | *More coming...* | | |
 
