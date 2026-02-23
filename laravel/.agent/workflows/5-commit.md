@@ -40,18 +40,16 @@ git add -A
 ```
 
 ### 3. Commit with Conventional Format
-
-Format: `type(scope): description`
+Use the format: `[#issue_number] <type>(<scope>): <description>`. Common scopes for Laravel include backend, api, web, or specific component names.
 
 ```bash
 # Feature
-git commit -m "feat(posts): add post CRUD with service layer and Inertia pages"
+git commit -m "[#123] feat(posts): add post CRUD with service layer and Inertia pages"
 
 # Fix
-git commit -m "fix(auth): resolve login redirect loop for verified users"
+git commit -m "[#456] fix(auth): resolve login redirect loop for verified users"
 
 # Refactor
-git commit -m "refactor(posts): extract post logic to PostService"
 
 # Tests
 git commit -m "test(posts): add feature tests for post lifecycle"

@@ -3,11 +3,18 @@ trigger: model_decision
 description: When creating branches, committing code, managing PRs, or working with version control
 ---
 
-## Git Workflow
+### Commit Messages — Conventional Commits
 
-### Conventional Commits
+**Format:**
+```
+[#issue_number] <type>(<scope>): <description>
+```
 
-Format: `type(scope): description`
+### Examples
+
+- `[#1] feat(api): add FastAPI endpoint for user profile`
+- `[#12] fix(auth): resolve login timeout`
+- `[#45] docs: update README with setup instructions`
 
 ```
 feat(posts): add post creation with image upload
@@ -47,5 +54,6 @@ refactor/extract-price-service
 | Too Large | > 500 | Must split |
 
 ### Related Rules
+- Root Git Workflow @/Users/galihpratama/Dev/my-antigravity-pilot/.agent/rules/git-workflow.md
 - Testing Strategy @testing-strategy.md
 - Docker Commands @docker-commands.md

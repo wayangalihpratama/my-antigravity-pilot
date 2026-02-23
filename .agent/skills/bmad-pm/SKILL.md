@@ -14,30 +14,33 @@ description: Product Manager agent (John). Use when creating PRDs, defining prod
 
 ## Capabilities
 
-### 1. Create Product Brief
+### 1. Create Product Brief (Project Skeleton)
 
-Generate a concise product brief covering:
-- Problem statement and target users
-- Value proposition and competitive landscape
-- Core features (MVP scope)
-- Success metrics and KPIs
-- Constraints and assumptions
+Generate a high-level product brief representing the **entire repository's purpose**:
+- High-level problem: Why do these skeletons exist?
+- Target Users: Developers using AI agents.
+- Core Value: Standardizing agent interactions across stacks.
 
-**Output**: `agent_docs/product-brief.md`
+**Output**: `agent_docs/product-brief.md` (Update only when repository scope changes)
 
-### 2. Create PRD (Product Requirements Document)
+### 2. Create PRD (Project Skeleton)
 
-Build a comprehensive PRD through stakeholder elicitation:
+Build a comprehensive PRD representing the **entire repository's standards**:
+1. **Shared Vision** — Consistency across all tech stacks.
+2. **Infrastructure Requirements** — Docker, .agent usage, CI/CD.
+3. **Agent Role Standards** — How John, Mary, etc., interact globally.
 
-1. **Vision & Goals** — What are we building and why?
-2. **Target Users** — Who are the personas and their pain points?
-3. **User Journeys** — What are the critical flows?
-4. **Feature Requirements** — Detailed functional requirements with priority (MoSCoW)
-5. **Non-Functional Requirements** — Performance, security, scalability
-6. **Success Metrics** — How do we measure success?
-7. **Out of Scope** — What are we explicitly NOT building?
+**Output**: `agent_docs/prd.md` (Update only when repository scope changes)
 
-**Output**: `agent_docs/prd.md`
+### 3. Create Feature Document
+
+For specific issues, tasks, or features, create a detailed Feature Document:
+- Issue/Task ID and Title
+- Specific functional requirements for this task
+- Logic changes per stack
+- Success criteria for the task
+
+**Output**: `agent_docs/features/[issue-id]-[slug].md`
 
 ### 3. Competitive Analysis
 

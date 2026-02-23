@@ -9,7 +9,7 @@ description: When creating branches, committing code, managing PRs, or working w
 
 **Format:**
 ```
-<type>(<scope>): <description>
+[#issue_number] <type>(<scope>): <description>
 
 [optional body]
 
@@ -47,6 +47,12 @@ refactor/storage-layer
 chore/update-deps
 ```
 
+### Commit Message Examples
+
+- `[#1] feat(api): add FastAPI endpoint for user profile`
+- `[#12] fix(auth): resolve login timeout`
+- `[#45] docs: update README with setup instructions`
+
 ### Commit Hygiene
 
 - **One logical change per commit** — don't mix unrelated changes
@@ -70,5 +76,6 @@ chore/update-deps
 - [ ] Commit messages explain why, not just what?
 
 ### Related Rules
+- Root Git Workflow @/Users/galihpratama/Dev/my-antigravity-pilot/.agent/rules/git-workflow.md
 - Testing Strategy @testing-strategy.md
 - Docker Commands @docker-commands.md

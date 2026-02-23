@@ -61,7 +61,7 @@ Use Stack Workflows when you **know exactly what to do** and just need to execut
 - **Scenario**: "Run the test suite and fix linting errors."
   - **Action**: Run `/4-verify`.
 - **Scenario**: "Commit these changes."
-  - **Action**: Run `/5-commit`.
+  - **Action**: Run `/5-commit`. (Example: `git commit -m "[#1] feat(auth): add login spec"`)
 
 **Why?** These are optimized for speed and adherence to coding standards. They don't ask "why" – they just do "how".
 
@@ -98,6 +98,7 @@ We have built-in tooling to make this easier:
 3.  **She Executes**: Creates `tests/unit/test_cart.py` with a failing assertion.
 4.  **She Implements**: Writes the logic in `app/models/cart.py`.
 5.  **She Verifies**: Runs the test to confirm it passes.
+6.  **She Commits**: `[#727] feat(cart): implement calculate_total logic`
 
 ### Benefits
 - **AI Safety**: Agents can hallucinate. Tests catch bugs immediately.

@@ -37,15 +37,16 @@ For every phase, if a corresponding artifact already exists in `agent_docs/`, yo
 
 ### Phase 1: Ideate 📋
 **Agent**: bmad-pm (John, Product Manager)
-**Goal**: Define product vision and initial requirements
+**Goal**: Define project vision (Skeleton) or feature requirements
 **Steps**:
 1. Load the bmad-pm skill
-2. Run the Stakeholder Workshop or Create Product Brief
-3. Generate initial PRD
+2. Update **Living Documents** (`product-brief.md`, `prd.md`) ONLY if the high-level project vision has changed.
+3. For specific tasks/issues, create a **Feature Document**.
 **Artifacts Produced**:
-- `agent_docs/product-brief.md`
-- `agent_docs/prd.md`
-**Gate**: User approves the PRD before proceeding
+- `agent_docs/product-brief.md` (Skeleton - Update only)
+- `agent_docs/prd.md` (Skeleton - Update only)
+- `agent_docs/features/[issue-id]-[slug].md` (Feature-specific)
+**Gate**: User approves the PRD/Feature Document before proceeding
 
 ---
 
@@ -54,12 +55,12 @@ For every phase, if a corresponding artifact already exists in `agent_docs/`, yo
 **Goal**: Deepen and validate requirements
 **Steps**:
 1. Load the bmad-analyst skill
-2. Review PRD from Phase 1
+2. Review Feature Document from Phase 1
 3. Conduct deep research on key areas
-4. Refine PRD with hardened requirements
+4. Refine Feature Document with hardened requirements
 **Artifacts Produced**:
 - `agent_docs/research-findings.md`
-- `agent_docs/prd.md` (refined)
+- `agent_docs/features/[issue-id]-[slug].md` (refined)
 **Gate**: All requirements are testable and traceable
 
 ---

@@ -34,17 +34,17 @@ git add frontend/
 ```
 
 ### 3. Commit with Conventional Format
-Use the format: <type>(<scope>): <description>. Common scopes for this stack include api, schema, ui, hook, or specific feature names.
+Use the format: `[#issue_number] <type>(<scope>): <description>`. Common scopes for this stack include api, schema, ui, hook, or specific feature names.
 
 Examples:
-- Backend: feat(api): add FastAPI endpoint for user profile
-- Frontend: feat(ui): implement Tailwind-styled dashboard card
-- Testing: test(backend): add class-based integration tests for Auth
-- Fix: fix(schema): update Pydantic model to allow optional bio
+- Backend: `[#1] feat(api): add FastAPI endpoint for user profile`
+- Frontend: `[#5] feat(ui): implement Tailwind-styled dashboard card`
+- Testing: `[#10] test(backend): add class-based integration tests for Auth`
+- Fix: `[#12] fix(schema): update Pydantic model to allow optional bio`
 
 
 ```bash
-git commit -m "feat(scope): brief description of changes"
+git commit -m "[#issue_number] <type>(<scope>): <description>"
 ```
 
 ### 4. Update Project Tracking

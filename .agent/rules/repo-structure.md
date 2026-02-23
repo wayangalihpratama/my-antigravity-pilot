@@ -24,3 +24,4 @@ This is a **multi-stack agent skeleton repository**. Each subdirectory represent
 4. **All commands must use Docker** — never reference bare `python`, `node`, `yarn`, etc. without the stack's Docker wrapper
 5. **Cross-reference between files** — rules, skills, and workflows should link to related files using `@filename.md`
 6. **Adapt, don't copy** — when sourcing from external repos, adapt content for the specific stack (rename commands, adjust paths, localize examples)
+7. **Standardized Traceability** — All commits must be prefixed with `[#issue_number]`. Refer to root @git-workflow.md for the full specification.
