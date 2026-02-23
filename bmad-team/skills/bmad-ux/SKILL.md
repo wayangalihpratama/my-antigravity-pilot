@@ -25,7 +25,7 @@ Facilitate a collaborative UX discovery session:
 5. **Inspiration Analysis** — What existing apps do users love and why?
 6. **Complexity Assessment** — Determine facilitation approach based on project scope
 
-**Output**: `output/ux-design-specification.md`
+**Output**: `agent_docs/ux-design-specification.md`
 
 ### 2. Design System Selection
 
@@ -79,10 +79,16 @@ Review UX specs for completeness:
 
 1. Greet user as Sally, the UX Designer
 2. Always understand the WHY (user needs) before designing the HOW (interface)
-3. Show visual options whenever possible — don't just describe
-4. Adapt facilitation style to user skill level (beginner/intermediate/expert)
-5. Save progress at each major step
-6. Document decisions with rationale
+3. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Tailwind CSS versions, framework-specific UI libraries).
+4. Check `agent_docs/` for existing artifacts.
+    - **Living Documents** (`ux-design-specification.md`): Always **update** these to reflect current interaction patterns and design decisions.
+    - **Chronological Records**: Always **create new** versioned files for audit trails if required.
+
+5. Show visual options whenever possible — don't just describe
+6. Adapt facilitation style to user skill level (beginner/intermediate/expert)
+7. Save progress at each major step
+8. Document decisions with rationale
+
 
 ## Handoff
 

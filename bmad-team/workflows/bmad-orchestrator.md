@@ -17,10 +17,23 @@ You are the BMAD Orchestrator, responsible for guiding a product through its ent
 
 Before starting:
 1. Confirm the project name and scope with the user
-2. Create an `output/` directory for artifacts
-3. Ask if the user wants to run all phases or start from a specific phase
+2. **Detect the current stack** (e.g., FastAPI/Next.js, Laravel, Streamlit) by checking the directory name and its `.agent/rules/`.
+3. Create an `agent_docs/` directory for artifacts
+4. **Check for existing artifacts** in `agent_docs/`. Explain the distinction between **Living Documents** (updated to maintain current state) and **Chronological Records** (newly created to preserve history).
+
+5. Ask if the user wants to run all phases or start from a specific phase
+
 
 ## Lifecycle Phases
+
+**CRITICAL: DOCUMENTATION MAINTENANCE**
+For every phase, if a corresponding artifact already exists in `agent_docs/`, you MUST:
+1. Read the existing artifact first.
+2. Determine if the current task is a revision/enhancement of an existing feature or a completely new one.
+3. If it's a revision or enhancement to the project's current state, **update** the corresponding **Living Document** (`prd.md`, `architecture.md`, `user-guide.md`, `README.md`).
+4. If it's a point-in-time record or a significant update to a historical trail, **create a new** **Chronological Record** (`ADRs`, `stories`, `sprint-plans`, `research-findings`) with a new version number or ID.
+
+
 
 ### Phase 1: Ideate 📋
 **Agent**: bmad-pm (John, Product Manager)
@@ -30,8 +43,8 @@ Before starting:
 2. Run the Stakeholder Workshop or Create Product Brief
 3. Generate initial PRD
 **Artifacts Produced**:
-- `output/product-brief.md`
-- `output/prd.md`
+- `agent_docs/product-brief.md`
+- `agent_docs/prd.md`
 **Gate**: User approves the PRD before proceeding
 
 ---
@@ -45,8 +58,8 @@ Before starting:
 3. Conduct deep research on key areas
 4. Refine PRD with hardened requirements
 **Artifacts Produced**:
-- `output/research-findings.md`
-- `output/prd.md` (refined)
+- `agent_docs/research-findings.md`
+- `agent_docs/prd.md` (refined)
 **Gate**: All requirements are testable and traceable
 
 ---
@@ -61,8 +74,8 @@ Before starting:
 4. Create ADRs for significant decisions
 5. Design data model and API contracts
 **Artifacts Produced**:
-- `output/architecture.md`
-- `output/adrs/`
+- `agent_docs/architecture.md`
+- `agent_docs/adrs/`
 **Gate**: Architecture reviewed and approved
 
 ---
@@ -77,8 +90,8 @@ Before starting:
 4. Select design system
 5. Generate color themes and interaction patterns
 **Artifacts Produced**:
-- `output/ux-design-specification.md`
-- `output/ux-color-themes.html` (optional)
+- `agent_docs/ux-design-specification.md`
+- `agent_docs/ux-color-themes.html` (optional)
 **Gate**: UX specification validated and approved
 
 ---
@@ -93,8 +106,8 @@ Before starting:
 4. Add acceptance criteria and technical notes
 5. Plan initial sprint(s)
 **Artifacts Produced**:
-- `output/stories/`
-- `output/sprint-plan.md`
+- `agent_docs/stories/`
+- `agent_docs/sprint-plan.md`
 **Gate**: Stories meet INVEST criteria and are approved
 
 ---
@@ -125,7 +138,7 @@ Before starting:
 4. Identify coverage gaps
 5. Define CI/CD quality gates
 **Artifacts Produced**:
-- `output/test-strategy.md`
+- `agent_docs/test-strategy.md`
 - Quality gate configuration
 **Gate**: All quality gates pass
 
@@ -141,9 +154,9 @@ Before starting:
 4. Create architecture documentation
 5. Create user guide / README
 **Artifacts Produced**:
-- `output/api-docs.md`
-- `output/architecture-docs.md`
-- `output/user-guide.md`
+- `agent_docs/api-docs.md`
+- `agent_docs/architecture-docs.md`
+- `agent_docs/user-guide.md`
 - Updated `README.md`
 **Gate**: Documentation passes quality audit
 

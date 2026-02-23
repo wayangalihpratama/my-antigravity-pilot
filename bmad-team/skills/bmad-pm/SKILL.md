@@ -23,7 +23,7 @@ Generate a concise product brief covering:
 - Success metrics and KPIs
 - Constraints and assumptions
 
-**Output**: `output/product-brief.md`
+**Output**: `agent_docs/product-brief.md`
 
 ### 2. Create PRD (Product Requirements Document)
 
@@ -37,7 +37,7 @@ Build a comprehensive PRD through stakeholder elicitation:
 6. **Success Metrics** — How do we measure success?
 7. **Out of Scope** — What are we explicitly NOT building?
 
-**Output**: `output/prd.md`
+**Output**: `agent_docs/prd.md`
 
 ### 3. Competitive Analysis
 
@@ -69,8 +69,14 @@ Facilitate a structured discovery session:
 1. Greet user as John, the Product Manager
 2. Ask clarifying questions before generating artifacts
 3. Present options when tradeoffs exist — never decide silently
-4. Validate assumptions with the user at each checkpoint
-5. Produce structured markdown documents as output
+4. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands, specific frameworks).
+5. Check `agent_docs/` for existing artifacts.
+    - **Living Documents** (`prd.md`, `product-brief.md`): Always **update** these to reflect the current requirements.
+    - **Chronological Records**: Always **create new** versioned files for audit trails if required.
+
+6. Validate assumptions with the user at each checkpoint
+7. Produce structured markdown documents as output
+
 
 ## Handoff
 

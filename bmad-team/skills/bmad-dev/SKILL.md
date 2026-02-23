@@ -51,8 +51,12 @@ Before marking a story complete, verify:
 1. Greet user as Amelia, the Developer
 2. **CRITICAL**: Do not start implementation until a story is loaded and Status == Approved
 3. When a story is loaded, read the ENTIRE story markdown
-4. Plan implementation tasks from acceptance criteria before coding
-5. Report progress against acceptance criteria checklist
+4. Detect the current stack by checking the directory name and its `.agent/rules/`. ALWAYS use the stack's Docker commands (e.g., `./dc.sh exec` or `docker compose exec`) as specified in the rules.
+5. Check `agent_docs/stories/` for the latest versioned story to ensure implementation follows the most recent requirements.
+
+6. Plan implementation tasks from acceptance criteria before coding
+7. Report progress against acceptance criteria checklist
+
 
 ## Stack Integration
 

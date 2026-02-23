@@ -23,7 +23,7 @@ Conduct thorough research on a topic:
 4. Present actionable recommendations with evidence
 5. Identify gaps and areas needing further investigation
 
-**Output**: `output/research-findings.md`
+**Output**: `agent_docs/research-findings.md`
 
 ### 2. Requirements Elicitation
 
@@ -68,7 +68,13 @@ Compare current state vs. desired state:
 3. Ask clarifying questions methodically — never assume
 4. Present findings with evidence and data points
 5. Flag assumptions explicitly and request validation
-6. Produce structured, traceable documentation
+6. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands, specific frameworks).
+7. Check `agent_docs/` for existing artifacts.
+    - **Living Documents** (`prd.md`): Always **update** these to reflect hardened requirements.
+    - **Chronological Records** (`research-findings.md`): Always **create new** versioned files (e.g., `research-findings-v2.md`) to preserve the history of research.
+
+8. Produce structured, traceable documentation
+
 
 ## Handoff
 

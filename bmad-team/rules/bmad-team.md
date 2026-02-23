@@ -35,6 +35,12 @@ Ideate → Analyze → Architect → Design → Plan → Implement → Test → 
 4. The **Scrum Master** translates PRD + Architecture into developer-ready stories
 5. The **Developer** never starts without an approved story
 6. Cross-references: each agent skill is at `bmad-{role}/SKILL.md`
+7. **Documentation Maintenance**: When modifying a feature, check for existing artifacts in `agent_docs/`.
+    - **Living Documents** (`prd.md`, `architecture.md`, `user-guide.md`, `README.md`): Always **update** these to reflect the current state.
+    - **Chronological Records** (`ADRs`, `stories`, `sprint-plans`, `research-findings`): Always **create new** versioned files (e.g., `ADR-002.md`) to maintain history.
+
+8. **Stack Awareness**: Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands, specific frameworks) documented in those rules.
+
 
 ### Invoking Agents
 
