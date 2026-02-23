@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+fastmcp
+langchain
+langchain-openai
+langchain-community
+langgraph
+chromadb
+celery
+redis
+minio
+pytest
+pytest-asyncio
+httpx
+pydantic-settings
+python-multipart
