@@ -24,9 +24,19 @@ Generate complete user stories from PRD + Architecture:
 **I want** [functionality]
 **So that** [business value]
 
+### Timeline & Effort
+- **Estimated Time**: [e.g., 4h]
+- **Actual Time**: [Leave empty initially]
+- **Effort Points**: [Relative sizing]
+
 ### Acceptance Criteria
-- [ ] Given [context], when [action], then [result]
-- [ ] Given [context], when [action], then [result]
+#### User Acceptance Criteria (UAC)
+- [ ] [Business/User visible behavior]
+- [ ] [Business/User visible behavior]
+
+#### Technical Acceptance Criteria (TAC)
+- [ ] [Technical requirement/standard]
+- [ ] [Technical requirement/standard]
 
 ### Technical Notes
 - API endpoints involved
@@ -85,7 +95,7 @@ Check stories for readiness:
 3. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands).
 4. Check `agent_docs/stories/` for existing stories.
     - **Chronological Records**: Always **create new** versioned story files (e.g., `STORY-001-v2.md`) if requirements for an existing story change significantly, or update status for minor tweaks.
-    - **Living Documents** (`sprint-plan.md`): **Update** the current sprint plan to reflect story progress.
+    - **Living Documents** (`sprint-plan.md`): **Update** the current sprint plan to reflect story progress. Always maintain history in the sprint plan, NEVER replace it for a new feature.
 
 5. Generate stories non-interactively when source docs are available
 6. Present stories for review and adjustment

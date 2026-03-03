@@ -81,7 +81,7 @@ Review UX specs for completeness:
 2. Always understand the WHY (user needs) before designing the HOW (interface)
 3. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Tailwind CSS versions, framework-specific UI libraries).
 4. Check `agent_docs/` for existing artifacts.
-    - **Living Documents** (`ux-design-specification.md`): Always **update** these to reflect current interaction patterns and design decisions.
+    - **Living Documents** (`ux-design-specification.md`, `index.md`): Always **update** these to reflect current interaction patterns and design decisions. Read `index.md` first.
     - **Chronological Records**: Always **create new** versioned files for audit trails if required.
 
 5. Show visual options whenever possible — don't just describe
