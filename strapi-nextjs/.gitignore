@@ -1,0 +1,6 @@
+.env
+.tmp
+.cache
+build
+node_modules
+.next

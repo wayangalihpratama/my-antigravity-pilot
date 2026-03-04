@@ -20,3 +20,14 @@ The repository acts as a source for AI agent configurations. It is structured as
 ## 5. Security Model
 - **Deny by Default**: Standardized security rules applied to all stacks.
 - **Docker-First**: Isolation of development environments.
+
+## 6. Stack Architecture
+Each tech stack in the repository follows a consistent internal structure:
+- `backend/`: API services (FastAPI, PHP/Laravel, Strapi).
+- `frontend/`: UI services (Next.js, React).
+- `dc.sh`: Docker compose wrapper for local development.
+
+### Planned: Strapi-NextJS Stack
+The `strapi-nextjs` stack will implement a headless CMS pattern:
+- **Backend (Strapi v5)**: Manages content types, media, and permissions with `config-sync`.
+- **Frontend (Next.js 15)**: Consumes the Strapi API using Server Components and App Router.

@@ -1,24 +1,14 @@
-# Sprint Plan: Standardizing Traceability
+# Sprint Plan: Strapi-NextJS Implementation
 
-**Sprint**: #1
-**Goal**: Implement Issue #1 commit message standardization across all 4 tech stacks.
+## Goal
+Scaffold and initialize a working Strapi v5 + Next.js 15 stack following the repository's agentic standards.
 
-## User Stories
-- **ISS-001**: Standardize Commit Message Format (#1) - [Ready]
+## Sprint Backlog
+1. **[ISS-003]** Scaffold Directory Structure (Est: 2h)
+2. **[ISS-004]** Initialize Backend (Strapi v5) (Est: 4h)
+3. **[ISS-005]** Initialize Frontend (Next.js 15) (Est: 4h)
 
-## Action Plan
-1. **Developer (Amelia)**:
-   - Update `git-workflow.md` in `fastapi-nextjs` and `laravel`.
-   - Update `5-commit.md` in `fastapi-nextjs`, `laravel`, and `fastapi-ai-stack`.
-   - Create new `git-workflow.md` for `fastapi-ai-stack` and `python-streamlit`.
-   - Create new `5-commit.md` for `python-streamlit`.
-   - Update root `README.md`.
-2. **Tester (Murat)**:
-   - Verify all rule files exist and contain the correct prefix mandate.
-   - Verify all workflow files show correct examples.
-3. **Writer (Paige)**:
-   - Update `agent_docs/user-guide.md` (if exists) with commit instructions.
-
-## Timeline
-- **Implementation**: 1 Sprint cycle (current)
-- **Verification**: Immediate after implementation
+## Resource Allocation
+- **Dev**: Amelia (Implementation)
+- **Tester**: Murat (Verification)
+- **Architect**: Winston (Review)

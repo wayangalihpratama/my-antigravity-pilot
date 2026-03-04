@@ -16,6 +16,7 @@ Think of it as a "starter kit" for your AI pair programmer — pre-loaded with b
 | **Laravel** | [`laravel/`](./laravel/) | ✅ Ready |
 | **FastAPI AI Stack** | [`fastapi-ai-stack/`](./fastapi-ai-stack/) | ✅ Ready |
 | **Python + Streamlit** | [`python-streamlit/`](./python-streamlit/) | ✅ Ready |
+| **Strapi + Next.js** | [`strapi-nextjs/`](./strapi-nextjs/) | ✅ Ready |
 | *More coming...* | | |
 
 ## BMAD Agent Team
