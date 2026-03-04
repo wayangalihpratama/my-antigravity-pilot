@@ -7,8 +7,11 @@
 | Service | URL |
 |---------|-----|
 | Frontend | http://localhost:3000 |
-| Backend (Strapi) | http://localhost:1337 |
 | Strapi Admin | http://localhost:1337/admin |
+| pgAdmin | http://localhost:5050 |
+| Mailpit (Web) | http://localhost:8025 |
+| Production Entry | http://localhost (via Nginx) |
+| Production CMS | http://localhost/cms (via Nginx) |
 
 ### Environment Management
 

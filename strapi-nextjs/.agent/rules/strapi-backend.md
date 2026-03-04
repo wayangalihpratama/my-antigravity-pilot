@@ -3,7 +3,13 @@
 ### Core Philosophy
 - **TypeScript-First**: All custom code (controllers, services, middlewares) should be written in TypeScript.
 - **Document Service**: Use the Strapi v5 Document Service API (`strapi.documents`) instead of the legacy Entity Service.
-- **Headless-First**: Design APIs to be consumed by multiple frontends.
+# Strapi v5 Backend
+
+## Core Principles
+
+1. **Strapi v5 First**: This stack is aligned with Strapi v5 features (Document Service API, Blocks editor, etc.).
+2. **PostgreSQL focus**: All database operations must target PostgreSQL 16.
+3. **Decoupled Architecture**: Backend is strictly a headless CMS providing JSON APIs.
 
 ### Content Modeling
 - **Single Types**: Use for unique pages (e.g., Homepage, Global Settings).
