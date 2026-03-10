@@ -7,6 +7,7 @@ description: Implement the feature following Laravel conventions (Migration → 
 ## Trigger
 
 After completing Phase 1: Research and having a clear plan.
+**Prerequisite**: Proactively scan `.agent/workflows/` and use required workflows before and during implementation.
 
 ## Steps
 
@@ -161,6 +162,7 @@ docker compose exec app ./vendor/bin/pint
 ## Output
 
 - All files created following Laravel conventions
-- Tests passing
+- Tests passing (TDD Enforced)
 - Code formatted with Pint
+- **Document Sync**: `agent_docs/stories/` (Actual Time, UAC/TAC), `agent_docs/sprint-plan.md`, and related `agent_docs/features/` docs updated simultaneously.
 - Ready for Phase 3: Integrate

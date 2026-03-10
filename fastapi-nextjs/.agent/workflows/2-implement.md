@@ -9,6 +9,7 @@ Write production code following Test-Driven Development (TDD) principles to ensu
 
 ## Prerequisites
 - **Phase 1 (Research)** completed with a documented research log.
+- **Workflow Awareness**: Proactively scan `.agent/workflows/` and use required workflows.
 - **Technical Specification** finalized, detailing the specific file changes and API contracts.
 - **Task.md** updated to reflect the current story in progress.
 
@@ -90,11 +91,14 @@ Continue the Red-Green-Refactor cycle for each story requirement.
 
 
 ## Completion Criteria
-- [ ] Unit tests written and passing
+- [ ] Unit tests written and passing (TDD Enforced)
 - [ ] Implementation complete
 - [ ] Error handling follows principles
 - [ ] Logging added to operations
 - [ ] Code follows project patterns
+- [ ] Document Sync: Update `agent_docs/stories/` (Actual Time, UAC/TAC)
+- [ ] Document Sync: Update `agent_docs/sprint-plan.md` to reflect completed state
+- [ ] Document Sync: Update related feature docs in `agent_docs/features/` simultaneously
 
 
 ## Next Phase

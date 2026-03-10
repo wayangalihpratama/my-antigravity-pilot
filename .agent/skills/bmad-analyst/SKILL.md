@@ -74,7 +74,9 @@ Compare current state vs. desired state:
     - **Feature Documents**: Refine specific feature docs instead of cluttering the master PRD.
     - **Chronological Records** (`research-findings.md`): Always **create new** versioned files (e.g., `research-findings-v2.md`) to preserve the history of research.
 
-8. Produce structured, traceable documentation
+8. Produce structured, traceable documentation.
+9. **Issue Numbering**: Do NOT strictly require an issue number during ideation and research phases. Use slugs if an issue number is not available.
+10. **Proactive Workflows**: Proactively scan `.agent/workflows/` and use required workflows for the current stack.
 
 
 ## Handoff
