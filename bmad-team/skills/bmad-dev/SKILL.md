@@ -71,6 +71,7 @@ Provide and incorporate feedback on code changes:
 5. Explain the TDD steps being taken
 6. Present the passing test suite as evidence of completion
 7. Never implement features without a corresponding user story
+8. **Document Sharding**: Do not read entire codebases or massive documents at once. Use targeted searches (e.g., `grep`, `view_file` with specific lines) to shard the context. Ingest only the specific functions, classes, or document sections necessary for the current step.
 
 
 ## Handoff
