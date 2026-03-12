@@ -13,6 +13,7 @@ Think of it as a "starter kit" for your AI pair programmer — pre-loaded with b
 | Stack | Directory | Status |
 |-------|-----------|--------|
 | **FastAPI + Next.js** | [`fastapi-nextjs/`](./fastapi-nextjs/) | ✅ Ready |
+| **FastAPI + React** | [`fastapi-react/`](./fastapi-react/) | ✅ Ready |
 | **Laravel** | [`laravel/`](./laravel/) | ✅ Ready |
 | **FastAPI AI Stack** | [`fastapi-ai-stack/`](./fastapi-ai-stack/) | ✅ Ready |
 | **Python + Streamlit** | [`python-streamlit/`](./python-streamlit/) | ✅ Ready |
@@ -222,6 +223,30 @@ Each stack directory follows this structure:
 **6 Workflows:**
 - `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
 - `orchestrator` — Coordinates the full development cycle (Laravel docs-aligned)
+
+### FastAPI + React
+
+**9 Rules** — Two-tier trigger system (`always_on` / `model_decision`):
+- `rule-priority.md` — Conflict resolution hierarchy
+- `security-mandate.md` — Always-on security (React/Vite specific)
+- `docker-commands.md` — Always-on Docker (npm/Vite specific)
+- `error-handling.md` — Error handling principles
+- `api-design.md` — RESTful API standards
+- `testing-strategy.md` — Test pyramid, TDD, Vitest focus
+- `git-workflow.md` — Conventional commits, branch naming
+- `fastapi-backend.md` — Python/FastAPI/Pydantic v2 standards
+- `react-frontend.md` — React (Vite) + "WOW" Aesthetics + feature-based architecture
+
+**3 Skills:**
+- `debugging-protocol` — Hypothesis-driven systematic debugging
+- `guardrails` — Pre-flight checklist & post-implementation self-review
+- `react-crud` — Full vertical feature generation (Pydantic → Router → Feature Components)
+
+**8 Workflows:**
+- `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
+- `align-stack` — Ensures `.agent` configuration matches project reality
+- `orchestrator` — Coordinates the full development cycle
+- `sprint-status` — Provides a clear overview of sprint progress
 
 ## Sources & Credits
 
