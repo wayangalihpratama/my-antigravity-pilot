@@ -124,6 +124,7 @@ select_mode() {
 }
 
 # Merge directory contents (non-destructive, skips existing files)
+# Use for stack-specific files that the user may have customized
 merge_directory() {
     local src="$1"
     local dst="$2"
@@ -134,8 +135,6 @@ merge_directory() {
     
     mkdir -p "$dst"
     
-    # Copy files and directories, preserving structure
-    # Use rsync-like behavior: copy without overwriting existing files
     find "$src" -type f | while read -r file; do
         local relative="${file#"$src"/}"
         local target="${dst}/${relative}"
@@ -147,6 +146,38 @@ merge_directory() {
             print_warn "Skipping (already exists): ${relative}"
         else
             cp "$file" "$target"
+        fi
+    done
+}
+
+# Update directory contents (force-overwrite existing files)
+# Use for upstream BMAD team assets that should always stay in sync
+update_directory() {
+    local src="$1"
+    local dst="$2"
+    
+    if [[ ! -d "$src" ]]; then
+        return
+    fi
+    
+    mkdir -p "$dst"
+    
+    find "$src" -type f | while read -r file; do
+        local relative="${file#"$src"/}"
+        local target="${dst}/${relative}"
+        local target_dir="$(dirname "$target")"
+        
+        mkdir -p "$target_dir"
+        
+        if [[ -f "$target" ]]; then
+            # Check if file has changed
+            if ! diff -q "$file" "$target" > /dev/null 2>&1; then
+                cp "$file" "$target"
+                print_info "Updated: ${relative}"
+            fi
+        else
+            cp "$file" "$target"
+            print_success "Added: ${relative}"
         fi
     done
 }
@@ -266,23 +297,19 @@ main() {
         print_info "Skipping stack files (BMAD Only mode)..."
     fi
     
-    # Step 3: Merge BMAD team assets
+    # Step 3: Merge BMAD team assets (force-overwrite to keep in sync with upstream)
     print_info "Merging BMAD team assets ..."
-    merge_directory "${BMAD_TEAM_DIR}/rules" "${target_agent_dir}/rules"
-    merge_directory "${BMAD_TEAM_DIR}/skills" "${target_agent_dir}/skills"
-    merge_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
+    update_directory "${BMAD_TEAM_DIR}/rules" "${target_agent_dir}/rules"
+    update_directory "${BMAD_TEAM_DIR}/skills" "${target_agent_dir}/skills"
+    update_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
     print_success "BMAD team rules, skills, and workflows merged"
     
-    # Step 4: Bootstrap docs/ directory
+    # Step 4: Bootstrap docs/ directory (force-overwrite template)
     print_info "Bootstrapping docs/ directory ..."
     mkdir -p "${target_path}/docs"
     if [[ -f "${BMAD_TEAM_DIR}/templates/FEATURE_SPEC.md" ]]; then
-        if [[ ! -f "${target_path}/docs/FEATURE_SPEC.md" ]]; then
-            cp "${BMAD_TEAM_DIR}/templates/FEATURE_SPEC.md" "${target_path}/docs/FEATURE_SPEC.md"
-            print_success "Feature spec template copied to docs/"
-        else
-            print_warn "Skipping (already exists): docs/FEATURE_SPEC.md"
-        fi
+        cp "${BMAD_TEAM_DIR}/templates/FEATURE_SPEC.md" "${target_path}/docs/FEATURE_SPEC.md"
+        print_success "Feature spec template synced to docs/"
     fi
     print_success "docs/ directory ready"
     
