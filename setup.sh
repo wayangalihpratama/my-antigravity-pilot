@@ -273,7 +273,39 @@ main() {
     merge_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
     print_success "BMAD team rules, skills, and workflows merged"
     
-    # Step 4: Summary
+    # Step 4: Bootstrap docs/ directory
+    print_info "Bootstrapping docs/ directory ..."
+    mkdir -p "${target_path}/docs"
+    if [[ -f "${BMAD_TEAM_DIR}/templates/FEATURE_SPEC.md" ]]; then
+        if [[ ! -f "${target_path}/docs/FEATURE_SPEC.md" ]]; then
+            cp "${BMAD_TEAM_DIR}/templates/FEATURE_SPEC.md" "${target_path}/docs/FEATURE_SPEC.md"
+            print_success "Feature spec template copied to docs/"
+        else
+            print_warn "Skipping (already exists): docs/FEATURE_SPEC.md"
+        fi
+    fi
+    print_success "docs/ directory ready"
+    
+    # Step 5: Update .gitignore
+    print_info "Updating .gitignore ..."
+    local gitignore="${target_path}/.gitignore"
+    touch "$gitignore"
+    
+    local entries_added=0
+    for entry in ".agent/" "agent_docs/"; do
+        if ! grep -qxF "$entry" "$gitignore" 2>/dev/null; then
+            echo "$entry" >> "$gitignore"
+            entries_added=$((entries_added + 1))
+        fi
+    done
+    
+    if [[ $entries_added -gt 0 ]]; then
+        print_success ".gitignore updated (added ${entries_added} entries)"
+    else
+        print_warn ".gitignore already contains required entries"
+    fi
+    
+    # Step 6: Summary
     local total_rules=$(find "${target_agent_dir}/rules" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
     local total_skills=$(find "${target_agent_dir}/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
     local total_workflows=$(find "${target_agent_dir}/workflows" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
@@ -290,6 +322,11 @@ main() {
     echo -e "  ${BOLD}Skills:${NC}     ${total_skills} skills"
     echo -e "  ${BOLD}Workflows:${NC}  ${total_workflows} workflows"
     echo ""
+    echo -e "  ${BOLD}Documentation:${NC}"
+    echo -e "    📂 docs/           → Shared (git-tracked): LLD.md + feature specs"
+    echo -e "    📂 agent_docs/     → Local (gitignored): sprint plans + stories"
+    echo -e "    📂 .agent/         → Local (gitignored): rules, skills, workflows"
+    echo ""
     echo -e "  ${BOLD}BMAD Agents Available:${NC}"
     echo -e "    📋 PM (John)       📊 Analyst (Mary)     🏗️  Architect (Winston)"
     echo -e "    🎨 UX (Sally)      🏃 SM (Bob)           💻 Dev (Amelia)"
@@ -297,6 +334,7 @@ main() {
     echo ""
     echo -e "  ${CYAN}To start the BMAD lifecycle: use /bmad-orchestrator${NC}"
     echo -e "  ${CYAN}To invoke a specific agent: use the bmad-{role} skill${NC}"
+    echo -e "  ${CYAN}To generate an initial LLD: use /generate-lld${NC}"
     echo ""
 }
 
