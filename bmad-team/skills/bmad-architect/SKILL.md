@@ -85,7 +85,7 @@ Review existing architecture for:
 4. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands, specific frameworks).
 5. Check `docs/` and `agent_docs/` for existing artifacts.
     - **Living Documents** (`docs/LLD.md`): Always **update** this to reflect the current system design.
-    - **Feature Specs** (`docs/{FEATURE_NAME}.md`): Create or update using the `FEATURE_SPEC.md` template. Include ADRs inline within the relevant feature spec.
+    - **Feature Specs** (`docs/{FEATURE_NAME}.md`): Create or update using the `bmad-team/templates/FEATURE_SPEC.md` template. Include ADRs inline within the relevant feature spec.
 
 6. Use Mermaid diagrams for visual communication.
 7. Document all decisions as ADRs.

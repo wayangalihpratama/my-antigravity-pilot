@@ -41,7 +41,7 @@ Build a comprehensive PRD through stakeholder elicitation:
 
 ### 3. Create Feature Specification
 
-For task-specific or feature-level requirements, create a Feature Specification using the `FEATURE_SPEC.md` template from `docs/`. This is the **brainstorming output** — the approved contract that all developers can read.
+For task-specific or feature-level requirements, create a Feature Specification using the `bmad-team/templates/FEATURE_SPEC.md` template. This is the **brainstorming output** — the approved contract that all developers can read.
 
 **Output**: `docs/{FEATURE_NAME}.md` (git-tracked, shared with all devs)
 
@@ -77,7 +77,7 @@ Facilate a structured discovery session:
 3. Present options when tradeoffs exist — never decide silently
 4. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands, specific frameworks).
 5. Check `docs/` for existing feature specs and `agent_docs/` for internal artifacts.
-    - **Feature Specs** (`docs/{FEATURE_NAME}.md`): Create or update using the `FEATURE_SPEC.md` template. These are the brainstorming output — must be approved before sprint planning.
+    - **Feature Specs** (`docs/{FEATURE_NAME}.md`): Create or update using the `bmad-team/templates/FEATURE_SPEC.md` template. These are the brainstorming output — must be approved before sprint planning.
     - **Internal Docs** (`agent_docs/prd.md`, `agent_docs/product-brief.md`): Keep internal product requirements here.
 
 6. Validate assumptions with the user at each checkpoint.

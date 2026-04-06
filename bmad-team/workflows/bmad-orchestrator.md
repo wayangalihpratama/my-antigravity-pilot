@@ -33,7 +33,7 @@ Before starting:
 **CRITICAL: DOCUMENTATION MAINTENANCE**
 For every phase, check both `docs/` and `agent_docs/`:
 1. Read existing artifacts first.
-2. Feature specs go to `docs/{FEATURE_NAME}.md` (shared, git-tracked).
+2. Feature specs go to `docs/{FEATURE_NAME}.md` (shared, git-tracked, follows `bmad-team/templates/FEATURE_SPEC.md`).
 3. Sprint plans and stories go to `agent_docs/` (local only).
 4. `docs/LLD.md` is a living document — always update it when architecture changes.
 
@@ -44,7 +44,7 @@ For every phase, check both `docs/` and `agent_docs/`:
 **Goal**: Define project vision (Skeleton) or feature requirements
 **Steps**:
 1. Load the bmad-pm skill
-2. For "Feature" or "Refinement" tasks, create a **Feature Specification** in `docs/{FEATURE_NAME}.md` using the `FEATURE_SPEC.md` template.
+2. For "Feature" or "Refinement" tasks, create a **Feature Specification** in `docs/{FEATURE_NAME}.md` using the `bmad-team/templates/FEATURE_SPEC.md` template.
 3. For "General Task" or "Vision Change", update `agent_docs/prd.md` or `agent_docs/product-brief.md`.
 **Artifacts Produced**:
 - `docs/{FEATURE_NAME}.md` (New/Update — git-tracked)

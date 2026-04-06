@@ -304,13 +304,9 @@ main() {
     update_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
     print_success "BMAD team rules, skills, and workflows merged"
 
-    # Step 4: Bootstrap docs/ directory (force-overwrite template)
+    # Step 4: Bootstrap docs/ directory
     print_info "Bootstrapping docs/ directory ..."
     mkdir -p "${target_path}/docs"
-    if [[ -f "${BMAD_TEAM_DIR}/templates/FEATURE_SPEC.md" ]]; then
-        cp "${BMAD_TEAM_DIR}/templates/FEATURE_SPEC.md" "${target_path}/docs/FEATURE_SPEC.md"
-        print_success "Feature spec template synced to docs/"
-    fi
     print_success "docs/ directory ready"
 
     # Step 5: Update .gitignore

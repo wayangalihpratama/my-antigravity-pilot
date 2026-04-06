@@ -17,7 +17,6 @@ Use this workflow when a project was set up with the **previous BMAD approach** 
 ### Step 1: Bootstrap `docs/` Directory
 // turbo
 1. Create `docs/` if it doesn't exist.
-2. Copy the `FEATURE_SPEC.md` template into `docs/` (from `.agent/` assets or `bmad-team/templates/`).
 
 ### Step 2: Migrate Shared Documents
 
@@ -27,7 +26,7 @@ Scan `agent_docs/` and move **shared documentation** into `docs/`. Follow this m
 |-------------|-------------|--------|
 | `agent_docs/architecture.md` | `docs/LLD.md` | Move + rename. Merge with any existing `agent_docs/architecture-*.md` variants. |
 | `agent_docs/adrs/*.md` | Inline in `docs/LLD.md` | Append ADRs as a section within `docs/LLD.md`. |
-| `agent_docs/features/*.md` | `docs/{FEATURE_NAME}.md` | Move each feature doc as a standalone file. Reformat to match `FEATURE_SPEC.md` template. |
+| `agent_docs/features/*.md` | `docs/{FEATURE_NAME}.md` | Move each feature doc as a standalone file. Reformat to match `bmad-team/templates/FEATURE_SPEC.md` template. |
 
 > [!CAUTION]
 > Do NOT move sprint plans, stories, research notes, or internal PRDs. These stay in `agent_docs/`.

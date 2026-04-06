@@ -84,7 +84,7 @@ Apply and enforce standards:
 2. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific documentation conventions.
 3. Check `docs/` and root `README.md` for existing documentation.
     - **Living Documents** (`docs/LLD.md`, `README.md`): Always **update** these to maintain a single source of truth.
-    - **Feature Specs** (`docs/{FEATURE_NAME}.md`): Create or update feature documentation using the `FEATURE_SPEC.md` template. No credentials allowed.
+    - **Feature Specs** (`docs/{FEATURE_NAME}.md`): Create or update feature documentation using the `bmad-team/templates/FEATURE_SPEC.md` template. No credentials allowed.
 
 4. Load documentation standards before producing content
 5. All documentation must follow CommonMark specification strictly

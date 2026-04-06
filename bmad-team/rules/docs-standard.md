@@ -24,13 +24,12 @@ The source of truth for all developers and stakeholders. Flat structure — one 
 docs/
 ├── LLD.md                    # Living low-level design (always updated)
 ├── STORAGE_SYSTEM.md         # Feature specification
-├── USER_REGISTRATION.md      # Feature specification
-└── FEATURE_SPEC.md           # Template for new feature docs
+└── USER_REGISTRATION.md      # Feature specification
 ```
 
 ### Feature Specification Format
 
-Every new feature MUST have a dedicated `docs/{FEATURE_NAME}.md` following the template in `docs/FEATURE_SPEC.md`. This document is the **approved brainstorming contract** — it must be reviewed and approved by the user before any sprint planning or implementation begins.
+Every new feature MUST have a dedicated `docs/{FEATURE_NAME}.md` following the template in `bmad-team/templates/FEATURE_SPEC.md`. This document is the **approved brainstorming contract** — it must be reviewed and approved by the user before any sprint planning or implementation begins.
 
 ### LLD (Low-Level Design)
 
