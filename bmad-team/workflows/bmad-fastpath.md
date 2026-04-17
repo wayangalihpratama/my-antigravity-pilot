@@ -48,11 +48,12 @@ You are the BMAD Orchestrator executing the Fastpath. This streamlined pipeline 
 
 ### Step 5: Document (Writer)
 **Agent**: bmad-writer
-**Goal**: Changelog, commit, and docs update
+**Goal**: Changelog, commit (with confirmation), and docs update
 1. Load `bmad-writer`
 2. Update the README or changelog if applicable.
 3. If the fix changes documented behavior, update the relevant `docs/{FEATURE_NAME}.md`.
 4. Update `docs/LLD.md` if the system architecture is affected.
+5. **Mandatory Git Confirmation**: Verify that all documentation is perfectly aligned with the implementation and determine if the changes should be split into **atomic commits**. Show the proposed commit split plan, message(s), and list of changed files to the user. Ask for explicit permission for the **doc alignment**, the **commit split plan**, and the final **git commit/push**.
 
 ## Completion
 Once completed, hand back control to the user.

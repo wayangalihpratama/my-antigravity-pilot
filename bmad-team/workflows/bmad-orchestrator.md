@@ -157,6 +157,7 @@ For every phase, check both `docs/` and `agent_docs/`:
 3. Update `docs/LLD.md` with final architecture
 4. Update `docs/{FEATURE_NAME}.md` with implementation details
 5. Update `README.md`
+6. **Mandatory Git Confirmation**: Verify that all documentation is perfectly aligned with the implementation and determine if the changes should be split into **atomic commits**. Show the proposed commit split plan, message(s), and list of changed files to the user. Ask for explicit permission for the **doc alignment**, the **commit split plan**, and the final **git commit/push**.
 **Artifacts Produced**:
 - `docs/LLD.md` (updated)
 - `docs/{FEATURE_NAME}.md` (finalized)
