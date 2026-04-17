@@ -1,41 +1,43 @@
----
-description: Commit phase - standardized version control and traceability
----
-
-# Phase 5: Commit (Traceability)
+# Phase 5: Ship (Commit)
 
 ## Purpose
-Commit the work to Git following the repository's standardized commit format to ensure full traceability from requirement to code.
+Finalize the feature by committing verified code using the **Conventional Commits** standard and ensuring perfect alignment with the project's documentation and sprint planning.
+
+## Prerequisites
+- **Phase 4 (Verify)** completed with all tests and linters passing.
+- **Sprint Collaboration**: Invoke **Bob (Scrum Master)** to verify that all Acceptance Criteria (UAC/TAC) are marked as complete in `agent_docs/stories/`.
+- **Writer Collaboration**: Invoke **Paige (Documentation Writer)** to ensure that the implementation is perfectly synced with the project's technical documentation and feature specs.
 
 ## Steps
 
-**Set Mode:** Use `task_boundary` to set mode to **EXECUTION**.
+### 1. Mandatory Git Confirmation
+Before any commit or push, you MUST verify the following gates:
 
-### 1. Pre-Commit Verification
-- Ensure you have an issue/ticket number (e.g., `#6`).
-- Verify all tests are green.
-- Run `guardrails` skill self-review.
+1. **Doc Alignment Check**: Verify that the actual implementation is perfectly aligned with the feature specifications and internal documentation.
+2. **Sprint Status Check**: Verify that the `agent_docs/sprint-plan.md` and relevant stories are updated with statuses, actual times, and AC checklists.
+3. **User Confirmation**: Present the alignment and sprint status to the user and ask: "Is the documentation aligned and the sprint plan updated?"
+4. **Atomic Commit Strategy**: Analyze the changed files. Determine if the changes should be split into multiple atomic commits (e.g., separating backend from frontend, or logic from docs). Propose a split plan to the user.
+5. **Commit Preparation**: Prepare the conventional commit message(s) and show them to the user.
+6. **Final Approval**: Ask: "Should I proceed with the proposed commit(s) and push?"
 
-### 2. Stage Changes
-- Stage only relevant files.
-- `git add .` (within the stack directory).
+### 2. Execution
+Only after receiving explicit approval for all the above, execute the commands:
 
-### 3. Create Commit Message
-Follow the format defined in `git-workflow.md`:
-```text
-[#6] feat(frontend): implement [feature name] with premium aesthetics
+```bash
+# Example Stage
+git add .
+
+# Example Commit
+git commit -m "[#issue_number] <type>(<scope>): <description>"
+
+# Example Push
+git push origin {branch_name}
 ```
 
-### 4. Push and Documentation Update
-- Push the branch.
-- Final update to `task.md` (all items checked).
-- Notify the user via `notify_user` with the completed `walkthrough.md`.
-
 ## Completion Criteria
-- [ ] Standardized commit message used
-- [ ] Branch pushed
-- [ ] Sprint plan and stories updated
-- [ ] User notified of completion
+- [ ] User provided explicit confirmation for alignment, split plan, and final commit.
+- [ ] Sprint plan and stories are 100% updated in `agent_docs/`.
+- [ ] Commits follow the `[#issue_number] <type>(<scope>): <description>` format.
 
 ## Final Step
-Goal Achieved!
+Task complete! Ready for more work? Ask the user for a new requirement or check the backlog with **Bob (Scrum Master)**.

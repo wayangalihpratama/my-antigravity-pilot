@@ -5,57 +5,43 @@ description: Ship phase - Commit changes using Conventional Commits for FastAPI/
 # Phase 5: Ship (Commit)
 
 ## Purpose
-Finalize the feature by committing verified code using the **Conventional Commits** standard. This ensures a readable, machine-parseable history that aligns with the project's documentation standards.
+Finalize the feature by committing verified code using the **Conventional Commits** standard and ensuring perfect alignment with the project's documentation and sprint planning.
 
 ## Prerequisites
-- **Phase 4 (Verify)** completed with 100% pass rate on linters (flake8/Black/ESLint) and tests.
-- Code follows the project's **Architecture Decision Records (ADRs)**.
-- Any new dependencies are correctly documented in `requirements.txt` (backend) or `package.json` (frontend).
+- **Phase 4 (Verify)** completed with all tests and linters passing.
+- **Sprint Collaboration**: Invoke **Bob (Scrum Master)** to verify that all Acceptance Criteria (UAC/TAC) are marked as complete in `agent_docs/stories/`.
+- **Writer Collaboration**: Invoke **Paige (Documentation Writer)** to ensure that the implementation is perfectly synced with `docs/LLD.md` and feature specs.
 
 ## Steps
 
-### 1. Final Review
-Conduct a final diff to ensure no debug logs or temporary comments remain.
+### 1. Mandatory Git Confirmation
+Before any commit or push, you MUST verify the following gates:
+
+1. **Doc Alignment Check**: Verify that `docs/LLD.md`, feature specs (`docs/{FEATURE_NAME}.md`), and the actual implementation are perfectly aligned.
+2. **Sprint Status Check**: Verify that the `agent_docs/sprint-plan.md` and relevant stories are updated with statuses, actual times, and AC checklists.
+3. **User Confirmation**: Present the alignment and sprint status to the user and ask: "Is the documentation aligned and the sprint plan updated?"
+4. **Atomic Commit Strategy**: Analyze the changed files. Determine if the changes should be split into multiple atomic commits (e.g., separating backend from frontend, or logic from docs). Propose a split plan to the user.
+5. **Commit Preparation**: Prepare the conventional commit message(s) and show them to the user.
+6. **Final Approval**: Ask: "Should I proceed with the proposed commit(s) and push?"
+
+### 2. Execution
+Only after receiving explicit approval for all the above, execute the commands:
 
 ```bash
-git status
-git diff --staged
-```
+# Example Stage
+git add .
 
-### 2. Stage Changes
-Stage your changes by vertical slice or specific stack component.
-
-```bash
-# Stage backend changes
-git add backend/
-
-# Stage frontend changes
-git add frontend/
-```
-
-### 3. Commit with Conventional Format
-Use the format: `[#issue_number] <type>(<scope>): <description>`. Common scopes for this stack include api, schema, ui, hook, or specific feature names.
-
-Examples:
-- Backend: `[#1] feat(api): add FastAPI endpoint for user profile`
-- Frontend: `[#5] feat(ui): implement Tailwind-styled dashboard card`
-- Testing: `[#10] test(backend): add class-based integration tests for Auth`
-- Fix: `[#12] fix(schema): update Pydantic model to allow optional bio`
-
-
-```bash
+# Example Commit
 git commit -m "[#issue_number] <type>(<scope>): <description>"
+
+# Example Push
+git push origin {branch_name}
 ```
-
-### 4. Update Project Tracking
-Mark the completed items as [x] in task.md and update the PRD.md if applicable.
-
 
 ## Completion Criteria
-- [ ] Commits follow the <type>(<scope>): <description> format.
-- [ ] No linting or type errors are present in the committed code.
-- [ ] task.md reflects 100% completion of the targeted story.
-
+- [ ] User provided explicit confirmation for alignment, split plan, and final commit.
+- [ ] Sprint plan and stories are 100% updated in `agent_docs/`.
+- [ ] Commits follow the `[#issue_number] <type>(<scope>): <description>` format.
 
 ## Final Step
-If working in a team, push your branch and open a Pull Request (PR) referencing the relevant Epic or Story ID.
+Task complete! Ready for more work? Ask the user for a new requirement or check the backlog with **Bob (Scrum Master)**.

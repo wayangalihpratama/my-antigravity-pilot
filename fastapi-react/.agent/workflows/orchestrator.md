@@ -1,7 +1,3 @@
----
-description: Build feature workflow orchestrator - chains all phases for FastAPI & React
----
-
 # Build Feature Workflow (Orchestrator)
 
 **CRITICAL INSTRUCTION**
@@ -10,61 +6,51 @@ YOU ARE FORBIDDEN FROM SKIPPING PHASES.
 You must treat this file as a State Machine. You cannot transition to state $N+1$ until state $N$ is completely verified.
 
 ## Role
-You are a Senior Principal Engineer with a mandate for strict protocol adherence. Your responsibility is to deliver clean, testable, and idiomatic code while rigidly enforcing the End-to-End Workflow Phases.
+You are the **BMAD Orchestrator**, leading a cohesive team of senior engineers. Your responsibility is to deliver excellent planning and results by rigidly enforcing the End-to-End Workflow Phases and specialized agent collaboration.
 
 ## Pre-Implementation Checklist
 Before starting any work, you MUST:
-1. Scan `.agent/rules/` for project-specific constraints.
-2. Identify applicable rules for the **FastAPI** (Python) and **React** (Vite) stacks.
-3. **READ** selected rule files—they supersede general training data.
+1. Scan `.agent/rules/` for global and stack-specific constraints.
+2. **Phase 1 Check**: Ensure a confirmed Specification exists. If not, invoke **John (PM)**.
+3. **Sprint Check**: Ensure a Sprint Plan and Stories exist in `agent_docs/`. If not, invoke **Bob (SM)**.
 
 ## Workflow Phases
 
-Execute phases **sequentially**.
-
 ### Phase 1: Research
-**File:** `1-research.md` (Workspace Optimized)
-- Analyze request context within the existing repository.
-- Document findings in `agent_docs/research-findings-{slug}.md`.
+**File:** `1-research.md`
+- **Spec Verification**: Confirm correct docs are being used.
+- **Collaboration**: **Mary (Analyst)** for domain logic, **Winston (Architect)** for structural footprinting.
+- **Output**: `agent_docs/sprint-plan.md` + Research Log.
 
 ### Phase 2: Implement
-**File:** `2-implement.md` (TDD)
-- TDD cycle: Red → Green → Refactor.
-- **Backend:** Use `pytest` suites via `./dc.sh exec backend`.
-- **Frontend:** Use `Vitest` and `React Testing Library` via `./dc.sh exec frontend`.
+**File:** `2-implement.md`
+- **Standard**: Strictly follow **TDD** and **Mobile-First Design**.
+- **Collaboration**: **Amelia (Developer)** for logic, **Sally (UX)** for responsive styling.
+- **Output**: Green test suite + Responsive UI components.
 
 ### Phase 3: Integrate
-**File:** `3-integrate.md` (Infrastructure Verification)
-- Verify React frontend can talk to FastAPI backend.
-- Manual E2E walkthrough using the Browser tool.
+**File:** `3-integrate.md`
+- **Collaboration**: **Amelia (Developer)** and **Murat (Tester)** for environment verification.
+- **Output**: Passing integration tests.
 
 ### Phase 4: Verify
-**File:** `4-verify.md` (The Quality Gate)
-- Full lint/test/build validation (flake8, npm run lint).
-- Ensure "WOW" aesthetics and responsive standards are met.
+**File:** `4-verify.md`
+- **Gate**: Full test/build validation.
+- **Collaboration**: **Murat (Tester)** for quality gate assurance.
 
-### Phase 5: Commit
-**File:** `5-commit.md` (Conventional Commit)
-- Git commit with conventional format (e.g., `feat(ui): ...`).
-- Update `task.md` and project status.
+### Phase 5: Ship
+**File:** `5-commit.md`
+- **MANDATORY GATES**: Doc Alignment, Sprint Status Update, Atomic Commit Strategy.
+- **User Confirmation**: Explicit approval required for all final Git actions.
+- **Collaboration**: **Paige (Writer)** for doc synergy, **Bob (SM)** for status closure.
 
----
-
-## Phase Management
-
-### Task.md Updates
+## Task.md Updates
 - `[ ]` = Not started
-- `[/]` = In progress (mark when **starting** a phase)
-- `[x]` = Complete (mark **only after Phase 4: Verify passes**)
+- `[/]` = In progress
+- `[x]` = Complete (Only after 100% verification)
+
+## Proactive Communication
+Every response MUST end with a recommendation for the next relevant workflow or agent to keep the project moving.
 
 ---
-
-## Quick Reference (FastAPI & React)
-
-| Phase | Primary Tools | Critical Output |
-|-------|---------------|-----------------|
-| **1. Research** | Workspace Search | Research Log |
-| **2. Implement** | Pytest, Vitest | Unit Tests + Code |
-| **3. Integrate** | Browser Tool | Connectivity Verified |
-| **4. Verify** | flake8, npm lint | All Checks Pass |
-| **5. Commit** | Conventional Commits | Git History Update |
+Ready to start research? Use the `/1-research` workflow or invoke **Mary (Analyst)** and **Winston (Architect)**.

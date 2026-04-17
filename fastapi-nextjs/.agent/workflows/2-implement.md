@@ -1,105 +1,59 @@
----
-description: Implement phase - Red-Green-Refactor with Class-Based Python testing
----
-
 # Phase 2: Implement (FastAPI & Next.js)
 
 ## Purpose
-Write production code following Test-Driven Development (TDD) principles to ensure high-quality, maintainable features for both the FastAPI backend and Next.js frontend.
+Write production code following a strict **Mobile-First Design** approach and **Test-Driven Development (TDD)** principles to ensure high-quality, maintainable features.
 
 ## Prerequisites
-- **Phase 1 (Research)** completed with a documented research log.
-- **Workflow Awareness**: Proactively scan `.agent/workflows/` and use required workflows.
-- **Technical Specification** finalized, detailing the specific file changes and API contracts.
-- **Task.md** updated to reflect the current story in progress.
+- **Phase 1 (Research)** completed with a confirmed Specification.
+- **Sprint Plan & Stories** (Status: Approved) available in `agent_docs/`.
+- **Developer Collaboration**: Invoke **Amelia (Developer)** for core logic and **Sally (UX)** for frontend styling and mobile-first verification.
 
 ## Steps
 
 **Set Mode:** Use `task_boundary` to set mode to **EXECUTION**.
 
-### 1. Create Test Files
-- **Backend (Python):** Create `backend/tests/test_{feature_name}.py`.
-- **Frontend (Next.js):** Co-locate `*.test.tsx` within the component folder or `frontend/src/tests/`.
+### 1. Mobile-First Workspace Setup
+Before coding, define the mobile viewport constraints:
+- **Sally Collaboration**: Review the UI requirements for mobile-first breakpoints and layout.
+- Use Tailwind CSS responsive utilities (`sm:`, `md:`, `lg:`) starting from the base (mobile) style.
 
-### 2. Write Failing Test (Red)
-**Backend: Class-Based pytest**
-Group related behaviors into classes to share setup logic and improve organization.
+### 2. TDD Cycle: RED (Failing Test)
+Create the test files first:
+- **Backend (Python):** Create `backend/tests/test_{feature_name}.py`. Use class-based `pytest`.
+- **Frontend (Next.js):** Co-locate `*.test.tsx` within the component folder.
+- Write a test that fails because the feature does not exist yet.
 
-```python
-import pytest
-from fastapi.testclient import TestClient
+### 3. TDD Cycle: GREEN (Minimal Code)
+Write **only** the code necessary to make the tests pass:
+- **Mobile-First Implementation**: Build the UI for mobile viewports *first*.
+- **Amelia Collaboration**: Ensure backend routers and schemas follow Pydantic v2 validation.
+- Verify that the tests now pass.
 
-class TestItemFeature:
-    @pytest.fixture(autouse=True)
-    def setup(self, client: TestClient):
-        self.client = client
-        self.url = "/api/v1/items/"
-
-    def test_create_item_success(self, auth_headers):
-        # Arrange
-        payload = {"title": "Discovery", "description": "TDD via Class"}
-        # Act
-        response = self.client.post(self.url, json=payload, headers=auth_headers)
-        # Assert
-        assert response.status_code == 201
-        assert response.json()["title"] == payload["title"]
-```
-
-**Frontend: Jest + React Testing Library**
-```typescript
-describe('FeatureComponent', () => {
-    it('should render the success state after submission', async () => {
-        render(<FeatureComponent />);
-        // Red: Test fails because component or logic doesn't exist yet
-    });
-});
-```
-
-### 3. Write Minimal Code (Green)
-Write only the code necessary to make the tests pass:
-- Define FastAPI routes and Pydantic schemas in `backend/routers/`.
-- Implement React components and Tailwind CSS styling in `frontend/`.
-
-
-### 4. Refactor (Blue)
+### 4. TDD Cycle: REFACTOR (Blue)
 Improve the code while keeping the tests green:
-- Python: Ensure Pydantic v2 compliance, proper type hinting, and FastAPI dependency usage.
-- Next.js: Optimize Tailwind classes and ensure Server/Client component boundaries are correct.
-- Conventions: Verify snake_case for Python and PascalCase for React components.
-- Observability: Implement logging per the project's tech spec.
+- **Styling**: Add desktop-specific styles (`lg:`, etc.) only after the mobile view is perfect.
+- **Code Quality**: Ensure type hinting, logging, and proper dependency injection.
+- **Story Alignment**: Verify work against the specific Acceptance Criteria (UAC/TAC).
 
 ### 5. Repeat
-Continue the Red-Green-Refactor cycle for each story requirement.
-
-### Unit Test Requirements
-- Mocks: Use pytest-mock for Python services and msw for frontend API mocking.
-- Coverage: Target >85% coverage on domain logic and critical paths.
-
+Continue the Red-Green-Refactor cycle for each story requirement until the task is complete.
 
 ## Development Commands
 
 ```bash
-# Python: Run specific class (via Docker)
-./dc.sh exec backend python -m pytest backend/tests/test_feature.py::TestItemFeature -v
-
-# Python: Coverage report
-./dc.sh exec backend python -m pytest --cov=app --cov-report=html
+# Python: Run specific class
+./dc.sh exec backend python -m pytest backend/tests/test_feature.py -v
 
 # Frontend: Run Jest tests
 ./dc.sh exec frontend yarn test
 ```
 
-
 ## Completion Criteria
-- [ ] Unit tests written and passing (TDD Enforced)
-- [ ] Implementation complete
-- [ ] Error handling follows principles
-- [ ] Logging added to operations
-- [ ] Code follows project patterns
-- [ ] Document Sync: Update `agent_docs/stories/` (Actual Time, UAC/TAC)
-- [ ] Document Sync: Update `agent_docs/sprint-plan.md` to reflect completed state
-- [ ] Document Sync: Update related feature docs in `agent_docs/features/` simultaneously
-
+- [ ] Mobile-First Design verified and confirmed
+- [ ] Unit tests passing (TDD cycle strictly followed)
+- [ ] Implementation aligns with UAC/TAC in `agent_docs/stories/`
+- [ ] Error handling and logging added
+- [ ] Document Sync: Update `agent_docs/sprint-plan.md` and stories (Actual Time, Status)
 
 ## Next Phase
-Proceed to **Phase 3: Integrate** (`/3-integrate`)
+Ready for integration? Use the `/3-integrate` workflow or invoke **Amelia (Developer)** and **Murat (Tester)**.
