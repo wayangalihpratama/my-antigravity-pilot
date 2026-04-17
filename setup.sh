@@ -28,6 +28,13 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
+# ---- Tracking Stats ---------------------------------------------------------
+STATS_ADDED=0
+STATS_UPDATED=0
+STATS_SKIPPED=0
+OVERWRITE_ALL=""  # Stores "a" (all) or "s" (skip remaining)
+INTERACTIVE=true  # Default to true, updated in main
+
 # ---- Helper Functions -------------------------------------------------------
 
 print_banner() {
@@ -123,8 +130,37 @@ select_mode() {
     done
 }
 
-# Merge directory contents (non-destructive, skips existing files)
-# Use for stack-specific files that the user may have customized
+# Helper to prompt for overwrite when files differ
+prompt_for_overwrite() {
+    local relative="$1"
+
+    # If non-interactive mode, default to Skip (safe)
+    if [[ "$INTERACTIVE" == false ]]; then
+        return 1
+    fi
+
+    # If "Apply to all" was previously selected
+    if [[ "$OVERWRITE_ALL" == "a" ]]; then
+        return 0
+    fi
+    if [[ "$OVERWRITE_ALL" == "s" ]]; then
+        return 1
+    fi
+
+    while true; do
+        echo -e "${YELLOW}❓ File ${BOLD}${relative}${NC}${YELLOW} exists and is different.${NC}" >&2
+        read -rp "$(echo -e "   Overwrite? [y]es / [n]o / [a]ll / [s]kip remaining: ")" choice
+        case "$choice" in
+            [yY]) return 0 ;;
+            [nN]) return 1 ;;
+            [aA]) OVERWRITE_ALL="a"; return 0 ;;
+            [sS]) OVERWRITE_ALL="s"; return 1 ;;
+            *) echo -e "${RED}Invalid choice.${NC}" >&2 ;;
+        esac
+    done
+}
+
+# Merge directory contents (now with diff checks and prompting)
 merge_directory() {
     local src="$1"
     local dst="$2"
@@ -135,7 +171,7 @@ merge_directory() {
 
     mkdir -p "$dst"
 
-    find "$src" -type f | while read -r file; do
+    while read -r file; do
         local relative="${file#"$src"/}"
         local target="${dst}/${relative}"
         local target_dir="$(dirname "$target")"
@@ -143,15 +179,30 @@ merge_directory() {
         mkdir -p "$target_dir"
 
         if [[ -f "$target" ]]; then
-            print_warn "Skipping (already exists): ${relative}"
+            if diff -q "$file" "$target" > /dev/null 2>&1; then
+                # Identical
+                ((STATS_SKIPPED++)) || true
+                # Silent or very concise skip for identical files
+            else
+                # Different
+                if prompt_for_overwrite "${relative}"; then
+                    cp "$file" "$target"
+                    print_info "Updated: ${relative}"
+                    ((STATS_UPDATED++)) || true
+                else
+                    print_warn "Skipping (retaining local): ${relative}"
+                    ((STATS_SKIPPED++)) || true
+                fi
+            fi
         else
             cp "$file" "$target"
+            print_success "Added: ${relative}"
+            ((STATS_ADDED++)) || true
         fi
-    done
+    done < <(find "$src" -type f)
 }
 
-# Update directory contents (force-overwrite existing files)
-# Use for upstream BMAD team assets that should always stay in sync
+# Update directory contents (standardized with stats)
 update_directory() {
     local src="$1"
     local dst="$2"
@@ -162,7 +213,7 @@ update_directory() {
 
     mkdir -p "$dst"
 
-    find "$src" -type f | while read -r file; do
+    while read -r file; do
         local relative="${file#"$src"/}"
         local target="${dst}/${relative}"
         local target_dir="$(dirname "$target")"
@@ -170,16 +221,19 @@ update_directory() {
         mkdir -p "$target_dir"
 
         if [[ -f "$target" ]]; then
-            # Check if file has changed
             if ! diff -q "$file" "$target" > /dev/null 2>&1; then
                 cp "$file" "$target"
                 print_info "Updated: ${relative}"
+                ((STATS_UPDATED++)) || true
+            else
+                ((STATS_SKIPPED++)) || true
             fi
         else
             cp "$file" "$target"
             print_success "Added: ${relative}"
+            ((STATS_ADDED++)) || true
         fi
-    done
+    done < <(find "$src" -type f)
 }
 
 # ---- Main Logic -------------------------------------------------------------
@@ -210,6 +264,7 @@ main() {
 
     if [[ $# -ge 2 ]]; then
         # Non-interactive mode
+        INTERACTIVE=false
         selected_stack="$1"
         target_path="$2"
         if [[ $# -ge 3 ]]; then
@@ -339,9 +394,10 @@ main() {
     echo -e "${GREEN}${BOLD}╚══════════════════════════════════════════════════╝${NC}"
     echo ""
     echo -e "  ${BOLD}Project:${NC}    ${target_path}"
-    echo -e "  ${BOLD}Stack:${NC}      ${selected_stack} + BMAD Team"
-    echo -e "  ${BOLD}Mode:${NC}       ${mode}"
-    echo -e "  ${BOLD}Rules:${NC}      ${total_rules} files"
+    echo -e "  ${BOLD}Stack:${NC}      ${selected_stack} + BMAD Team
+  ${BOLD}Mode:${NC}       ${mode}
+  ${BOLD}Summary:${NC}    ${GREEN}${STATS_ADDED} added${NC}, ${BLUE}${STATS_UPDATED} updated${NC}, ${YELLOW}${STATS_SKIPPED} skipped${NC}
+"
     echo -e "  ${BOLD}Skills:${NC}     ${total_skills} skills"
     echo -e "  ${BOLD}Workflows:${NC}  ${total_workflows} workflows"
     echo ""
