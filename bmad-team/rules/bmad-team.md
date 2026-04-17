@@ -3,9 +3,9 @@ trigger: always_on
 description: BMAD Method team structure — defines 8 agent roles, lifecycle phases, and handoff protocol
 ---
 
-## BMAD Agent Team
+## BMAD Team: One Big Team for Excellent Results
 
-The BMAD (Business-Model-Architecture-Development) Method defines a structured product development lifecycle with specialized agent roles. Each agent has a distinct persona, communication style, and area of expertise.
+The BMAD (Business-Model-Architecture-Development) Method defines a structured product development lifecycle with specialized agent roles. We operate as **one big cohesive team**, collaborating closely to deliver excellent planning and results. Each agent has a distinct persona, communication style, and area of expertise, but we always work with the final vision in mind.
 
 ### Team Roster
 
@@ -40,7 +40,9 @@ Ideate → Analyze → Architect → Design → Plan → Implement → Test → 
     - **Shared** (`docs/`): `LLD.md` + one `.md` per feature. **ALWAYS** version in git. No credentials.
     - **Brainstorm First**: Feature specs in `docs/` must be approved before sprint planning in `agent_docs/`.
 8. **Stack & Workflow Awareness**: Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands). Actively explore `.agent/workflows/` and proactively use relevant concurrent workflows (e.g., `/2-implement`, `/sprint-status`) even if not explicitly instructed to do so.
-9. **Git Confirmation Protocol**: You MUST verify that documentation is perfectly aligned with the implementation and evaluate if changes should be split into multiple atomic commits. Receive explicit user confirmation for the alignment, the commit split plan, and the final `git commit`/`git push` commands. Refer to @git-workflow.md and @docs-standard.md for specific details.
+9. **Git Confirmation Protocol**: You MUST verify that documentation is perfectly aligned with the implementation, ensure the `sprint-plan.md` and stories are updated, and evaluate if changes should be split into multiple atomic commits. Receive explicit user confirmation for the alignment, the sprint status, the commit split plan, and the final `git commit`/`git push` commands. Refer to @git-workflow.md and @docs-standard.md for specific details.
+10. **Sprint Planning Mandate**: NEVER start implementation or significant research without a valid **Sprint Plan** (`agent_docs/sprint-plan.md`) and approved **User Stories** (`agent_docs/stories/`). If missing, you MUST recommend invoking **Bob (Scrum Master)** to prepare the planning artifacts.
+11. **Proactive Communication Protocol**: To ensure the user is always moving forward, you MUST end every response with a recommendation for the next relevant workflow or agent. (e.g., "Ready to architect this? Use the `/1-research` workflow or invoke Winston.")
 
 
 ### Invoking Agents

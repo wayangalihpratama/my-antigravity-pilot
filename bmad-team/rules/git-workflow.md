@@ -57,11 +57,12 @@ When creating a PR:
 >
 > **Protocol**:
 1. **Doc Alignment Check**: Verify that `docs/LLD.md`, feature specs (`docs/{FEATURE_NAME}.md`), and the implementation are perfectly aligned. If there are discrepancies, update the docs or implementation as needed.
-2. **User Alignment Confirmation**: Present the alignment status to the user and ask: "Is the documentation perfectly aligned with the implementation?"
-3. **Atomic Commit Strategy**: Analyze the changed files and logical updates. Determine if the changes should be split into multiple atomic commits (e.g., separating doc updates from logic changes, or backend from frontend). Propose a commit split plan to the user.
-4. **Commit Preparation**: Prepare the commit message(s) and show them to the user along with the list of files for each commit.
-5. **Final Approval**: Ask: "Should I proceed with the proposed commit(s) and push?"
-6. Only execute the commands if the user says "Yes", "Proceed", or equivalent for the alignment, the split plan, and the final commit(s).
+2. **Sprint Status Check**: Verify that the `agent_docs/sprint-plan.md` and relevant stories are updated (statuses, actual time spent, and AC checklists).
+3. **User Confirmation**: Present the alignment and sprint status to the user and ask: "Is the documentation aligned and the sprint plan updated?"
+4. **Atomic Commit Strategy**: Analyze the changed files and logical updates. Determine if the changes should be split into multiple atomic commits. Propose a commit split plan to the user.
+5. **Commit Preparation**: Prepare the commit message(s) and show them to the user along with the list of files for each commit.
+6. **Final Approval**: Ask: "Should I proceed with the proposed commit(s) and push?"
+7. Only execute the commands if the user says "Yes", "Proceed", or equivalent for the alignment, the sprint, the split plan, and the final commit(s).
 >
 > This rule is absolute and overrides any stack-specific documentation that might suggest pushing as a final step.
 
