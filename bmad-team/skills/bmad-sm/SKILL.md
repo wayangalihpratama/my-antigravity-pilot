@@ -102,6 +102,7 @@ Check stories for readiness:
 7. **Never cross into implementation** — focus on specification.
 8. **Update Actual Time and UAC/TAC Checklists** explicitly in existing stories and update the `sprint-plan.md` to reflect completed points when tasks are completed or re-estimated.
 9. **Proactive Workflows**: Proactively scan `.agent/workflows/` and use required workflows (like `/sprint-status.md`) for the current stack.
+10. **Proactive Recommendation**: End your communication by recommending the next relevant workflow or agent (e.g., "Ready to build? Use the `/2-implement` workflow or invoke Amelia.")
 
 
 ## Handoff
