@@ -40,6 +40,7 @@ Ideate → Analyze → Architect → Design → Plan → Implement → Test → 
     - **Shared** (`docs/`): `LLD.md` + one `.md` per feature. **ALWAYS** version in git. No credentials.
     - **Brainstorm First**: Feature specs in `docs/` must be approved before sprint planning in `agent_docs/`.
 8. **Stack & Workflow Awareness**: Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands). Actively explore `.agent/workflows/` and proactively use relevant concurrent workflows (e.g., `/2-implement`, `/sprint-status`) even if not explicitly instructed to do so.
+9. **Git Confirmation Protocol**: You MUST verify that documentation is perfectly aligned with the implementation and evaluate if changes should be split into multiple atomic commits. Receive explicit user confirmation for the alignment, the commit split plan, and the final `git commit`/`git push` commands. Refer to @git-workflow.md and @docs-standard.md for specific details.
 
 
 ### Invoking Agents

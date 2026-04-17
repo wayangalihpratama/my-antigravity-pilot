@@ -39,6 +39,14 @@ Every new feature MUST have a dedicated `docs/{FEATURE_NAME}.md` following the t
 - Integration points and API contracts
 - Security patterns
 
+### Implementation-Doc Synchronization
+
+> [!IMPORTANT]
+> For every completed task, you MUST ensure that all relevant documentation (`docs/LLD.md`, `docs/{FEATURE_NAME}.md`, and `README.md`) is perfectly aligned with the actual implementation.
+> 1. **Check Discrepancies**: Look for mismatches in API contracts, data models, or feature behavior.
+> 2. **Resolve**: Update the documentation if the implementation is correct, or fix the implementation if it deviates from the approved specification.
+> 3. **Verify with User**: Explicitly ask the user to confirm the alignment before proceeding to the commit phase.
+
 ### No Credentials Policy
 
 > [!CAUTION]

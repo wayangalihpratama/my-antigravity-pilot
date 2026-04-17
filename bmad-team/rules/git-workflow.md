@@ -50,5 +50,20 @@ When creating a PR:
 - `[#12] fix(auth): resolve login timeout`
 - `[#45] docs: update README with setup instructions`
 
+### Mandatory User Confirmation
+
+> [!CAUTION]
+> **NEVER** perform `git commit` or `git push` automatically. You MUST ask for and receive explicit confirmation from the user before executing these commands.
+>
+> **Protocol**:
+1. **Doc Alignment Check**: Verify that `docs/LLD.md`, feature specs (`docs/{FEATURE_NAME}.md`), and the implementation are perfectly aligned. If there are discrepancies, update the docs or implementation as needed.
+2. **User Alignment Confirmation**: Present the alignment status to the user and ask: "Is the documentation perfectly aligned with the implementation?"
+3. **Atomic Commit Strategy**: Analyze the changed files and logical updates. Determine if the changes should be split into multiple atomic commits (e.g., separating doc updates from logic changes, or backend from frontend). Propose a commit split plan to the user.
+4. **Commit Preparation**: Prepare the commit message(s) and show them to the user along with the list of files for each commit.
+5. **Final Approval**: Ask: "Should I proceed with the proposed commit(s) and push?"
+6. Only execute the commands if the user says "Yes", "Proceed", or equivalent for the alignment, the split plan, and the final commit(s).
+>
+> This rule is absolute and overrides any stack-specific documentation that might suggest pushing as a final step.
+
 ### Related Rules
 - Repo Structure @repo-structure.md
