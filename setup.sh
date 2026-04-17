@@ -149,7 +149,8 @@ prompt_for_overwrite() {
 
     while true; do
         echo -e "${YELLOW}❓ File ${BOLD}${relative}${NC}${YELLOW} exists and is different.${NC}" >&2
-        read -rp "$(echo -e "   Overwrite? [y]es / [n]o / [a]ll / [s]kip remaining: ")" choice
+        # Redirect read to /dev/tty to avoid consuming from the find loop's stdin
+        read -rp "$(echo -e "   Overwrite? [y]es / [n]o / [a]ll / [s]kip remaining: ")" choice < /dev/tty
         case "$choice" in
             [yY]) return 0 ;;
             [nN]) return 1 ;;
