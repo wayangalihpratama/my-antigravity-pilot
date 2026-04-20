@@ -1,3 +1,7 @@
+---
+description: Documentation alignment and commit preparation
+---
+
 # Phase 5: Ship (Commit)
 
 ## Purpose

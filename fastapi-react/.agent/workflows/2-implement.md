@@ -1,3 +1,7 @@
+---
+description: TDD implementation workflow
+---
+
 # Phase 2: Implement (FastAPI & React)
 
 ## Purpose

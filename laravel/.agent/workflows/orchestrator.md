@@ -1,3 +1,7 @@
+---
+description: Orchestrator workflow to guide the entire feature lifecycle
+---
+
 # Build Feature Workflow (Orchestrator - Laravel)
 
 **CRITICAL INSTRUCTION**
