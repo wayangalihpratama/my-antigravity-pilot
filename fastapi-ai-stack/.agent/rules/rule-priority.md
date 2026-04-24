@@ -4,10 +4,13 @@ Wait for approval from the `bmad-architect` (Winston) before making significant 
 
 ## Universal Priority
 
+0. **Professional Team SOP**: Follow the Antigravity Professional Team standards.
 1. **Security Mandate**: Never compromise security for speed or convenience.
-2. **Implementation Plan**: Follow the approved implementation plan.
+1.1 **Docs-First & Research Mandate**: Always refer to official documentation and best practices before implementation.
+2. **Implementation Plan**: Follow the approved implementation plan and LLD.
 3. **Docker-First**: All commands must run via `./dc.sh`.
 4. **Agent Personas**: Respect the BMAD agent roles and their expertise.
+5. **DRY & Premium Mandate**: Ensure logic is DRY and UI is Premium.
 
 ## Conflict Resolution
 

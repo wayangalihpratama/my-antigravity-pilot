@@ -25,3 +25,5 @@ See @docs-standard.md for the full documentation standard.
 6. **Adapt, don't copy** — when sourcing from external repos, adapt content for the specific stack (rename commands, adjust paths, localize examples)
 7. **Standardized Traceability** — All commits must be prefixed with `[#issue_number]`. Refer to root @git-workflow.md for the full specification.
 8. **Agent-as-Code (BMAD 6)** — Treat AI agents as deterministic runtimes. Agents must NEVER write code without an approved, specific architectural footprint and user story. The Plan -> Build -> Verify pipeline is immutable.
+9. **Professional Team SOP** — Strictly follow TDD, DRY, and LLD-focus. Documentation in `docs/` is the contract.
+10. **Premium Aesthetic Standard** — All UI-related tasks must follow Antigravity's high-fidelity design standards (vibrant colors, smooth animations, modern typography).

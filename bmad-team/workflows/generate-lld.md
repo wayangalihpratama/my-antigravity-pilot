@@ -8,9 +8,10 @@ Use this workflow when a project lacks comprehensive documentation or when you n
 
 ## Steps
 
-### 1. Invoke Winston (Architect)
+### 1. Research & Official Documentation
 - Load the `bmad-architect` skill.
-- Check `.agent/rules/` for stack-specific context.
+- Perform a **Docs-First** research to identify the best practices for the current stack.
+- Check `.agent/rules/` and existing `docs/` for stack-specific context.
 
 ### 2. Analyze Core Components
 // turbo

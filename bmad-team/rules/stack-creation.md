@@ -22,6 +22,7 @@ Every stack MUST include at minimum:
 
 | Rule | Trigger | Purpose |
 |------|---------|---------|
+| `professional-team-sop.md` | `always_on` | Core TDD/DRY/LLD professional standards |
 | `rule-priority.md` | — | Conflict resolution hierarchy |
 | `security-mandate.md` | `always_on` | Security principles adapted for the stack |
 | `docker-commands.md` | `always_on` | Docker/container execution commands |

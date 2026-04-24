@@ -41,10 +41,12 @@ Create a plan with bite-sized atomic tasks in `task.md`:
 ### 5. Identify Research Topics
 List specific technologies (e.g., Strapi Middleware, Next.js Server Actions) that need verification.
 
-### 6. Technical & Documentation Research
-Perform targeted queries for the project's specific versions:
-- Use **Web Search** for exact versions (e.g., "Strapi v5 policy patterns", "Next.js 15 server components").
+### 6. Technical & Documentation Research (Docs-First Mandate)
+Perform targeted queries for the project's specific versions and **always refer to official documentation first**:
+- Use **Web Search** to find official docs (e.g., "Strapi v5 documentation", "Next.js 15 official docs").
+- Validate every technical decision against the latest **Best Practices (2024-2026)**.
 - Search for "Migration Guides" or "Breaking Changes" if touching older dependencies.
+- Use **Antigravity's Researcher Persona** to synthesize findings into the LLD.
 
 ### 7. Document Findings (Research Logs)
 Create `docs/research_logs/{feature_name}.md`. Must Include:

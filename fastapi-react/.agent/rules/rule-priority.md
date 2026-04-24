@@ -4,13 +4,16 @@ When two rules pull in opposite directions, use this priority to decide:
 
 ### Priority Order (Highest to Lowest)
 
+0. **Professional Team SOP** — TDD, DRY, and LLD-focus are the foundation.
 1. **Security Mandate** — always wins. Never compromise security for velocity, simplicity, or convenience.
+1.1 **Docs-First & Research Mandate** — always refer to official documentation and latest best practices.
 2. **Docker Commands** — all execution must go through `./dc.sh exec`. No bare commands.
 3. **Error Handling** — validation is non-negotiable. Never ship unvalidated code.
 4. **Testing Strategy** — testability-first design enables future improvements.
 5. **API Design / FastAPI Backend / React Frontend** — context-dependent guidance for the task at hand.
 6. **Git Workflow** — commit hygiene and branch conventions.
-7. **YAGNI / KISS** — only when no security, reliability, or maintainability trade-off exists.
+7. **Premium Aesthetic & Performance** — high-fidelity UI and snappy interactions.
+8. **YAGNI / KISS** — only when no security, reliability, or maintainability trade-off exists.
 
 ### Common Conflict Resolutions
 

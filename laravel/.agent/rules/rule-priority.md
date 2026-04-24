@@ -2,7 +2,10 @@
 
 When two rules pull in opposite directions, use this priority to decide:
 
+0. **Professional Team SOP** — the core foundation of our work
 1. **Security Mandate** — never compromise security for convenience
+1.1 **Docs-First & Research Mandate** — always refer to official documentation and best practices
+1.2 **DRY & Premium Mandate** — ensure code is DRY and UI is Premium
 2. **Docker Commands** — all commands must run through Docker Compose
 3. **Error Handling** — consistent error handling is non-negotiable
 4. **Testing Strategy** — tests define correctness

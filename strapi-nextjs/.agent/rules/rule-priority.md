@@ -1,4 +1,6 @@
+- **Rule 0: Professional Team SOP** (@professional-team-sop.md)
 - **Rule 1: Rule Priority** (@rule-priority.md)
+- **Rule 1.1: Docs-First & Research Mandate** (Always Research first)
 - **Rule 2: Security Mandate** (@security-mandate.md)
 - **Rule 3: Docker Commands** (@docker-commands.md)
 - **Rule 4: Strapi Backend** (@strapi-backend.md)

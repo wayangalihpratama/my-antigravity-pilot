@@ -5,7 +5,7 @@ description: TDD implementation workflow
 # Phase 2: Implement (Strapi & Next.js)
 
 ## Purpose
-Write production code following a strict **Mobile-First Design** approach and **Test-Driven Development (TDD)** principles for both the Strapi backend and Next.js frontend.
+Write production code following a strict **Mobile-First Design** approach, **Test-Driven Development (TDD)** principles, and **DRY (Don't Repeat Yourself)** methodology. Ensure **Premium Aesthetics** (smooth animations, high-fidelity UI) for both the Strapi backend and Next.js frontend.
 
 ## Prerequisites
 - **Phase 1 (Research)** completed with a confirmed Specification.
@@ -36,8 +36,10 @@ Write **only** the code necessary to make the tests pass:
 
 ### 4. TDD Cycle: REFACTOR (Blue)
 Improve the code while keeping the tests green:
+- **DRY Audit**: Check for duplicate logic and abstract into shared utilities or components.
+- **Premium UI**: Enhance the interface with smooth transitions, micro-animations, and high-fidelity styling (Antigravity standard).
 - **Styling**: Add desktop-specific styles after the mobile view is perfect.
-- **Strapi Polish**: Ensure policies, middleares, and permissions are correctly configured.
+- **Strapi Polish**: Ensure policies, middlewares, and permissions are correctly configured.
 - **Story Alignment**: Verify work against the specific Acceptance Criteria (UAC/TAC).
 
 ### 5. Repeat
