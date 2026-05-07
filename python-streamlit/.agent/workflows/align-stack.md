@@ -25,8 +25,9 @@ If the project's setup is ambiguous, notify the user.
 - *Example:* "I notice the generic `.agent` configuration expects `./dc.sh` for all Docker commands, but you only have `docker-compose.yml`. Should I create a `./dc.sh` wrapper, or should I update the `.agent` rules to use raw `docker compose exec`?"
 
 ### 4. Update the `.agent` Configurations
-1. **Modify Rules:** Update any rules inside `.agent/rules/` (such as `docker-commands.md` or `repo-structure.md`) so they perfectly describe the project's actual commands and environments.
-2. **Modify Workflows:** Update the workflows in `.agent/workflows/` (like `/2-implement.md`, `/4-verify.md`) to substitute the placeholder commands with the project's true commands.
+1. **Modify Agent Skills:** Update the `bmad-*` skills in `.agent/skills/` (like `bmad-dev`, `bmad-tester`) to explicitly mention the project's actual tech stack (e.g., "Use Next.js 14 App Router," "Use PyTest," "Use Laravel Eloquent").
+2. **Modify Rules:** Update any rules inside `.agent/rules/` (such as `docker-commands.md` or `repo-structure.md`) so they perfectly describe the project's actual commands and environments.
+3. **Modify Workflows:** Update the workflows in `.agent/workflows/` (like `/2-implement.md`, `/4-verify.md`) to substitute the placeholder commands with the project's true commands.
 
 ### 5. Validate Alignment
 - Run a dummy status check or listing using the newly corrected assumed commands to verify they work on the current repository.
