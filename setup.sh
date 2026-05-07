@@ -2,18 +2,24 @@
 set -euo pipefail
 
 # ============================================================================
-# setup.sh — Stack Selector + BMAD Team Merger
+# setup.sh — Stack Selector + BMAD Team Merger (v1.1.0)
 # ============================================================================
 # Creates a new project by copying a chosen stack's .agent/ directory
 # and merging the portable BMAD team assets into it.
 #
 # Usage:
 #   ./setup.sh                          # Interactive mode
-#   ./setup.sh <stack> <target-path>    # Non-interactive mode
+#   ./setup.sh [flags] <stack> <path>   # Non-interactive mode
+#
+# Flags:
+#   -s, --sync-all                      # Update BMAD assets in ALL projects
+#   -d, --dry-run                       # Show changes without applying them
+#   -p, --prune                         # Detect orphaned skills in projects
+#   -h, --help                          # Show this help message
 #
 # Example:
 #   ./setup.sh laravel ./my-new-app
-#   ./setup.sh fastapi-nextjs /path/to/project
+#   ./setup.sh --sync-all --dry-run
 # ============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -32,8 +38,12 @@ NC='\033[0m' # No Color
 STATS_ADDED=0
 STATS_UPDATED=0
 STATS_SKIPPED=0
+STATS_ORPHANS=0
 OVERWRITE_ALL=""  # Stores "a" (all) or "s" (skip remaining)
 INTERACTIVE=true  # Default to true, updated in main
+DRY_RUN=false
+PRUNE_CHECK=false
+SYNC_ALL=false
 
 # ---- Helper Functions -------------------------------------------------------
 
@@ -203,7 +213,7 @@ merge_directory() {
     done < <(find "$src" -type f)
 }
 
-# Update directory contents (standardized with stats)
+# Update directory contents (standardized with stats + dry-run + orphan check)
 update_directory() {
     local src="$1"
     local dst="$2"
@@ -212,29 +222,50 @@ update_directory() {
         return
     fi
 
-    mkdir -p "$dst"
+    [[ "$DRY_RUN" == false ]] && mkdir -p "$dst"
 
+    # 1. Sync / Update existing or new files
     while read -r file; do
         local relative="${file#"$src"/}"
         local target="${dst}/${relative}"
         local target_dir="$(dirname "$target")"
 
-        mkdir -p "$target_dir"
+        [[ "$DRY_RUN" == false ]] && mkdir -p "$target_dir"
 
         if [[ -f "$target" ]]; then
             if ! diff -q "$file" "$target" > /dev/null 2>&1; then
-                cp "$file" "$target"
-                print_info "Updated: ${relative}"
+                if [[ "$DRY_RUN" == true ]]; then
+                    echo -e "${BLUE}[DRY] Would Update: ${relative}${NC}"
+                else
+                    cp "$file" "$target"
+                    print_info "Updated: ${relative}"
+                fi
                 ((STATS_UPDATED++)) || true
             else
                 ((STATS_SKIPPED++)) || true
             fi
         else
-            cp "$file" "$target"
-            print_success "Added: ${relative}"
+            if [[ "$DRY_RUN" == true ]]; then
+                echo -e "${GREEN}[DRY] Would Add: ${relative}${NC}"
+            else
+                cp "$file" "$target"
+                print_success "Added: ${relative}"
+            fi
             ((STATS_ADDED++)) || true
         fi
     done < <(find "$src" -type f)
+
+    # 2. Orphan detection (Prune check)
+    if [[ "$PRUNE_CHECK" == true && -d "$dst" ]]; then
+        while read -r target_file; do
+            local relative="${target_file#"$dst"/}"
+            local source_match="${src}/${relative}"
+            if [[ ! -f "$source_match" ]]; then
+                print_warn "Orphan detected (not in master): ${relative}"
+                ((STATS_ORPHANS++)) || true
+            fi
+        done < <(find "$dst" -type f)
+    fi
 }
 
 # ---- Main Logic -------------------------------------------------------------
@@ -258,43 +289,61 @@ main() {
     fi
     local stacks=($stacks_string)
 
-    # Get stack selection
-    local selected_stack=""
-    local target_path=""
-    local mode="full"
-
-    if [[ $# -ge 2 ]]; then
-        # Non-interactive mode
-        INTERACTIVE=false
-        selected_stack="$1"
-        target_path="$2"
-        if [[ $# -ge 3 ]]; then
-            mode="$3"
-        fi
-
-        # Validate stack exists (unless mode is 'bmad')
-        if [[ "$mode" != "bmad" ]]; then
-            local valid=false
-            for s in "${stacks[@]}"; do
-                if [[ "$s" == "$selected_stack" ]]; then
-                    valid=true
-                    break
+    # ---- Argument Parsing ----
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -s|--sync-all) SYNC_ALL=true; INTERACTIVE=false; shift ;;
+            -d|--dry-run)  DRY_RUN=true; shift ;;
+            -p|--prune)    PRUNE_CHECK=true; shift ;;
+            -h|--help)
+                grep '^# ' "$0" | head -n 25 | sed 's/^# //'
+                exit 0
+                ;;
+            -*) print_error "Unknown option: $1"; exit 1 ;;
+            *)
+                if [[ -z "$selected_stack" ]]; then
+                    selected_stack="$1"
+                elif [[ -z "$target_path" ]]; then
+                    target_path="$1"
+                elif [[ -z "$mode" ]]; then
+                    mode="$1"
                 fi
-            done
-            if [[ "$valid" == false ]]; then
-                print_error "Stack '${selected_stack}' not found."
-                print_info "Available stacks: ${stacks[*]}"
-                exit 1
-            fi
-        fi
+                INTERACTIVE=false
+                shift
+                ;;
+        esac
+    done
 
-        # Validate mode
-        if [[ "$mode" != "full" && "$mode" != "agent" && "$mode" != "bmad" ]]; then
-            print_error "Invalid mode '${mode}'. Use 'full', 'agent', or 'bmad'."
-            exit 1
-        fi
-    else
-        # Interactive mode
+    # Handle Sync-All Mode
+    if [[ "$SYNC_ALL" == true ]]; then
+        print_info "Starting Global Sync..."
+        [[ "$DRY_RUN" == true ]] && echo -e "${YELLOW}⚠️  DRY RUN ENABLED - No files will be changed.${NC}"
+        echo ""
+
+        # Find all directories that have a .agent folder
+        # Skip current dir and bmad-team itself
+        local projects=($(find . -maxdepth 2 -name ".agent" -type d | sed 's|/\.agent||'))
+
+        for project in "${projects[@]}"; do
+            # Skip the root and bmad-team
+            if [[ "$project" == "." ]] || [[ "$project" == "./bmad-team" ]]; then continue; fi
+
+            echo -e "${BOLD}Syncing project: ${CYAN}${project}${NC} ..."
+
+            local project_agent_dir="${project}/.agent"
+            update_directory "${BMAD_TEAM_DIR}/rules" "${project_agent_dir}/rules"
+            update_directory "${BMAD_TEAM_DIR}/skills" "${project_agent_dir}/skills"
+            update_directory "${BMAD_TEAM_DIR}/workflows" "${project_agent_dir}/workflows"
+            echo ""
+        done
+
+        echo -e "${GREEN}${BOLD}Global Sync Complete!${NC}"
+        echo -e "Summary: ${GREEN}${STATS_ADDED} added${NC}, ${BLUE}${STATS_UPDATED} updated${NC}, ${YELLOW}${STATS_SKIPPED} skipped${NC}, ${RED}${STATS_ORPHANS} orphans${NC}"
+        exit 0
+    fi
+
+    # ---- Interactive Fallback ----
+    if [[ "$INTERACTIVE" == true ]]; then
         mode=$(select_mode)
         echo ""
 

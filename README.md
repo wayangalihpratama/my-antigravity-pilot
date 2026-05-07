@@ -27,15 +27,33 @@ The **BMAD (Business-Model-Architecture-Development) Method** provides 8 special
 | Agent | Name | Role | Skill | Input | Output |
 |-------|------|------|-------|-------|--------|
 | 📋 PM | John | Product Manager | `bmad-pm` | Ideas | Product Brief, PRD |
-| 📊 Analyst | Mary | Business Analyst | `bmad-analyst` | PRD | Research, Refined PRD |
-| 🏗️ Architect | Winston | Architect | `bmad-architect` | PRD | Architecture, ADRs |
-| 🎨 UX | Sally | UX Designer | `bmad-ux` | Requirements | Design Spec |
+| 📊 Analyst | Mary | Business Analyst | `bmad-analyst` | PRD | Research Logs, Refined PRD |
+| 🏗️ Architect | Winston | Architect | `bmad-architect` | PRD | LLD, ADRs |
+| 🎨 UX | Sally | UX Designer | `bmad-ux` | Requirements | Design Spec (Figma-Ready) |
 | 🏃 SM | Bob | Scrum Master | `bmad-sm` | Specs | User Stories |
-| 💻 Dev | Amelia | Developer | `bmad-dev` | User Story | Code + Tests |
-| 🧪 Tester | Murat | Test Architect | `bmad-tester` | Code | Test Strategy |
-| 📚 Writer | Paige | Tech Writer | `bmad-writer` | Artifacts | Documentation |
+| 💻 Dev | Amelia | Developer | `bmad-dev` | User Story | Well-Tested Code |
+| 🧪 Tester | Murat | Test Architect | `bmad-tester` | Code | Test Strategy & Gates |
+| 📚 Writer | Paige | Tech Writer | `bmad-writer` | Artifacts | User/System Documentation |
 
 **Lifecycle:** Ideate (PM) → Analyze (Analyst) → Architect → Design (UX) → Plan (SM) → Implement (Dev) → Test (Tester) → Document (Writer)
+
+---
+
+## Core Principles
+
+### 1. Mandatory User Validation
+To prevent AI drift, every major decision—from architectural choices and UX specifications to implementation plans—**requires explicit user approval**. Agents will pause and present their logic before executing any destructive or high-impact changes.
+
+### 2. Strict Documentation Boundaries
+We enforce a hard boundary between local agent state and shared project truth:
+- **`docs/` (Git-Tracked)**: The source of truth. Contains `LLD.md`, `PRD.md`, and finalized Feature Specifications.
+- **`agent_docs/` (Git-Ignored)**: Local coordination state. Contains `sprint-plan.md`, `stories/`, and `research-logs/`.
+
+### 3. Pixel-Perfect Design (Figma Dev Mode)
+Our UX and Dev agents are configured to use the **Figma Dev Mode MCP Server**. When provided with a Figma link, they extract precise design tokens, layout variables, and typography directly from the source, ensuring 100% visual fidelity without "AI guessing."
+
+### 4. TDD & Systematic Debugging
+We strictly follow **Test-Driven Development (TDD)** and a rigorous **Global Debugging Protocol** (Isolate → Hypothesize → Surgical Search → Failing Test → Fix). No code is implemented without a test, and no bug is fixed by guessing.
 
 ---
 
@@ -112,18 +130,26 @@ We have built-in tooling to make this easier:
 
 ## Quick Start
 
-### Using `setup.sh` (Recommended)
-
-The setup script copies your chosen stack's `.agent/` directory **plus** the BMAD agent team into a new project:
+The setup script copies your chosen stack's `.agent/` directory **plus** the portable BMAD team assets into your project.
 
 ```bash
-# Interactive mode — pick a stack from a menu
+# 1. Interactive mode — pick a stack from a menu
 ./setup.sh
 
-# Non-interactive mode — specify stack and target
+# 2. Global Sync — Update BMAD assets across ALL existing stacks
+./setup.sh --sync-all
+
+# 3. Safety Check — Dry-run to see changes without applying
+./setup.sh --sync-all --dry-run --prune
+
+# 4. Target Specific — Copy stack + BMAD to a specific path
 ./setup.sh laravel ./my-new-app
-./setup.sh fastapi-nextjs /path/to/project
 ```
+
+### Flags:
+- `-s, --sync-all`: Automatically find and update all directories with an `.agent` folder.
+- `-d, --dry-run`: Show what would happen without touching the filesystem.
+- `-p, --prune`: Detect orphaned agent skills that are no longer in the master `bmad-team` folder.
 
 The result is a project with **stack rules + BMAD skills + BMAD workflows** — everything merged into a single `.agent/` directory.
 
