@@ -1,14 +1,48 @@
 ---
-trigger: model_decision
-description: When creating branches, committing code, managing PRs, or working with version control
+trigger: always_on
+description: Standardized commit message format for the entire repository
 ---
 
-### Commit Messages — Conventional Commits
+## Commit Message Standard
 
-**Format:**
+To ensure traceability from code changes to their corresponding requirements/issues, a standardized format is enforced across the entire repository.
+
+### Format specification
+
+Every commit MUST follow this format:
+
 ```
 [#issue_number] <type>(<scope>): <description>
 ```
+
+> [!IMPORTANT]
+> If you are about to commit and do not have an issue number, you MUST ask the user to confirm the issue number before proceeding. Never invent an issue number.
+
+### Pull Request Strategy
+
+When creating a PR:
+1. **Title Format**: `[#issue_number] <Clear group/feature name> - <Short Description>`
+2. **Safety Audit**: If applicable, attach or link the `safety-audit-issue-[issue_number].md` file.
+3. **QA Guide**: If applicable, reference the `qa-guide-issue-[issue_number].md`.
+
+### Components
+
+1. **`[#issue_number]`**: (Required) The ID of the issue being addressed, enclosed in brackets and prefixed with #.
+2. **`<type>`**: (Required) The type of change (see below).
+3. **`<scope>`**: (Optional) The specific area affected (e.g., `backend`, `frontend`, `auth`).
+4. **`<description>`**: (Required) A concise, imperative mood summary.
+
+### Types
+
+| Type | Purpose |
+|------|---------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `style` | Formatting, semicolons, etc. |
+| `refactor` | Code change (no new feature/fix) |
+| `test` | Adding or updating tests |
+| `chore` | Maintenance, dependencies |
 
 ### Examples
 
@@ -16,44 +50,21 @@ description: When creating branches, committing code, managing PRs, or working w
 - `[#12] fix(auth): resolve login timeout`
 - `[#45] docs: update README with setup instructions`
 
-```
-feat(posts): add post creation with image upload
-fix(auth): resolve login redirect loop
-refactor(models): extract price calculation to service
-test(posts): add feature tests for post CRUD
-docs(readme): update installation instructions
-chore(deps): update laravel to 12.1
-style(frontend): fix Tailwind class ordering
-```
+### Mandatory User Confirmation
 
-**Types:** `feat`, `fix`, `refactor`, `test`, `docs`, `chore`, `style`, `perf`, `ci`
-
-### Branch Naming
-
-```
-feature/add-post-crud
-bugfix/fix-login-redirect
-hotfix/patch-security-vulnerability
-refactor/extract-price-service
-```
-
-### Commit Hygiene
-
-1. **Atomic commits** — one logical change per commit
-2. **No WIP commits** on shared branches
-3. **Squash** related fixups before merge
-4. **Run tests** before committing: `docker compose exec app php artisan test`
-
-### PR Size Guidelines
-
-| Size | Lines Changed | Review Time |
-|------|--------------|-------------|
-| Small | < 100 | Quick review |
-| Medium | 100–300 | Normal review |
-| Large | 300–500 | Split if possible |
-| Too Large | > 500 | Must split |
+> [!CAUTION]
+> **NEVER** perform `git commit` or `git push` automatically. You MUST ask for and receive explicit confirmation from the user before executing these commands.
+>
+> **Protocol**:
+1. **Doc Alignment Check**: Verify that `docs/LLD.md`, feature specs (`docs/{FEATURE_NAME}.md`), and the implementation are perfectly aligned. If there are discrepancies, update the docs or implementation as needed.
+2. **Sprint Status Check**: Verify that the `agent_docs/sprint-plan.md` and relevant stories are updated (statuses, actual time spent, and AC checklists).
+3. **User Confirmation**: Present the alignment and sprint status to the user and ask: "Is the documentation aligned and the sprint plan updated?"
+4. **Atomic Commit Strategy**: Analyze the changed files and logical updates. Determine if the changes should be split into multiple atomic commits. Propose a commit split plan to the user.
+5. **Commit Preparation**: Prepare the commit message(s) and show them to the user along with the list of files for each commit.
+6. **Final Approval**: Ask: "Should I proceed with the proposed commit(s) and push?"
+7. Only execute the commands if the user says "Yes", "Proceed", or equivalent for the alignment, the sprint, the split plan, and the final commit(s).
+>
+> This rule is absolute and overrides any stack-specific documentation that might suggest pushing as a final step.
 
 ### Related Rules
-- Root Git Workflow @/Users/galihpratama/Dev/my-antigravity-pilot/.agent/rules/git-workflow.md
-- Testing Strategy @testing-strategy.md
-- Docker Commands @docker-commands.md
+- Repo Structure @repo-structure.md

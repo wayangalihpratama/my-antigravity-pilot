@@ -1,30 +1,11 @@
-## Rule Priority (When Rules Conflict)
+## Rule Priority (Global)
 
 When two rules pull in opposite directions, use this priority to decide:
 
-0. **Professional Team SOP** — the core foundation of our work
-1. **Security Mandate** — never compromise security for convenience
-1.1 **Docs-First & Research Mandate** — always refer to official documentation and best practices
-1.2 **DRY & Premium Mandate** — ensure code is DRY and UI is Premium
-2. **Docker Commands** — all commands must run through Docker Compose
-3. **Error Handling** — consistent error handling is non-negotiable
-4. **Testing Strategy** — tests define correctness
-5. **Laravel Backend / Inertia-React Frontend / API Design** — framework conventions
-6. **Git Workflow** — commit hygiene and branch naming
-
-### Conflict Resolution
-
-- If Security conflicts with Convenience → Security wins
-- If Docker conflicts with Local → Docker wins
-- If Laravel convention conflicts with imported pattern → Laravel convention wins
-- If Filament convention conflicts with Frontend → they are separate concerns; both apply in their own scope
-
-### Related Rules
-- Security Mandate @security-mandate.md
-- Docker Commands @docker-commands.md
-- Error Handling @error-handling.md
-- Testing Strategy @testing-strategy.md
-- Laravel Backend @laravel-backend.md
-- Inertia React Frontend @inertia-react-frontend.md
-- API Design @api-design.md
-- Git Workflow @git-workflow.md
+0. **Professional Team SOP** — The foundation of our collaboration (TDD, DRY, LLD).
+1. **Security** — Never compromise security for convenience.
+1.1 **Docs-First & Research** — Always reference official docs and best practices before acting.
+2. **Consistency** — Follow existing patterns in each stack directory while applying DRY.
+3. **Premium Quality** — Prioritize high-performance logic and premium aesthetics (Antigravity standard).
+4. **Stack Conventions** — Respect the target framework's idioms.
+5. **Simplicity** — When equally valid, prefer the simpler, more maintainable approach.

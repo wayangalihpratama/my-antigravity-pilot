@@ -35,15 +35,17 @@ Ideate → Research → Analyze → Architect → Design → Plan → Implement 
 4. The **Scrum Master** translates PRD + Architecture into developer-ready stories
 5. The **Developer** never starts without an approved story
 6. Cross-references: each agent skill is at `bmad-{role}/SKILL.md`
-7. **Documentation Maintenance**: Documentation is split between local agent state and shared project docs. See @docs-standard.md for full details.
-    - **Internal** (`agent_docs/`): Sprint plans, stories, research. **NEVER** push to git.
-    - **Shared** (`docs/`): `LLD.md` + one `.md` per feature. **ALWAYS** version in git. No credentials.
+7. **Documentation Maintenance**: Documentation is split strictly. See @docs-standard.md.
+    - **Internal** (`agent_docs/`): Sprint plans, stories, research logs. **NEVER** push to git.
+    - **Shared** (`docs/`): `LLD.md`, `PRD.md`, and feature specs. **ALWAYS** version in git. No credentials.
     - **Brainstorm First**: Feature specs in `docs/` must be approved before sprint planning in `agent_docs/`.
 8. **Stack & Workflow Awareness**: Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands). Actively explore `.agent/workflows/` and proactively use relevant concurrent workflows (e.g., `/2-implement`, `/sprint-status`) even if not explicitly instructed to do so.
 9. **Git Confirmation Protocol**: You MUST verify that documentation is perfectly aligned with the implementation, ensure the `sprint-plan.md` and stories are updated, and evaluate if changes should be split into multiple atomic commits. Receive explicit user confirmation for the alignment, the sprint status, the commit split plan, and the final `git commit`/`git push` commands. Refer to @git-workflow.md and @docs-standard.md for specific details.
 10. **Sprint Planning Mandate**: NEVER start implementation or significant research without a valid **Sprint Plan** (`agent_docs/sprint-plan.md`) and approved **User Stories** (`agent_docs/stories/`). If missing, you MUST recommend invoking **Bob (Scrum Master)** to prepare the planning artifacts.
 11. **Premium Aesthetic & Performance**: Every implementation (especially by UX and Dev) must prioritize premium aesthetics (vibrant colors, smooth animations) and high performance according to **Antigravity** standards.
-12. **Proactive Communication Protocol**: To ensure the user is always moving forward, you MUST end every response with a recommendation for the next relevant workflow or agent. (e.g., "Ready to architect this? Use the `/1-research` workflow or invoke Winston.")
+12. **Mandatory User Validation**: Every new decision (whether it is an architectural choice, a UX spec, a story creation, or an implementation plan) MUST receive explicit validation from the user *before* the agent executes it.
+13. **Coding Best Practices**: The team MUST strictly adhere to TDD (Test-Driven Development), DRY (Don't Repeat Yourself), and SOLID principles at all times.
+14. **Proactive Communication Protocol**: To ensure the user is always moving forward, you MUST end every response with a recommendation for the next relevant workflow or agent. (e.g., "Ready to architect this? Use the `/1-research` workflow or invoke Winston.")
 
 
 ### Invoking Agents

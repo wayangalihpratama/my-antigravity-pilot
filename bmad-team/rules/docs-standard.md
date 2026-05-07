@@ -13,8 +13,8 @@ Sprint-level coordination artifacts. High-velocity, frequently changing.
 
 - `sprint-plan.md` — Current sprint tracking
 - `stories/` — User stories and acceptance criteria
-- `research-findings.md` — Raw research and brainstorming notes
-- `prd.md`, `product-brief.md` — Internal product requirements
+- `research-logs/` or `research-findings.md` — Raw research, technical investigations, and brainstorming notes
+- `product-brief.md` — Ephemeral internal product brief
 
 ### `docs/` — Shared Project Documentation (IN git)
 
@@ -23,6 +23,7 @@ The source of truth for all developers and stakeholders. Flat structure — one 
 ```
 docs/
 ├── LLD.md                    # Living low-level design (always updated)
+├── PRD.md                    # Product Requirements Document
 ├── STORAGE_SYSTEM.md         # Feature specification
 └── USER_REGISTRATION.md      # Feature specification
 ```

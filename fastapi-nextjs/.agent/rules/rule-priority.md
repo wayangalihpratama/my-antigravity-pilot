@@ -1,32 +1,11 @@
-## Rule Priority (When Rules Conflict)
+## Rule Priority (Global)
 
 When two rules pull in opposite directions, use this priority to decide:
 
-### Priority Order (Highest to Lowest)
-
-0. **Professional Team SOP** — TDD, DRY, and LLD-focus are the foundation.
-1. **Security Mandate** — always wins. Never compromise security for velocity, simplicity, or convenience.
-1.1 **Docs-First & Research Mandate** — always refer to official documentation and latest best practices.
-2. **Docker Commands** — all execution must go through `./dc.sh exec`. No bare commands.
-3. **Error Handling** — validation is non-negotiable. Never ship unvalidated code.
-4. **Testing Strategy** — testability-first design enables future improvements.
-5. **API Design / FastAPI Backend / NextJS Frontend** — context-dependent guidance for the task at hand.
-6. **Git Workflow** — commit hygiene and branch conventions.
-7. **Premium Aesthetic & Performance** — high-fidelity UI and snappy interactions.
-8. **YAGNI / KISS** — only when no security, reliability, or maintainability trade-off exists.
-
-### Common Conflict Resolutions
-
-| Conflict | Resolution |
-|----------|------------|
-| YAGNI vs Security ("don't add input validation, it's not needed yet") | **Security wins.** Input validation is always needed. |
-| KISS vs Testability ("adding an interface makes it more complex") | **Testability wins.** Interfaces enable testing. |
-| Performance vs YAGNI ("should I optimize this now?") | **Measure first.** Only optimize after profiling shows a real bottleneck. |
-| DRY vs Complexity ("should I abstract this into a shared utility?") | **DRY wins** for core logic to ensure a single source of truth. |
-| Speed vs Logging ("skip logging to ship faster") | **Logging wins.** Silent failures are the enemy. |
-
-### Guiding Principle
-
-When in doubt, ask: *"Which choice makes the code more defensible and maintainable?"*
-
-If both options are equally defensible, choose the simpler one (KISS).
+0. **Professional Team SOP** — The foundation of our collaboration (TDD, DRY, LLD).
+1. **Security** — Never compromise security for convenience.
+1.1 **Docs-First & Research** — Always reference official docs and best practices before acting.
+2. **Consistency** — Follow existing patterns in each stack directory while applying DRY.
+3. **Premium Quality** — Prioritize high-performance logic and premium aesthetics (Antigravity standard).
+4. **Stack Conventions** — Respect the target framework's idioms.
+5. **Simplicity** — When equally valid, prefer the simpler, more maintainable approach.

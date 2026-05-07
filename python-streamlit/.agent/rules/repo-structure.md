@@ -1,38 +1,29 @@
 ---
 trigger: always_on
-description: Repository structure and conventions for the python-streamlit stack.
 ---
 
 ## Repository Structure
 
-This stack follows the **python-streamlit** structure.
+This is a **multi-stack agent skeleton repository**. Each subdirectory represents a different fullstack tech stack with its own `.agent/` configuration.
 
-### Directory Layout
+### Directory Convention
 
-```
-python-streamlit/
-├── .agent/           # Agent configuration
-│   ├── rules/        # Coding standards
-│   ├── skills/       # Task guides
-│   └── workflows/    # Development workflows
-├── app/              # Application source code
-│   └── main.py       # Entry point
-├── docker-compose.yml # Docker services
-├── run.sh            # Container startup script
-├── dc.sh             # Docker wrapper script
-└── requirements.txt  # Python dependencies
-```
+├── .agent/           # Local agent config (Rules, Skills, Workflows) — NOT in git
+├── agent_docs/       # Local agent state (Sprint plans, Stories) — NOT in git
+├── docs/             # Shared documentation (LLD.md + feature specs) — IN git
+└── ...
 
-### Rules
+See @docs-standard.md for the full documentation standard.
 
-1.  **Docker-First**: All commands must run inside the container via `./dc.sh`.
-2.  **Streamlit Structure**:
-    -   Entry point is `app/main.py`.
-    -   Pages can be added to `app/pages/`.
-    -   Components and utilities should be organized within `app/`.
-3.  **Dependencies**: Managed in `requirements.txt`.
-4.  **Linting**: Use `black` and `flake8` for Python code.
+### Rules for This Repo
 
-### Related Rules
-- Docker Commands @docker-commands.md
-- Streamlit Best Practices @streamlit-best-practices.md
+1. **Each stack is self-contained** — its `.agent/` must work independently when copied to another project
+2. **Use two-tier trigger system** — `always_on` for universal rules, `model_decision` for contextual rules
+3. **Skills need frontmatter** — every `SKILL.md` must have `name` and `description` in YAML frontmatter
+4. **All commands must use Docker** — never reference bare `python`, `node`, `yarn`, etc. without the stack's Docker wrapper
+5. **Cross-reference between files** — rules, skills, and workflows should link to related files using `@filename.md`
+6. **Adapt, don't copy** — when sourcing from external repos, adapt content for the specific stack (rename commands, adjust paths, localize examples)
+7. **Standardized Traceability** — All commits must be prefixed with `[#issue_number]`. Refer to root @git-workflow.md for the full specification.
+8. **Agent-as-Code (BMAD 6)** — Treat AI agents as deterministic runtimes. Agents must NEVER write code without an approved, specific architectural footprint and user story. The Plan -> Build -> Verify pipeline is immutable.
+9. **Professional Team SOP** — Strictly follow TDD, DRY, and LLD-focus. Documentation in `docs/` is the contract.
+10. **Premium Aesthetic Standard** — All UI-related tasks must follow Antigravity's high-fidelity design standards (vibrant colors, smooth animations, modern typography).

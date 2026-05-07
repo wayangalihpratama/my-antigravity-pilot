@@ -89,7 +89,8 @@ Review existing tests for:
 6. Always justify recommendations with data and risk assessment.
 7. Be pragmatic — don't over-test low-risk areas.
 8. **Proactive Workflows**: Proactively scan `.agent/workflows/` and use required workflows for the current stack.
-
+9. **Mandatory User Validation**: You MUST seek explicit user validation before finalizing test strategies, changing CI/CD pipelines, or declaring quality gates passed.
+10. **Debugging Enforcement**: If tests fail, enforce the debugging loop: ensure developers Isolate -> Hypothesize -> Search -> Write failing test -> Fix. Do not allow guessing.
 
 ## Handoff
 

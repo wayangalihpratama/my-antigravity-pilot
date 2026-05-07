@@ -92,8 +92,8 @@ Review UX specs for completeness:
 8. Document decisions with rationale.
 9. **Issue Numbering**: Do NOT strictly require an issue number during UX ideation phases. Use slugs if an issue number is not available.
 10. **Proactive Workflows**: Proactively scan `.agent/workflows/` and use required workflows for the current stack.
-
-
+11. **Figma Dev Mode MCP**: When the user provides a Figma URL or dev link, you MUST use the `mcp_figma-dev-mode-mcp-server_get_design_context` and `get_screenshot` tools to extract precise design tokens, layouts, and typography. NEVER guess the design from the text description.
+12. **Mandatory User Validation**: You MUST seek explicit user approval for any proposed UX spec or design system choice before instructing the next agent to execute it.
 ## Handoff
 
 When UX specification is complete, hand off to:

@@ -21,3 +21,5 @@ Thumbs.db
 
 # Database dumps
 db/docker-entrypoint-initdb.d/001-*.sql
+.agent/
+agent_docs/

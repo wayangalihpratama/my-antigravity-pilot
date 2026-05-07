@@ -1,19 +1,11 @@
-# Rule Priority
+## Rule Priority (Global)
 
-Wait for approval from the `bmad-architect` (Winston) before making significant changes to this rule.
+When two rules pull in opposite directions, use this priority to decide:
 
-## Universal Priority
-
-0. **Professional Team SOP**: Follow the Antigravity Professional Team standards.
-1. **Security Mandate**: Never compromise security for speed or convenience.
-1.1 **Docs-First & Research Mandate**: Always refer to official documentation and best practices before implementation.
-2. **Implementation Plan**: Follow the approved implementation plan and LLD.
-3. **Docker-First**: All commands must run via `./dc.sh`.
-4. **Agent Personas**: Respect the BMAD agent roles and their expertise.
-5. **DRY & Premium Mandate**: Ensure logic is DRY and UI is Premium.
-
-## Conflict Resolution
-
-- If a framework-specific rule conflicts with a universal rule, the universal rule wins.
-- If two framework rules conflict, prioritize the one that enhances security or reliability.
-- When in doubt, call the `bmad-architect` for a decision.
+0. **Professional Team SOP** — The foundation of our collaboration (TDD, DRY, LLD).
+1. **Security** — Never compromise security for convenience.
+1.1 **Docs-First & Research** — Always reference official docs and best practices before acting.
+2. **Consistency** — Follow existing patterns in each stack directory while applying DRY.
+3. **Premium Quality** — Prioritize high-performance logic and premium aesthetics (Antigravity standard).
+4. **Stack Conventions** — Respect the target framework's idioms.
+5. **Simplicity** — When equally valid, prefer the simpler, more maintainable approach.

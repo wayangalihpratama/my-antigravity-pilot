@@ -1,42 +1,33 @@
 ---
 name: debugging-protocol
-description: Systematic protocol for debugging common issues in the Strapi-NextJS stack.
+description: Systematic global protocol for debugging issues across any stack. Use when tests fail, builds crash, or unexpected behavior occurs.
 ---
 
-# Debugging Protocol
+# Global Debugging Protocol
 
-Follow these steps when encountering issues in the Strapi-NextJS stack.
+Follow these steps rigorously when encountering any bug or issue. Do NOT guess the fix.
 
-## 1. Check Service Status
+## 1. Isolate the Issue
+- Check service status (e.g., `docker ps`, `pm2 status`, or stack-specific commands).
+- Inspect logs for the failing component.
+- Identify the exact error message and stack trace.
 
-```bash
-./dc.sh ps
-```
-Ensure all services (`backend`, `frontend`, `db`) are `running`.
+## 2. Formulate a Hypothesis
+- Based on the logs, state what you think is failing and why.
+- Check if this is a known issue (e.g., database connection failure, missing environment variables).
 
-## 2. Inspect Logs
+## 3. Surgical Search
+- Use precise tools like `grep_search` and `view_file` to locate the exact lines of code involved.
+- NEVER try to read entire large files or guess the implementation. Look for the function mentioned in the stack trace.
 
-- **Backend (Strapi)**: `./dc.sh logs backend`
-- **Frontend (Next.js)**: `./dc.sh logs frontend`
-- **Database**: `./dc.sh logs db`
+## 4. TDD Bug Fixing (Red → Green)
+- **Red**: Write a failing test that reproduces the bug. If a test already exists and fails, you are in the Red state.
+- **Green**: Implement the fix.
+- Run the test suite to verify the fix works and no regressions were introduced.
 
-Look for database connection errors, Strapi startup failures, or Next.js build errors.
+## 5. Mandatory User Validation
+- Present your hypothesis and proposed fix to the user.
+- You MUST receive explicit user validation before executing the fix.
 
-## 3. Diagnose Common Issues
-
-### Database Connection
-- If Strapi fails to start, verify that the `db` service is healthy and the `.env` credentials match the Postgres setup.
-
-### Next.js Data Fetching
-- Ensure `NEXT_PUBLIC_STRAPI_API_URL` is correctly set and the backend is reachable from the frontend container.
-
-### Config-Sync Failures
-- If schemas are not syncing, check `./dc.sh exec backend npm run config-sync export/import` for errors.
-
-## 4. Run Tests
-
-```bash
-./dc.sh exec backend npm test
-./dc.sh exec frontend npm test
-```
-Run tests to isolate the component failing.
+## 6. Document the Fix
+- Briefly explain why the bug occurred and how it was fixed in the PR/commit message.
