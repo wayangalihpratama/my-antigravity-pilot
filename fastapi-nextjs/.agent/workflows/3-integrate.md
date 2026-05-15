@@ -1,86 +1,59 @@
 ---
-description: Integrate phase - test adapters with real infrastructure via Docker
+description: Integrate phase - test adapters with real infrastructure
 ---
 
-# Phase 3: Integrate (FastAPI & Next.js)
+# Phase 3: Integrate (Generic)
 
 ## Purpose
-Verify that adapter implementations (PostgreSQL, Redis, external APIs) interact correctly with real infrastructure. This ensures that the architectural decisions made previously are sound in a live environment.
+Verify that adapter implementations (Databases, Cache, External APIs) interact correctly with real infrastructure.
 
 ## Prerequisites
 - **Phase 2 (Implement)** completed with unit tests passing.
-- Docker installed and running locally (all services managed via `./dc.sh`).
-- Project setup files include necessary integration testing libraries.
+- Infrastructure (Docker, Staging, etc.) running and accessible.
 
 ## When Required
-- Any code involving database persistence (SQLAlchemy models, Alembic migrations).
-- Integration with external services (e.g., Twilio, email/SMTP, external AI).
-- Message queues or cache implementations (Redis, Celery).
+- Any code involving database persistence.
+- Integration with external services (APIs, Webhooks).
+- Message queues or cache implementations.
 
 ## Steps
 
 ### 1. Setup Integration Environment
-Use the project's Docker Compose setup to run integration tests against real services.
+Ensure all required services are running.
 
 ```bash
-# Ensure all services are running
+# Example: Ensure services are up
 ./dc.sh up -d
-
-# Run backend integration tests against real PostgreSQL
-./dc.sh exec backend python -m pytest tests/integration/ -v
-
-# Verify database migrations
-./dc.sh exec backend alembic upgrade head
 ```
 
-### 2. Backend Database Integration
-Test real SQL execution against the project's PostgreSQL 17 database.
+### 2. Integration Testing
+Run tests that interact with real services:
+- Verify database migrations and schema updates.
+- Test real API responses (or use recorded mocks/VCR).
 
-```python
-import pytest
-from sqlalchemy import create_engine
+### 3. API Contract Verification
+Verify that the frontend and backend contracts are satisfied.
+- Check generated API documentation (e.g., Swagger/OpenAPI).
+- Run E2E tests if applicable.
 
-class TestPostgresIntegration:
-    def test_database_connection(self, db_session):
-        # Verify real SQL execution via the project's DB
-        result = db_session.execute("SELECT 1")
-        assert result.fetchone()[0] == 1
-```
+### 4. Manual Verification & UX Sync
+- Verify behavior under real network/data conditions.
+- Ensure loading states and error toasts work as expected.
 
-### 3. Frontend Integration (Next.js + Playwright/Cypress)
-While backend uses Docker containers, frontend integration verifies API contracts with the containerized backend.
+## Development Commands
 
-```typescript
-// Example using Playwright to test API integration
-test('should fetch and display real data from backend', async ({ page }) => {
-  await page.goto('http://localhost:3000/dashboard');
-  const item = page.locator('.item-card');
-  await expect(item).toBeVisible();
-});
-```
-
-### 4. Run Integration Tests
+> [!NOTE]
+> These are placeholder commands. Run `/align-stack` to update them for your project.
 
 ```bash
-# Backend: Run integration tests via Docker
-./dc.sh exec backend python -m pytest tests/integration/ -v
-
-# Frontend: Run Playwright/Cypress integration suite
-./dc.sh exec frontend yarn test:e2e
+# Run integration tests
+./dc.sh exec backend pytest tests/integration
 ```
 
-### 5. Manual Verification & UX Sync
-- Verify that UX Patterns (loading states, success toasts) behave correctly under real network conditions.
-- Check that the Responsive Strategy holds up when data is populated from the database.
-- Access the API docs at http://localhost:8000/api/docs to verify endpoints.
+## Completion Criteria
+- [ ] Integration tests written for all adapters.
+- [ ] Environment variables and secrets handled securely.
+- [ ] No major regressions in performance or connectivity.
 
-
-### Completion Criteria
-- [ ] Integration tests written for all adapters (DB, Cache, APIs).
-- [ ] Backend queries verified against the project's PostgreSQL database.
-- [ ] Environment variables and secrets handled securely for integration environments.
-- [ ] No major regressions in Performance Considerations when hitting real infra.
-
-
-### Next Phase
+## Next Phase
 Proceed to **Phase 4: Verify** (`/4-verify`)

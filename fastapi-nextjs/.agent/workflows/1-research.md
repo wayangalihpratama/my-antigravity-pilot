@@ -25,7 +25,7 @@ Parse the user's request and cross-reference with the project state:
 Search the current workspace to understand:
 - **Architecture:** Identify relevant modules. Invoke **Winston (Architect)** for structural guidance.
 - **Patterns:** Locate similar implementations to ensure consistency.
-- **Dependencies:** Review `requirements.txt` and `package.json` for specific versions.
+- **Dependencies:** Review dependency files (e.g., `package.json`, `requirements.txt`, `composer.json`) for specific versions.
 
 ### 3. Build Mental Model
 Inventory the "Knowns":
@@ -43,12 +43,12 @@ List specific technologies and internal patterns that need verification.
 
 ### 6. Technical & Documentation Research
 Perform targeted queries for the project's specific versions:
-- Use **Web Search** for exact versions (e.g., "Next.js 15 App Router patterns").
+- Use **Web Search** for exact versions.
 - Search for "Migration Guides" or "Breaking Changes" if touching older dependencies.
 
 ### 7. Document Findings (Research Logs)
 Create `docs/research_logs/{feature_name}.md`. Must Include:
-- **Internal References:** "Follows pattern found in `backend/routers/auth.py`."
+- **Internal References:** "Follows pattern found in `path/to/existing/file`."
 - **API Signatures:** Verified from current documentation.
 - **Workspace Gotchas:** Specific issues found in this repo's history/code.
 

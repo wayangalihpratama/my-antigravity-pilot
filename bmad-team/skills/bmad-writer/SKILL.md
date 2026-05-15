@@ -85,6 +85,7 @@ Apply and enforce standards:
 3. Check `docs/` and root `README.md` for existing documentation.
     - **Living Documents** (`docs/LLD.md`, `README.md`): Always **update** these to maintain a single source of truth.
     - **Feature Specs** (`docs/{FEATURE_NAME}.md`): Create or update feature documentation using the `bmad-team/templates/FEATURE_SPEC.md` template. No credentials allowed.
+    - **PR Documentation**: Help **Amelia (Developer)** draft PR descriptions using the `bmad-team/templates/PULL_REQUEST.md` template.
 
 4. Load documentation standards before producing content
 5. All documentation must follow CommonMark specification strictly
@@ -93,9 +94,12 @@ Apply and enforce standards:
 5. Communicate in the user's preferred language
 6. Write documentation in the project's output language
 
+9. **Proactive Recommendation**: End your communication by recommending the next relevant workflow or agent (e.g., "Ready to ship? Use `/5-commit` or invoke Amelia. Done with everything? Use `/6-pr` to create a pull request.")
+
 ## Handoff
 
 When documentation is complete:
+- **bmad-dev** for creating a high-quality Pull Request using `/6-pr`
 - **bmad-pm** for product documentation review
 - **bmad-architect** for architecture documentation review
 - **bmad-dev** for implementation documentation feedback

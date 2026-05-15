@@ -1,39 +1,59 @@
 ---
-description: Integrate phase - end-to-end connectivity and service integration
+description: Integrate phase - test adapters with real infrastructure
 ---
 
-# Phase 3: Integrate (Full Stack)
+# Phase 3: Integrate (Generic)
 
 ## Purpose
-Ensure that the newly implemented features work correctly across the entire stack, from React frontend to FastAPI backend and the database.
+Verify that adapter implementations (Databases, Cache, External APIs) interact correctly with real infrastructure.
+
+## Prerequisites
+- **Phase 2 (Implement)** completed with unit tests passing.
+- Infrastructure (Docker, Staging, etc.) running and accessible.
+
+## When Required
+- Any code involving database persistence.
+- Integration with external services (APIs, Webhooks).
+- Message queues or cache implementations.
 
 ## Steps
 
-**Set Mode:** Use `task_boundary` to set mode to **EXECUTION**.
+### 1. Setup Integration Environment
+Ensure all required services are running.
 
-### 1. Verify API Connectivity
-- Ensure the React frontend can talk to the FastAPI backend.
-- Check CORS settings in `backend/main.py`.
-- Verify the Axios/Fetch base URL matches the Docker service (`http://backend:8000`).
+```bash
+# Example: Ensure services are up
+./dc.sh up -d
+```
 
-### 2. Manual End-to-End Walkthrough
-- Use the Browser tool to navigate the application.
-- Perform the primary user journey (e.g., Create -> List -> Update -> Delete).
-- Verify data persistence in the database.
+### 2. Integration Testing
+Run tests that interact with real services:
+- Verify database migrations and schema updates.
+- Test real API responses (or use recorded mocks/VCR).
 
-### 3. Cross-Component Consistency
-- Verify the JSON response from the backend matches the Pydantic `Response` schema and the React component's expected data structure.
-- Ensure error messages from the backend are gracefully displayed in the frontend.
+### 3. API Contract Verification
+Verify that the frontend and backend contracts are satisfied.
+- Check generated API documentation (e.g., Swagger/OpenAPI).
+- Run E2E tests if applicable.
 
-### 4. Docker Environment Check
-- Restart services: `./dc.sh down && ./dc.sh up -d`
-- Check logs for any startup errors: `./dc.sh logs -f`
+### 4. Manual Verification & UX Sync
+- Verify behavior under real network/data conditions.
+- Ensure loading states and error toasts work as expected.
+
+## Development Commands
+
+> [!NOTE]
+> These are placeholder commands. Run `/align-stack` to update them for your project.
+
+```bash
+# Run integration tests
+./dc.sh exec backend pytest tests/integration
+```
 
 ## Completion Criteria
-- [ ] Frontend and Backend communicate without CORS errors
-- [ ] Primary user journey verified via Browser
-- [ ] Error messages displayed correctly in UI
-- [ ] Docker environment stable
+- [ ] Integration tests written for all adapters.
+- [ ] Environment variables and secrets handled securely.
+- [ ] No major regressions in performance or connectivity.
 
 ## Next Phase
 Proceed to **Phase 4: Verify** (`/4-verify`)

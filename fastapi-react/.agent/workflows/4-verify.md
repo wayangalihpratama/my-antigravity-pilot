@@ -1,42 +1,59 @@
 ---
-description: Verify phase - quality assurance and rule compliance check
+description: Verify phase - run full validation suite
 ---
 
-# Phase 4: Verify (QA & Compliance)
+# Phase 4: Verify (Generic)
 
 ## Purpose
-Run the full test suite and audit the implementation against all project rules and aesthetics standards.
+Run all linters, type checkers, and test suites to ensure the implementation meets the technical and quality standards.
+
+## Prerequisites
+- **Phase 3 (Integrate)** completed with all integration tests passing.
+- All unit tests passing.
+
+## If This Phase Fails
+1. **Do not proceed** to Phase 5 (Ship).
+2. Address the failure in the relevant component.
+3. Re-run the full verification suite until 100% success is achieved.
 
 ## Steps
 
 **Set Mode:** Use `task_boundary` to set mode to **VERIFICATION**.
 
-### 1. Run Full Test Suite
-- **Backend:** `./dc.sh exec backend pytest tests/ -v`
-- **Frontend:** `./dc.sh exec frontend npm run test`
+### 1. Code Quality Validation
+Run the project's quality suite:
+- **Linting**: Check for style violations.
+- **Formatting**: Ensure consistent code style.
+- **Type Checking**: Verify type safety.
 
-### 2. Linting & Formatting
-- **Backend:** `./dc.sh exec backend flake8`
-- **Frontend:** `./dc.sh exec frontend npm run lint`
-- Ensure no warnings or errors.
+### 2. Full Test Suite
+Run the complete test suite (Unit + Integration + E2E).
 
-### 3. Rule Compliance Audit
-Review the code against:
-- **Security Mandate**: No exposed secrets, proper input validation.
-- **Aesthetics**: Do the components look premium? (Gradients, animations, typography).
-- **Responsive**: Does it work on mobile viewports?
+### 3. Build Check
+Ensure the code can be built for production without errors.
 
-### 4. Create Walkthrough
-Prepare a `walkthrough.md` in the artifacts directory:
-- Include screenshots/recordings of the UI.
-- List all tests that passed.
-- Document any architectural decisions or "gotchas" found.
+### 4. Coverage Audit
+Verify that domain logic meets the project's coverage mandates (default target: >85%).
+
+## Development Commands
+
+> [!NOTE]
+> These are placeholder commands. Run `/align-stack` to update them for your project.
+
+```bash
+# Linting
+./dc.sh exec backend flake8
+./dc.sh exec frontend npm run lint
+
+# Build
+./dc.sh exec frontend npm run build
+```
 
 ## Completion Criteria
-- [ ] All tests passing
-- [ ] Zero linting/formatting errors
-- [ ] Rule compliance verified
-- [ ] Walkthrough artifact created
+- [ ] All linting and formatting checks pass.
+- [ ] Production build succeeds.
+- [ ] Overall coverage meets the project target.
+- [ ] Accessibility (WCAG) and Performance targets verified.
 
 ## Next Phase
-Proceed to **Phase 5: Commit** (`/5-commit`)
+Proceed to **Phase 5: Ship** (`/5-commit`)

@@ -1,11 +1,11 @@
 ---
-description: Research phase - deep context discovery and workspace knowledge gathering for Strapi/Next.js
+description: Research phase - deep context discovery and workspace knowledge gathering
 ---
 
 # Phase 1: Research (Workspace Optimized)
 
 ## Purpose
-Understand the request context by analyzing the existing codebase and gathering project-specific technical knowledge before implementation, following Strapi v5 and Next.js 15 standards.
+Understand the request context by analyzing the existing codebase and gathering project-specific technical knowledge before implementation.
 
 ## Steps
 
@@ -21,17 +21,17 @@ Parse the user's request and cross-reference with the project state:
 - **Context:** Check `docs/` and `agent_docs/` to align with the project's current phase.
 - **Analyst Collaboration**: For complex domain logic, invoke **Mary (Business Analyst)** for deep research.
 
-### 2. Repository Reconnaissance (Strapi/Next.js Context)
+### 2. Repository Reconnaissance (Internal KB)
 Search the current workspace to understand:
-- **Architecture:** Identify relevant content-types in `backend/` and components in `frontend/`. Invoke **Winston (Architect)** for structural guidance.
-- **Patterns:** Locate similar implementations (e.g., existing API controllers, frontend hooks, or Strapi policies) to ensure consistency.
-- **Dependencies:** Review `package.json` in both `backend/` and `frontend/` for specific versions.
+- **Architecture:** Identify relevant modules. Invoke **Winston (Architect)** for structural guidance.
+- **Patterns:** Locate similar implementations to ensure consistency.
+- **Dependencies:** Review dependency files (e.g., `package.json`, `requirements.txt`, `composer.json`) for specific versions.
 
 ### 3. Build Mental Model
 Inventory the "Knowns":
 - **Business Logic:** Derived from existing requirements and specs.
-- **Technical Constraints:** Limitations of the current stack (Strapi v5, Next.js 15, PostgreSQL).
-- **Integration Points:** Where exactly the new code touches the old (API endpoints, frontend layouts).
+- **Technical Constraints:** Limitations of the current stack.
+- **Integration Points:** Where exactly the new code touches the old.
 
 ### 4. Define Scope & Task Boundary
 Create a plan with bite-sized atomic tasks in `task.md`:
@@ -39,20 +39,18 @@ Create a plan with bite-sized atomic tasks in `task.md`:
 - **Sprint Planning**: If this is a new feature, invoke **Bob (Scrum Master)** to create stories and a sprint plan in `agent_docs/`.
 
 ### 5. Identify Research Topics
-List specific technologies (e.g., Strapi Middleware, Next.js Server Actions) that need verification.
+List specific technologies and internal patterns that need verification.
 
-### 6. Technical & Documentation Research (Docs-First Mandate)
-Perform targeted queries for the project's specific versions and **always refer to official documentation first**:
-- Use **Web Search** to find official docs (e.g., "Strapi v5 documentation", "Next.js 15 official docs").
-- Validate every technical decision against the latest **Best Practices (2024-2026)**.
+### 6. Technical & Documentation Research
+Perform targeted queries for the project's specific versions:
+- Use **Web Search** for exact versions.
 - Search for "Migration Guides" or "Breaking Changes" if touching older dependencies.
-- Use **Antigravity's Researcher Persona** to synthesize findings into the LLD.
 
 ### 7. Document Findings (Research Logs)
 Create `docs/research_logs/{feature_name}.md`. Must Include:
-- **Internal References:** "Follows pattern found in `backend/src/api/auth/controllers/auth.js`."
+- **Internal References:** "Follows pattern found in `path/to/existing/file`."
 - **API Signatures:** Verified from current documentation.
-- **Workspace Gotchas:** Specific issues found in this repo's history (e.g., CORS issues with Strapi).
+- **Workspace Gotchas:** Specific issues found in this repo's history/code.
 
 ### 8. Architectural Decision Records (ADRs)
 If structural changes are needed, invoke **Winston (Architect)** to create an ADR at `docs/decisions/NNNN-title.md`.

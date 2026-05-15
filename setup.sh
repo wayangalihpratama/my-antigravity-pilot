@@ -334,6 +334,7 @@ main() {
             update_directory "${BMAD_TEAM_DIR}/rules" "${project_agent_dir}/rules"
             update_directory "${BMAD_TEAM_DIR}/skills" "${project_agent_dir}/skills"
             update_directory "${BMAD_TEAM_DIR}/workflows" "${project_agent_dir}/workflows"
+            update_directory "${BMAD_TEAM_DIR}/templates" "${project_agent_dir}/templates"
             echo ""
         done
 
@@ -407,7 +408,8 @@ main() {
     update_directory "${BMAD_TEAM_DIR}/rules" "${target_agent_dir}/rules"
     update_directory "${BMAD_TEAM_DIR}/skills" "${target_agent_dir}/skills"
     update_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
-    print_success "BMAD team rules, skills, and workflows merged"
+    update_directory "${BMAD_TEAM_DIR}/templates" "${target_agent_dir}/templates"
+    print_success "BMAD team rules, skills, workflows, and templates merged"
 
     # Step 4: Bootstrap docs/ directory
     print_info "Bootstrapping docs/ directory ..."

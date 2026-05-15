@@ -2,41 +2,38 @@
 description: TDD implementation workflow
 ---
 
-# Phase 2: Implement (FastAPI & Next.js)
+# Phase 2: Implement (Generic)
 
 ## Purpose
-Write production code following a strict **Mobile-First Design** approach and **Test-Driven Development (TDD)** principles to ensure high-quality, maintainable features.
+Write production code following a strict **Test-Driven Development (TDD)** principles and project-specific design patterns.
 
 ## Prerequisites
 - **Phase 1 (Research)** completed with a confirmed Specification.
 - **Sprint Plan & Stories** (Status: Approved) available in `agent_docs/`.
-- **Developer Collaboration**: Invoke **Amelia (Developer)** for core logic and **Sally (UX)** for frontend styling and mobile-first verification.
+- **Developer Collaboration**: Invoke **Amelia (Developer)** for core logic and **Sally (UX)** for frontend styling.
 
 ## Steps
 
 **Set Mode:** Use `task_boundary` to set mode to **EXECUTION**.
 
-### 1. Mobile-First Workspace Setup
-Before coding, define the mobile viewport constraints:
-- **Sally Collaboration**: Review the UI requirements for mobile-first breakpoints and layout.
-- Use Tailwind CSS responsive utilities (`sm:`, `md:`, `lg:`) starting from the base (mobile) style.
+### 1. Workspace Setup
+Before coding, ensure the environment is ready:
+- Review the requirements for responsive design or backend constraints.
+- Identify the correct test runner and command wrapper (e.g., `./dc.sh`, `npm`, `pytest`).
 
 ### 2. TDD Cycle: RED (Failing Test)
 Create the test files first:
-- **Backend (Python):** Create `backend/tests/test_{feature_name}.py`. Use class-based `pytest`.
-- **Frontend (Next.js):** Co-locate `*.test.tsx` within the component folder.
+- Locate the project's test directory (e.g., `tests/`, `backend/tests/`, `src/__tests__`).
 - Write a test that fails because the feature does not exist yet.
 
 ### 3. TDD Cycle: GREEN (Minimal Code)
 Write **only** the code necessary to make the tests pass:
-- **Mobile-First Implementation**: Build the UI for mobile viewports *first*.
-- **Amelia Collaboration**: Ensure backend routers and schemas follow Pydantic v2 validation.
+- Follow the project's coding standards (e.g., Pydantic v2, React 19, Laravel Eloquent).
 - Verify that the tests now pass.
 
 ### 4. TDD Cycle: REFACTOR (Blue)
 Improve the code while keeping the tests green:
-- **Styling**: Add desktop-specific styles (`lg:`, etc.) only after the mobile view is perfect.
-- **Code Quality**: Ensure type hinting, logging, and proper dependency injection.
+- **Quality**: Ensure type hinting, logging, and proper documentation.
 - **Story Alignment**: Verify work against the specific Acceptance Criteria (UAC/TAC).
 
 ### 5. Repeat
@@ -44,16 +41,18 @@ Continue the Red-Green-Refactor cycle for each story requirement until the task 
 
 ## Development Commands
 
-```bash
-# Python: Run specific class
-./dc.sh exec backend python -m pytest backend/tests/test_feature.py -v
+> [!NOTE]
+> These are placeholder commands. Run `/align-stack` to update them for your project.
 
-# Frontend: Run Jest tests
-./dc.sh exec frontend yarn test
+```bash
+# Backend Tests
+./dc.sh exec backend pytest
+
+# Frontend Tests
+./dc.sh exec frontend npm test
 ```
 
 ## Completion Criteria
-- [ ] Mobile-First Design verified and confirmed
 - [ ] Unit tests passing (TDD cycle strictly followed)
 - [ ] Implementation aligns with UAC/TAC in `agent_docs/stories/`
 - [ ] Error handling and logging added

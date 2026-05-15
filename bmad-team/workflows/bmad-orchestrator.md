@@ -166,6 +166,21 @@ For every phase, check both `docs/` and `agent_docs/`:
 
 ---
 
+### Phase 9: Pull Request 🚀
+**Agent**: bmad-dev (Amelia, Developer)
+**Goal**: Create a high-quality PR following HackerOne guidelines
+**Steps**:
+1. Review the committed changes and documentation.
+2. Delegate to the `/6-pr` workflow.
+3. Use the `bmad-team/templates/PULL_REQUEST.md` template to draft the description.
+4. Present the PR description to the user for final approval.
+**Artifacts Produced**:
+- Pull Request description
+- Created PR (if approved)
+**Gate**: PR created and shared with the user
+
+---
+
 ## Phase Management
 
 ### Progress Tracking
@@ -204,3 +219,4 @@ Users may start from any phase if prerequisites are met:
 | 6. Implement | Amelia | bmad-dev | Working Code |
 | 7. Test | Murat | bmad-tester | Test Strategy |
 | 8. Document | Paige | bmad-writer | Final Docs (`docs/`) |
+| 9. Pull Request | Amelia | bmad-dev | PR Description |

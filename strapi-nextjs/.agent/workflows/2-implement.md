@@ -2,44 +2,38 @@
 description: TDD implementation workflow
 ---
 
-# Phase 2: Implement (Strapi & Next.js)
+# Phase 2: Implement (Generic)
 
 ## Purpose
-Write production code following a strict **Mobile-First Design** approach, **Test-Driven Development (TDD)** principles, and **DRY (Don't Repeat Yourself)** methodology. Ensure **Premium Aesthetics** (smooth animations, high-fidelity UI) for both the Strapi backend and Next.js frontend.
+Write production code following a strict **Test-Driven Development (TDD)** principles and project-specific design patterns.
 
 ## Prerequisites
 - **Phase 1 (Research)** completed with a confirmed Specification.
 - **Sprint Plan & Stories** (Status: Approved) available in `agent_docs/`.
-- **Developer Collaboration**: Invoke **Amelia (Developer)** for core logic and **Sally (UX)** for frontend styling and mobile-first verification.
+- **Developer Collaboration**: Invoke **Amelia (Developer)** for core logic and **Sally (UX)** for frontend styling.
 
 ## Steps
 
 **Set Mode:** Use `task_boundary` to set mode to **EXECUTION**.
 
-### 1. Mobile-First Workspace Setup
-Before coding, define the mobile viewport constraints:
-- **Sally Collaboration**: Review the UI requirements for mobile-first breakpoints and layout.
-- Use Tailwind CSS responsive utilities (`sm:`, `md:`, `lg:`) starting from the base (mobile) style.
+### 1. Workspace Setup
+Before coding, ensure the environment is ready:
+- Review the requirements for responsive design or backend constraints.
+- Identify the correct test runner and command wrapper (e.g., `./dc.sh`, `npm`, `pytest`).
 
 ### 2. TDD Cycle: RED (Failing Test)
 Create the test files first:
-- **Backend (Strapi):** Create tests in `backend/tests/`.
-- **Frontend (Next.js):** Co-locate `*.test.tsx` within the component folder.
-- Write a test that fails because the feature or API endpoint does not exist yet.
+- Locate the project's test directory (e.g., `tests/`, `backend/tests/`, `src/__tests__`).
+- Write a test that fails because the feature does not exist yet.
 
 ### 3. TDD Cycle: GREEN (Minimal Code)
 Write **only** the code necessary to make the tests pass:
-- **Strapi Implementation**: Create/Modify content-types, controllers, or services.
-- **Mobile-First UI**: Build the UI components for mobile viewports *first*.
-- **Amelia Collaboration**: Ensure backend logic follows Strapi v5 best practices.
+- Follow the project's coding standards (e.g., Pydantic v2, React 19, Laravel Eloquent).
 - Verify that the tests now pass.
 
 ### 4. TDD Cycle: REFACTOR (Blue)
 Improve the code while keeping the tests green:
-- **DRY Audit**: Check for duplicate logic and abstract into shared utilities or components.
-- **Premium UI**: Enhance the interface with smooth transitions, micro-animations, and high-fidelity styling (Antigravity standard).
-- **Styling**: Add desktop-specific styles after the mobile view is perfect.
-- **Strapi Polish**: Ensure policies, middlewares, and permissions are correctly configured.
+- **Quality**: Ensure type hinting, logging, and proper documentation.
 - **Story Alignment**: Verify work against the specific Acceptance Criteria (UAC/TAC).
 
 ### 5. Repeat
@@ -47,18 +41,21 @@ Continue the Red-Green-Refactor cycle for each story requirement until the task 
 
 ## Development Commands
 
-```bash
-# Backend: Run Strapi tests
-./dc.sh exec backend npm test
+> [!NOTE]
+> These are placeholder commands. Run `/align-stack` to update them for your project.
 
-# Frontend: Run Vitest
+```bash
+# Backend Tests
+./dc.sh exec backend pytest
+
+# Frontend Tests
 ./dc.sh exec frontend npm test
 ```
 
 ## Completion Criteria
-- [ ] Mobile-First Design verified and confirmed
 - [ ] Unit tests passing (TDD cycle strictly followed)
 - [ ] Implementation aligns with UAC/TAC in `agent_docs/stories/`
+- [ ] Error handling and logging added
 - [ ] Document Sync: Update `agent_docs/sprint-plan.md` and stories (Actual Time, Status)
 
 ## Next Phase

@@ -2,59 +2,60 @@
 description: TDD implementation workflow
 ---
 
-# Phase 2: Implement (Laravel)
+# Phase 2: Implement (Generic)
 
 ## Purpose
-Write production code following a strict **Mobile-First Design** approach and **Test-Driven Development (TDD)** principles, adhering to the highest Laravel standards.
+Write production code following a strict **Test-Driven Development (TDD)** principles and project-specific design patterns.
 
 ## Prerequisites
 - **Phase 1 (Research)** completed with a confirmed Specification.
 - **Sprint Plan & Stories** (Status: Approved) available in `agent_docs/`.
-- **Developer Collaboration**: Invoke **Amelia (Developer)** for backend logic and **Sally (UX)** for frontend styling and mobile-first verification.
+- **Developer Collaboration**: Invoke **Amelia (Developer)** for core logic and **Sally (UX)** for frontend styling.
 
 ## Steps
 
 **Set Mode:** Use `task_boundary` to set mode to **EXECUTION**.
 
-### 1. TDD Cycle: RED (Failing Test)
-Before writing any application code, create the feature tests:
-- **Backend (PHP):** Create `tests/Feature/{Feature}Test.php`.
-- **Sally Collaboration**: Ensure the test includes assertions for responsive design requirements if applicable.
-- Write a failing test using `php artisan test`.
+### 1. Workspace Setup
+Before coding, ensure the environment is ready:
+- Review the requirements for responsive design or backend constraints.
+- Identify the correct test runner and command wrapper (e.g., `./dc.sh`, `npm`, `pytest`).
 
-### 2. TDD Cycle: GREEN (Minimal Code)
-Write **only** the code necessary to make the tests pass, following the Laravel layer sequence:
-- **Database**: Migrations and Seeders.
-- **Model**: Eloquent models with relations and casts.
-- **Logic**: Service layer and Form Requests.
-- **Controller**: Resource controllers with Policy authorization.
-- **Mobile-First UI**: Implement the frontend (Inertia/React) for **mobile viewports first**. Use Sally's guidance for layout constraints.
-- Verify that `php artisan test` now passes.
+### 2. TDD Cycle: RED (Failing Test)
+Create the test files first:
+- Locate the project's test directory (e.g., `tests/`, `backend/tests/`, `src/__tests__`).
+- Write a test that fails because the feature does not exist yet.
 
-### 3. TDD Cycle: REFACTOR (Blue)
-Improve the core while keeping the tests green:
-- **Styling**: Add desktop-optimized styles after the mobile view is perfect.
-- **Cleanup**: Run `vendor/bin/pint` for formatting.
+### 3. TDD Cycle: GREEN (Minimal Code)
+Write **only** the code necessary to make the tests pass:
+- Follow the project's coding standards (e.g., Pydantic v2, React 19, Laravel Eloquent).
+- Verify that the tests now pass.
+
+### 4. TDD Cycle: REFACTOR (Blue)
+Improve the code while keeping the tests green:
+- **Quality**: Ensure type hinting, logging, and proper documentation.
 - **Story Alignment**: Verify work against the specific Acceptance Criteria (UAC/TAC).
 
-### 4. Repeat
+### 5. Repeat
 Continue the Red-Green-Refactor cycle for each story requirement until the task is complete.
 
 ## Development Commands
 
-```bash
-# Run tests
-docker compose exec app php artisan test --filter={Feature}
+> [!NOTE]
+> These are placeholder commands. Run `/align-stack` to update them for your project.
 
-# Code Formatting
-docker compose exec app ./vendor/bin/pint
+```bash
+# Backend Tests
+./dc.sh exec backend pytest
+
+# Frontend Tests
+./dc.sh exec frontend npm test
 ```
 
 ## Completion Criteria
-- [ ] Mobile-First Design verified and confirmed
-- [ ] Unit/Feature tests passing (TDD cycle strictly followed)
+- [ ] Unit tests passing (TDD cycle strictly followed)
 - [ ] Implementation aligns with UAC/TAC in `agent_docs/stories/`
-- [ ] Code follows Laravel best practices (Migrations, Models, Policies)
+- [ ] Error handling and logging added
 - [ ] Document Sync: Update `agent_docs/sprint-plan.md` and stories (Actual Time, Status)
 
 ## Next Phase

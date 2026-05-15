@@ -24,13 +24,13 @@ Parse the user's request and cross-reference with the project state:
 ### 2. Repository Reconnaissance (Internal KB)
 Search the current workspace to understand:
 - **Architecture:** Identify relevant modules. Invoke **Winston (Architect)** for structural guidance.
-- **Patterns:** Locate similar implementations (e.g., existing CRUD logic, routers, services, React hooks) to ensure consistency.
-- **Dependencies:** Review `requirements.txt` and `package.json` for specific versions.
+- **Patterns:** Locate similar implementations to ensure consistency.
+- **Dependencies:** Review dependency files (e.g., `package.json`, `requirements.txt`, `composer.json`) for specific versions.
 
 ### 3. Build Mental Model
 Inventory the "Knowns":
 - **Business Logic:** Derived from existing requirements and specs.
-- **Technical Constraints:** Limitations of the current stack (FastAPI, React + Vite).
+- **Technical Constraints:** Limitations of the current stack.
 - **Integration Points:** Where exactly the new code touches the old.
 
 ### 4. Define Scope & Task Boundary
@@ -43,23 +43,23 @@ List specific technologies and internal patterns that need verification.
 
 ### 6. Technical & Documentation Research
 Perform targeted queries for the project's specific versions:
-- Use **Web Search** for exact versions (e.g., "Vite React patterns", "FastAPI dependency injection").
+- Use **Web Search** for exact versions.
 - Search for "Migration Guides" or "Breaking Changes" if touching older dependencies.
 
 ### 7. Document Findings (Research Logs)
-Create `agent_docs/research-findings-{slug}.md`. Must Include:
-- **Internal References:** "Follows pattern found in `frontend/src/features/auth/hooks/useAuth.js`."
+Create `docs/research_logs/{feature_name}.md`. Must Include:
+- **Internal References:** "Follows pattern found in `path/to/existing/file`."
 - **API Signatures:** Verified from current documentation.
 - **Workspace Gotchas:** Specific issues found in this repo's history/code.
 
 ### 8. Architectural Decision Records (ADRs)
-If structural changes are needed, invoke **Winston (Architect)** to create an ADR at `agent_docs/adrs/ADR-NNN-title.md`.
+If structural changes are needed, invoke **Winston (Architect)** to create an ADR at `docs/decisions/NNNN-title.md`.
 
 ## Completion Criteria
 - [ ] Specification verified and confirmed with the user
 - [ ] Workspace analyzed (Patterns & Versions identified)
 - [ ] `task.md` created with file-specific atomic tasks
-- [ ] Research log created referencing internal and external sources
+- [ ] Research log created at `docs/research_logs/{feature_name}.md`
 - [ ] ADR created if architectural patterns are deviated from
 
 ## Next Phase

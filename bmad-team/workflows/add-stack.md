@@ -27,7 +27,7 @@ Follow these steps to add a new self-contained tech stack to the repo.
 2. Create stack-specific patterns and CRUD skills.
 
 ## 5. Populate Workflows
-1. Create standard workflows: `1-research`, `2-implement`, `3-integrate`, `4-verify`, `5-commit`.
+1. Create standard workflows: `1-research`, `2-implement`, `3-integrate`, `4-verify`, `5-commit`, `6-pr`.
 2. Adjust commands and paths to match the stack.
 
 ## 6. Integration & Verification
