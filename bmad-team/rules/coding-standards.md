@@ -62,11 +62,11 @@ The BMAD Method adheres to industry-leading coding principles to ensure maintain
 ## 3. Readability & Clarity
 
 ### Descriptive Naming
-- Use clear, full names for variables and functions. 
+- Use clear, full names for variables and functions.
 - **Rule**: Avoid abbreviations (use `calculateTotal` instead of `calcTot` or `qty`). Avoid generic names like `temp` or `data` unless the scope is extremely narrow (e.g., a 2-line loop).
 
 ### Meaningful Comments
-- Focus on the **"why"** rather than the "how". 
+- Focus on the **"why"** rather than the "how".
 - **Rule**: Code should be self-explanatory. Use comments only for complex logic, business rules, or "hacks" that aren't immediately obvious.
 
 ### Consistent Formatting
