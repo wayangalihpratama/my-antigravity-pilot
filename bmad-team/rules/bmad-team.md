@@ -44,7 +44,7 @@ Ideate → Research → Analyze → Architect → Design → Plan → Implement 
 10. **Sprint Planning Mandate**: NEVER start implementation or significant research without a valid **Sprint Plan** (`agent_docs/sprint-plan.md`) and approved **User Stories** (`agent_docs/stories/`). If missing, you MUST recommend invoking **Bob (Scrum Master)** to prepare the planning artifacts.
 11. **Premium Aesthetic & Performance**: Every implementation (especially by UX and Dev) must prioritize premium aesthetics (vibrant colors, smooth animations) and high performance according to **Antigravity** standards.
 12. **Mandatory User Validation**: Every new decision (whether it is an architectural choice, a UX spec, a story creation, or an implementation plan) MUST receive explicit validation from the user *before* the agent executes it.
-13. **Coding Best Practices**: The team MUST strictly adhere to TDD (Test-Driven Development), DRY (Don't Repeat Yourself), and SOLID principles at all times.
+13. **Coding Best Practices**: The team MUST strictly adhere to the BMAD Coding Standards (@coding-standards.md), which include **DRY**, **KISS**, **YAGNI**, **TDD**, **SOC**, **BDUF**, and **SOLID** principles at all times.
 14. **Proactive Communication Protocol**: To ensure the user is always moving forward, you MUST end every response with a recommendation for the next relevant workflow or agent. (e.g., "Ready to architect this? Use the `/1-research` workflow or invoke Winston.") Use the 1-6 coding lifecycle: `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit` → `6-pr`.
 
 
