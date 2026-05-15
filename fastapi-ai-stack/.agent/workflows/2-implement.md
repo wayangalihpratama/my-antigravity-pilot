@@ -54,9 +54,9 @@ Continue the Red-Green-Refactor cycle for each story requirement until the task 
 
 ## Completion Criteria
 - [ ] Unit tests passing (TDD cycle strictly followed)
-- [ ] **Coding Standards**: Code complies with **DRY, KISS, YAGNI, SOC, and SOLID** (@coding-standards.md)
+- [ ] **Standards**: Complies with **DRY, KISS, SOLID, Readability, and Reliability** (@coding-standards.md)
+- [ ] **Security**: User inputs sanitized and validated
 - [ ] Implementation aligns with UAC/TAC in `agent_docs/stories/`
-- [ ] Error handling and logging added
 - [ ] Document Sync: Update `agent_docs/sprint-plan.md` and stories (Actual Time, Status)
 
 ## Next Phase

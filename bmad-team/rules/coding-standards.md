@@ -35,7 +35,7 @@ The BMAD Method adheres to industry-leading coding principles to ensure maintain
 
 ---
 
-## 2. SOLID Principles (JavaScript & Beyond)
+## 2. SOLID Principles
 
 ### S – Single Responsibility Principle
 - A function, class, or module should have one, and only one, reason to change.
@@ -55,15 +55,56 @@ The BMAD Method adheres to industry-leading coding principles to ensure maintain
 
 ### D – Dependency Inversion Principle
 - Depend on abstractions, not concretions.
-- **Check**: Inject dependencies (e.g., dispatchers, listeners) rather than hardcoding specific implementations. This enables easier testing and switching of providers.
+- **Check**: Inject dependencies (e.g., dispatchers, listeners) rather than hardcoding specific implementations.
 
 ---
 
-## 3. Mandatory Validation
+## 3. Readability & Clarity
+
+### Descriptive Naming
+- Use clear, full names for variables and functions. 
+- **Rule**: Avoid abbreviations (use `calculateTotal` instead of `calcTot` or `qty`). Avoid generic names like `temp` or `data` unless the scope is extremely narrow (e.g., a 2-line loop).
+
+### Meaningful Comments
+- Focus on the **"why"** rather than the "how". 
+- **Rule**: Code should be self-explanatory. Use comments only for complex logic, business rules, or "hacks" that aren't immediately obvious.
+
+### Consistent Formatting
+- Maintain a uniform coding style (indentation, spacing, line breaks).
+- **Rule**: Use project-standard formatters (e.g., Prettier for JS, Black for Python, Pint for Laravel) for automation.
+
+### Avoid Magic Values
+- Replace hardcoded numbers or strings with named constants or enumerations.
+- **Rule**: Never use naked strings or numbers in logic.
+
+---
+
+## 4. Reliability & Maintenance
+
+### Error Handling
+- Manage exceptions gracefully to prevent crashes and provide helpful error messages.
+- **Rule**: Always use try-catch blocks in critical operations and log errors appropriately.
+
+### FIRST Testing Principle
+- **Fast**: Tests should run quickly.
+- **Independent**: Tests should not depend on each other.
+- **Repeatable**: Tests should yield the same result every time.
+- **Self-Validating**: Tests should have a clear pass/fail result.
+- **Timely**: Tests should be written just before the production code (TDD).
+
+### Security
+- **Rule**: Always validate and sanitize user inputs to protect against common vulnerabilities (XSS, SQL Injection). Use built-in framework protections.
+
+### Refactor Regularly
+- Periodically review and clean up code to improve structure without changing external behavior.
+
+---
+
+## 5. Mandatory Validation
 
 Before finalizing any implementation, Amelia must verify:
-- [ ] Is the code **DRY**? (No redundant logic)
-- [ ] Is it **KISS**? (Minimal complexity)
-- [ ] Is it **YAGNI**-compliant? (No extra features/dependencies)
-- [ ] Did it follow **TDD**? (Tests exist and pass)
-- [ ] Does it respect **SOLID**? (SRP, OCP, LSP, ISP, DIP)
+- [ ] **Core**: DRY, KISS, YAGNI, SOC, and TDD followed.
+- [ ] **SOLID**: SRP, OCP, LSP, ISP, DIP principles respected.
+- [ ] **Readability**: Descriptive naming, no magic values, consistent formatting.
+- [ ] **Reliability**: Graceful error handling and FIRST-compliant tests.
+- [ ] **Security**: Inputs sanitized and validated.
