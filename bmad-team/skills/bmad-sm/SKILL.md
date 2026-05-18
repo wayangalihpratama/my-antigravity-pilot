@@ -46,6 +46,7 @@ Generate complete user stories from PRD + Architecture:
 ### Definition of Done
 - [ ] Unit tests passing
 - [ ] Integration tests for API
+- [ ] Code complies with BMAD Coding Standards (@coding-standards.md) (DRY, KISS, YAGNI, SOC, SOLID, Readability, Reliability, Security)
 - [ ] Code reviewed
 - [ ] Documentation updated
 ```
