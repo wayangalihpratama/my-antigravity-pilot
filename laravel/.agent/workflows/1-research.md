@@ -47,19 +47,19 @@ Perform targeted queries for the project's specific versions:
 - Search for "Migration Guides" or "Breaking Changes" if touching older dependencies.
 
 ### 7. Document Findings (Research Logs)
-Create `docs/research_logs/{feature_name}.md`. Must Include:
+Create `agent_docs/research_logs/{feature_name}.md`. Must Include:
 - **Internal References:** "Follows pattern found in `path/to/existing/file`."
 - **API Signatures:** Verified from current documentation.
 - **Workspace Gotchas:** Specific issues found in this repo's history/code.
 
 ### 8. Architectural Decision Records (ADRs)
-If structural changes are needed, invoke **Winston (Architect)** to create an ADR at `docs/decisions/NNNN-title.md`.
+If structural changes are needed, invoke **Winston (Architect)** to create an ADR at `agent_docs/decisions/NNNN-title.md`.
 
 ## Completion Criteria
 - [ ] Specification verified and confirmed with the user
 - [ ] Workspace analyzed (Patterns & Versions identified)
 - [ ] `task.md` created with file-specific atomic tasks
-- [ ] Research log created at `docs/research_logs/{feature_name}.md`
+- [ ] Research log created at `agent_docs/research_logs/{feature_name}.md`
 - [ ] ADR created if architectural patterns are deviated from
 
 ## Next Phase

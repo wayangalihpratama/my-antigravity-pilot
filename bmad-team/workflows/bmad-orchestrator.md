@@ -63,7 +63,7 @@ For every phase, check both `docs/` and `agent_docs/`:
 4. Refine Feature Specification with hardened requirements
 **Artifacts Produced**:
 - `docs/{FEATURE_NAME}.md` (refined — git-tracked)
-- `agent_docs/research-findings.md` (internal notes)
+- `agent_docs/research_logs/` (internal research logs and findings)
 **Gate**: All requirements are testable and traceable
 
 ---
@@ -213,7 +213,7 @@ Users may start from any phase if prerequisites are met:
 |-------|-------|-------|------------|
 | 1. Ideate | John | bmad-pm | Feature Spec (`docs/`) |
 | 2. Analyze | Mary | bmad-analyst | Refined Feature Spec |
-| 3. Architect | Winston | bmad-architect | LLD + ADRs (`docs/`) |
+| 3. Architect | Winston | bmad-architect | LLD (`docs/`) + ADRs (`agent_docs/`) |
 | 4. Design | Sally | bmad-ux | UX Specification |
 | 5. Plan | Bob | bmad-sm | User Stories (`agent_docs/`) |
 | 6. Implement | Amelia | bmad-dev | Working Code |

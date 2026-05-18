@@ -13,7 +13,8 @@ Sprint-level coordination artifacts. High-velocity, frequently changing.
 
 - `sprint-plan.md` — Current sprint tracking
 - `stories/` — User stories and acceptance criteria
-- `research-logs/` or `research-findings.md` — Raw research, technical investigations, and brainstorming notes
+- `research_logs/` — Raw research, technical investigations, and brainstorming notes (formerly `research-logs/`)
+- `decisions/` — Architectural Decision Records (ADRs) and design choices
 - `product-brief.md` — Ephemeral internal product brief
 
 ### `docs/` — Shared Project Documentation (IN git)

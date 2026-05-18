@@ -29,7 +29,7 @@ Design the system architecture:
 
 ### 2. Architecture Decision Records (ADRs)
 
-Create structured ADRs for significant decisions. ADRs are documented inline within the relevant feature spec (`docs/{FEATURE_NAME}.md`) or the LLD (`docs/LLD.md`). No separate `adr/` directory.
+Create structured ADRs for significant decisions. ADRs are documented inline within the relevant feature spec (`docs/{FEATURE_NAME}.md`) or the LLD (`docs/LLD.md`), or created as standalone records under `agent_docs/decisions/`. No separate shared `adr/` or `docs/decisions/` directory should be created.
 
 ```
 ## ADR-NNN: [Title]
