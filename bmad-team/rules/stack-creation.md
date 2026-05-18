@@ -16,6 +16,14 @@ description: When creating a new stack directory or adding rules/skills/workflow
    └── workflows/
    ```
 
+### Dockerization Strategy
+
+Every stack created from zero MUST adhere to the standard Dockerization strategy:
+1. **Docker Wrapper Script (`dc.sh`)**: Every stack must include a `./dc.sh` bash script in its root as a standardized wrapper for `docker compose` commands (e.g., `./dc.sh up -d`, `./dc.sh exec [service] [command]`). All commands referenced in `.agent` workflows and rules must use this wrapper.
+2. **Compose Configurations (`compose.yml`)**:
+   - The stack must utilize `compose.yml` (the modern standard replacing `docker-compose.yml`) for local development orchestration.
+   - Separate configurations or overrides (e.g., `compose.prod.yml` or production-optimized Dockerfiles) should be defined for production parity.
+
 ### Required Rules (Minimum)
 
 Every stack MUST include at minimum:
