@@ -20,8 +20,8 @@ The BMAD (Business-Model-Architecture-Development) Method defines a structured p
 | 🧪 Tester | Murat | Test Architect | Test strategy, CI/CD, quality gates |
 | 📚 Writer | Paige | Tech Writer | API docs, architecture docs, user guides |
 
-Ideate → Research → Analyze → Architect → Design → Plan → Implement → Test → Document
- (PM)  (Analyst) (Analyst) (Architect)  (UX)     (SM)    (Dev)     (Tester) (Writer)
+Plan & Estimate → Ideate → Research → Analyze → Architect → Design → Plan → Implement → Test → Document
+  (PM/SM)       (PM)   (Analyst) (Analyst) (Architect)  (UX)     (SM)    (Dev)     (Tester) (Writer)
 ```
 
 > [!IMPORTANT]
@@ -45,7 +45,7 @@ Ideate → Research → Analyze → Architect → Design → Plan → Implement 
 11. **Premium Aesthetic & Performance**: Every implementation (especially by UX and Dev) must prioritize premium aesthetics (vibrant colors, smooth animations) and high performance according to **Antigravity** standards.
 12. **Mandatory User Validation**: Every new decision (whether it is an architectural choice, a UX spec, a story creation, or an implementation plan) MUST receive explicit validation from the user *before* the agent executes it.
 13. **Coding Best Practices**: The team MUST strictly adhere to the BMAD Coding Standards (@coding-standards.md), which include **DRY**, **KISS**, **YAGNI**, **TDD**, **SOC**, **BDUF**, and **SOLID** principles at all times.
-14. **Proactive Communication Protocol**: To ensure the user is always moving forward, you MUST end every response with a recommendation for the next relevant workflow or agent. (e.g., "Ready to architect this? Use the `/1-research` workflow or invoke Winston.") Use the 1-6 coding lifecycle: `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit` → `6-pr`.
+14. **Proactive Communication Protocol**: To ensure the user is always moving forward, you MUST end every response with a recommendation for the next relevant workflow or agent. (e.g., "Ready to plan/estimate this feature? Use the `/0-planning` workflow. Ready to implement? Use `/1-research` or `/2-implement`.") Use the planning and implementation lifecycle: `0-planning` → `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit` → `6-pr`.
 
 
 ### Invoking Agents

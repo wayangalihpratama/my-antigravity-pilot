@@ -35,7 +35,7 @@ The **BMAD (Business-Model-Architecture-Development) Method** provides 8 special
 | 🧪 Tester | Murat | Test Architect | `bmad-tester` | Code | Test Strategy & Gates |
 | 📚 Writer | Paige | Tech Writer | `bmad-writer` | Artifacts | User/System Documentation |
 
-**Lifecycle:** Ideate (PM) → Analyze (Analyst) → Architect → Design (UX) → Plan (SM) → Implement (Dev) → Test (Tester) → Document (Writer)
+**Lifecycle:** Plan & Estimate (PM/SM) → Ideate (PM) → Analyze (Analyst) → Architect → Design (UX) → Plan (SM) → Implement (Dev) → Test (Tester) → Document (Writer)
 
 ---
 
@@ -108,6 +108,7 @@ We have built-in tooling to make this easier:
 
 | Component | Role | Description |
 |-----------|------|-------------|
+| **`/0-planning`** | Workflow | Guides feature planning, scoping (PRD), and ballpark estimations, then halts. |
 | **`/2-implement`** | Workflow | Automates the TDD cycle. Hardcodes the steps so you don't forget them. |
 | **`bmad-dev`** | Agent | Amelia is prompted to *refuse* code requests without a test plan. |
 | **`testing-strategy.md`** | Rule | Defines valid test patterns (Pytest classes, Jest specs). |
@@ -222,8 +223,8 @@ Each stack directory follows this structure:
 - `fastapi-crud` — Step-by-step CRUD endpoint creation
 - `nextjs-patterns` — Next.js 15 best practices & Tailwind patterns
 
-**6 Workflows:**
-- `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
+**7 Workflows:**
+- `0-planning` → `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
 - `orchestrator` — Coordinates the full development cycle
 
 ### Laravel
@@ -246,8 +247,8 @@ Each stack directory follows this structure:
 - `filament-admin` — Filament 3 admin panel: resources, widgets, access control
 - `inertia-react-patterns` — Inertia.js forms, navigation, Tailwind responsive patterns
 
-**6 Workflows:**
-- `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
+**7 Workflows:**
+- `0-planning` → `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
 - `orchestrator` — Coordinates the full development cycle (Laravel docs-aligned)
 
 ### FastAPI + React
@@ -268,8 +269,8 @@ Each stack directory follows this structure:
 - `guardrails` — Pre-flight checklist & post-implementation self-review
 - `react-crud` — Full vertical feature generation (Pydantic → Router → Feature Components)
 
-**8 Workflows:**
-- `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
+**9 Workflows:**
+- `0-planning` → `1-research` → `2-implement` → `3-integrate` → `4-verify` → `5-commit`
 - `align-stack` — Ensures `.agent` configuration matches project reality
 - `orchestrator` — Coordinates the full development cycle
 - `sprint-status` — Provides a clear overview of sprint progress

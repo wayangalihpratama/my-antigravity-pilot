@@ -24,7 +24,10 @@ Before starting:
     - `agent_docs/` for sprint plans and stories (local only)
 
 5. Ask the user: "**Is this a new feature, refinement, refactor, minor bug, or a general task?**"
-6. **Scale-Adaptive Routing**: If the task is a minor bug, minor refactor, or small ticket, immediately switch to the `/bmad-fastpath` workflow. Only proceed with the full 8-agent orchestrator phase below if it is a major feature or architectural change.
+6. **Scale-Adaptive Routing**:
+    - If the task is a minor bug, minor refactor, or small ticket, immediately switch to the `/bmad-fastpath` workflow.
+    - If the task is a new feature that needs scoping, detailed requirements, and ballpark estimation before any implementation begins, switch to the `/0-planning` workflow.
+    - Only proceed with the full 8-agent orchestrator phase below if it is a major feature or architectural change.
 7. Ask if the user wants to run all phases or start from a specific phase (if continuing with the orchestrator).
 
 
@@ -38,6 +41,16 @@ For every phase, check both `docs/` and `agent_docs/`:
 4. `docs/LLD.md` is a living document — always update it when architecture changes.
 
 
+
+### Phase 0: Plan & Estimate (Optional) 📋
+**Agent**: bmad-pm (John, Product Manager) & bmad-sm (Bob, Scrum Master)
+**Goal**: Define a detailed PRD/specification and ballpark estimation before starting implementation.
+**Steps**:
+1. Load the `0-planning` workflow.
+2. Complete all sections of `docs/{FEATURE_NAME}_spec.md` (Overview, User Journey, Must-Have/Nice-to-Have/Out-of-Scope, Edge cases, Telemetry, and ballpark Epic estimations).
+**Gate**: User reviews and approves the specification, then manually triggers implementation.
+
+---
 
 ### Phase 1: Ideate 📋
 **Agent**: bmad-pm (John, Product Manager)
@@ -211,6 +224,7 @@ Users may start from any phase if prerequisites are met:
 
 | Phase | Agent | Skill | Key Output |
 |-------|-------|-------|------------|
+| 0. Plan & Estimate | John & Bob | bmad-pm / bmad-sm | Feature Spec (`docs/`) & Ballpark Estimates |
 | 1. Ideate | John | bmad-pm | Feature Spec (`docs/`) |
 | 2. Analyze | Mary | bmad-analyst | Refined Feature Spec |
 | 3. Architect | Winston | bmad-architect | LLD (`docs/`) + ADRs (`agent_docs/`) |
