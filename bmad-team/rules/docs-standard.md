@@ -9,42 +9,59 @@ Documentation is split into two directories with distinct purposes:
 
 ### `agent_docs/` — Local Agent State (NOT in git)
 
-Sprint-level coordination artifacts. High-velocity, frequently changing.
+Sprint-level execution artifacts. High-velocity, frequently changing.
 
 - `sprint-plan.md` — Current sprint tracking
 - `stories/` — User stories and acceptance criteria
-- `research_logs/` — Raw research, technical investigations, and brainstorming notes (formerly `research-logs/`)
-- `decisions/` — Architectural Decision Records (ADRs) and design choices
-- `product-brief.md` — Ephemeral internal product brief
+- `research_logs/` — Raw research, technical investigations, and brainstorming notes
+- `decisions/` — Architectural Decision Records (ADRs) and design choices (local drafts)
 
 ### `docs/` — Shared Project Documentation (IN git)
 
-The source of truth for all developers and stakeholders. Flat structure — one `.md` per topic.
+The versioned source of truth for all developers, agents, and stakeholders. Structured in subdirectories:
 
 ```
 docs/
-├── LLD.md                    # Living low-level design (always updated)
-├── PRD.md                    # Product Requirements Document
-├── STORAGE_SYSTEM.md         # Feature specification
-└── USER_REGISTRATION.md      # Feature specification
+├── architecture_map.md       # Living global system overview & module registry
+├── briefs/                   # Product Briefs (1 per product or major release)
+│   └── product_v2_brief.md
+├── prd/                      # Product Requirements Documents (1 per initiative/epic)
+│   └── agent_memory_prd.md
+└── lld/                      # Low-Level Designs (1 per feature, component, or service)
+    ├── tool_schema_validation_lld.md
+    └── memory_retrieval_lld.md
 ```
 
-### Feature Specification Format
+### System Architecture Map
 
-Every new feature MUST have a dedicated `docs/{FEATURE_NAME}.md` following the template in `bmad-team/templates/FEATURE_SPEC.md`. This document is the **approved brainstorming contract** — it must be reviewed and approved by the user before any sprint planning or implementation begins.
+`docs/architecture_map.md` is a living, global document mapping the overall system modules, shared code locations, main database entities/schemas, and API prefixes. Feature-specific LLDs under `docs/lld/` must reference this map (via Markdown links) for shared components to avoid duplicating schemas and code structures.
 
-### LLD (Low-Level Design)
+### Product Brief & PRD Development
 
-`docs/LLD.md` is a **living document** that gets updated as the system evolves. It describes:
-- System architecture and module decomposition
-- Data models and schemas
-- Integration points and API contracts
-- Security patterns
+Every new product release or major cycle starts with a Product Brief in `docs/briefs/`. Once approved, it is translated by the PM into one or more initiative-level PRDs under `docs/prd/`. These documents must be reviewed and approved before LLDs or development begins.
+
+### LLD (Low-Level Design) Development
+
+Every feature, component, or service listed in a PRD must have its own dedicated LLD file under `docs/lld/{feature}_lld.md` following the template in `bmad-team/templates/LLD.md`. The LLD is the technical blueprint that must be completed and reviewed before task implementation.
+
+### Spike Mode Documentation
+
+During experimental prototyping spikes, all intermediate notes, schema changes, and API updates are tracked in `agent_docs/spike_notes.md` under the header `## Micro-Retrofit Log`. Developers must log these changes incrementally immediately after completing each subtask or test case. When a spike is ready for production merge, these logged changes are used to create the git-tracked PRD and LLD documents before the merge request can be opened.
+
+### "Dirty LLD" Tagging Standard
+
+If a design constraint is modified mid-sprint, the developer appends a tag to the top of the relevant `docs/lld/{feature}_lld.md` file:
+```markdown
+<!-- DIRTY_AMENDMENT: [Brief description of change, e.g. Added user_type to USERS table, approved by Winston 2026-05-28] -->
+```
+This serves as a visual indicator to all other engineers that the LLD is out-of-sync with active code execution. The Tech Writer (`bmad-writer`) is responsible for compiling these tags, updating the LLD specifications, and clearing the tags during Phase 8.
+
+**Git Diff Safety Net Audit**: To safeguard against omitted tags, the Tech Writer MUST execute `git diff origin/main --name-only` at the beginning of the Document phase to systematically discover any undocumented changes in database schemas, model files, or API routes, aligning them before finalizing docs.
 
 ### Implementation-Doc Synchronization
 
 > [!IMPORTANT]
-> For every completed task, you MUST ensure that all relevant documentation (`docs/LLD.md`, `docs/{FEATURE_NAME}.md`, and `README.md`) is perfectly aligned with the actual implementation.
+> For every completed task, you MUST ensure that all relevant documentation (`docs/lld/{feature}_lld.md`, the corresponding `docs/prd/{initiative}_prd.md`, `docs/architecture_map.md`, and `README.md`) is perfectly aligned with the actual implementation.
 > 1. **Check Discrepancies**: Look for mismatches in API contracts, data models, or feature behavior.
 > 2. **Resolve**: Update the documentation if the implementation is correct, or fix the implementation if it deviates from the approved specification.
 > 3. **Verify with User**: Explicitly ask the user to confirm the alignment before proceeding to the commit phase.
