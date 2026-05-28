@@ -11,8 +11,8 @@ Understand the request context by analyzing the existing codebase and gathering 
 
 ### 0. Specification Verification
 Before starting research, you MUST verify the requirements:
-- **Check for Spec**: Look in `docs/` for an existing feature specification (e.g., `docs/{FEATURE_NAME}.md`).
-- **User Confirmation**: Ask the user: "Is {spec_name}.md the correct specification for this task?" or "Should I create a new feature specification using the template?"
+- **Check for Spec**: Look in `docs/prd/` and `docs/lld/` for the corresponding initiative PRD and feature LLD (unless Spike Mode is active).
+- **User Confirmation**: Ask the user: "Are these the correct PRD and LLD documents for this task?" or "Should I create new PRD/LLD specifications using the templates?"
 - **PM Collaboration**: If requirements are ambiguous, invoke **John (Product Manager)** to clarify.
 
 ### 1. Analyze Request & Workspace Context
@@ -56,7 +56,7 @@ Create `agent_docs/research_logs/{feature_name}.md`. Must Include:
 If structural changes are needed, invoke **Winston (Architect)** to create an ADR at `agent_docs/decisions/NNNN-title.md`.
 
 ## Completion Criteria
-- [ ] Specification verified and confirmed with the user
+- [ ] PRD and LLD verified and confirmed with the user (unless in Spike Mode)
 - [ ] Workspace analyzed (Patterns & Versions identified)
 - [ ] `task.md` created with file-specific atomic tasks
 - [ ] Research log created at `agent_docs/research_logs/{feature_name}.md`

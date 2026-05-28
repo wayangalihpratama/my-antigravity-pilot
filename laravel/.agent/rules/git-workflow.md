@@ -56,7 +56,7 @@ When creating a PR:
 > **NEVER** perform `git commit` or `git push` automatically. You MUST ask for and receive explicit confirmation from the user before executing these commands.
 >
 > **Protocol**:
-1. **Doc Alignment Check**: Verify that `docs/LLD.md`, feature specs (`docs/{FEATURE_NAME}.md`), and the implementation are perfectly aligned. If there are discrepancies, update the docs or implementation as needed.
+1. **Doc Alignment Check**: Verify that the corresponding `docs/lld/{feature}_lld.md`, `docs/prd/{initiative}_prd.md`, `docs/architecture_map.md`, and the implementation are perfectly aligned. If there are discrepancies, update the docs or implementation as needed.
 2. **Sprint Status Check**: Verify that the `agent_docs/sprint-plan.md` and relevant stories are updated (statuses, actual time spent, and AC checklists).
 3. **User Confirmation**: Present the alignment and sprint status to the user and ask: "Is the documentation aligned and the sprint plan updated?"
 4. **Atomic Commit Strategy**: Analyze the changed files and logical updates. Determine if the changes should be split into multiple atomic commits. Propose a commit split plan to the user.

@@ -454,7 +454,7 @@ main() {
     echo -e "  ${BOLD}Workflows:${NC}  ${total_workflows} workflows"
     echo ""
     echo -e "  ${BOLD}Documentation:${NC}"
-    echo -e "    📂 docs/           → Shared (git-tracked): LLD.md + feature specs"
+    echo -e "    📂 docs/           → Shared (git-tracked): briefs/, prd/, lld/ (versioned docs)"
     echo -e "    📂 agent_docs/     → Local (gitignored): sprint plans + stories"
     echo -e "    📂 .agent/         → Local (gitignored): rules, skills, workflows"
     echo ""
