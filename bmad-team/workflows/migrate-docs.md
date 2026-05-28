@@ -24,9 +24,10 @@ Scan `agent_docs/` and move **shared documentation** into `docs/`. Follow this m
 
 | Old Location | New Location | Action |
 |-------------|-------------|--------|
-| `agent_docs/architecture.md` | `docs/LLD.md` | Move + rename. Merge with any existing `agent_docs/architecture-*.md` variants. |
-| `agent_docs/adrs/*.md` | Inline in `docs/LLD.md` | Append ADRs as a section within `docs/LLD.md`. |
-| `agent_docs/features/*.md` | `docs/{FEATURE_NAME}.md` | Move each feature doc as a standalone file. Reformat to match `bmad-team/templates/FEATURE_SPEC.md` template. |
+| `agent_docs/product-brief.md` | `docs/briefs/{product}_brief.md` | Move and rename. Reformat using the `PRODUCT_BRIEF.md` template. |
+| `agent_docs/prd.md` / `docs/*_spec.md` | `docs/prd/{initiative}_prd.md` | Move and rename. Reformat using the `PRD.md` template. |
+| `agent_docs/architecture.md` / `docs/LLD.md` | `docs/lld/{feature}_lld.md` | Break up into granular low-level design files per feature/component using the `LLD.md` template. |
+| Global schema/ADR indexes | `docs/architecture_map.md` | Bootstrap the System Architecture Map with global configurations and core entity ERDs. |
 
 > [!CAUTION]
 > Do NOT move sprint plans, stories, research notes, or internal PRDs. These stay in `agent_docs/`.
@@ -36,10 +37,9 @@ Scan `agent_docs/` and move **shared documentation** into `docs/`. Follow this m
 These files must **remain** in `agent_docs/` (NOT moved):
 - `sprint-plan.md`
 - `stories/`
-- `research-findings*.md`
-- `prd.md`, `product-brief.md`
+- `research_logs/`
+- `decisions/` (local drafts)
 - `ux-design-specification*.md`
-- `index.md`
 - `strapi-learning-guide.md` or similar learning notes
 
 ### Step 4: Update `.gitignore`
@@ -71,8 +71,8 @@ Show the user:
 - Suggested commit message
 
 ## Completion Criteria
-- [ ] `docs/` contains `LLD.md` and feature specs
-- [ ] `agent_docs/` contains only sprint/story/research artifacts
+- [ ] `docs/` contains `briefs/`, `prd/`, and `lld/` subdirectories
+- [ ] `agent_docs/` contains only sprint/story execution artifacts
 - [ ] `.gitignore` excludes `.agent/` and `agent_docs/`
 - [ ] No credentials in `docs/`
 - [ ] User has reviewed and approved the migration

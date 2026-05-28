@@ -1,10 +1,10 @@
 ---
-description: Analyze the codebase and generate an initial Low-Level Design (LLD) document in `docs/LLD.md`.
+description: Analyze the codebase and generate an initial Low-Level Design (LLD) document under `docs/lld/{feature}_lld.md`.
 ---
 
 # 🏗️ Generate Initial LLD
 
-Use this workflow when a project lacks comprehensive documentation or when you need to bootstrap `docs/LLD.md` with structural insights from the existing codebase.
+Use this workflow when a project lacks comprehensive documentation or when you need to bootstrap a specific LLD under `docs/lld/{feature}_lld.md` with structural insights from the existing codebase.
 
 ## Steps
 
@@ -17,10 +17,10 @@ Use this workflow when a project lacks comprehensive documentation or when you n
 // turbo
 - Identify main application entry points.
 - Map out the directory structure and module boundaries.
-- Extract data schemas (database, API contracts).
+- Extract data schemas (database, API contracts) for the component.
 
 ### 3. Draft the LLD
-Create `docs/LLD.md` using this structure:
+Create `docs/lld/{feature}_lld.md` using this structure:
 - **System Summary**: High-level purpose and stack.
 - **Module Decomposition**: Breakdown of folders and their responsibilities.
 - **Data Architecture**: Schema definitions and flow.
@@ -29,8 +29,8 @@ Create `docs/LLD.md` using this structure:
 
 ### 4. Review for Safety
 // turbo
-- Verify that `docs/LLD.md` contains NO credentials, API keys, or PII.
+- Verify that the LLD contains NO credentials, API keys, or PII.
 - Follow the `docs-standard.md` no-credentials policy.
 
 ### 5. Finalize
-- Present the LLD to the user for approval.
+- Present the generated LLD to the user for approval.

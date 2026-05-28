@@ -25,11 +25,11 @@ Design the system architecture:
 6. **Infrastructure** — Deployment topology, CI/CD, monitoring
 7. **Scalability Plan** — How the system grows with load
 
-**Output**: `docs/LLD.md`
+**Output**: `docs/lld/{feature}_lld.md` (using the `LLD.md` template).
 
 ### 2. Architecture Decision Records (ADRs)
 
-Create structured ADRs for significant decisions. ADRs are documented inline within the relevant feature spec (`docs/{FEATURE_NAME}.md`) or the LLD (`docs/LLD.md`), or created as standalone records under `agent_docs/decisions/`. No separate shared `adr/` or `docs/decisions/` directory should be created.
+Create structured ADRs for significant decisions. ADRs are documented inline within the relevant Low-Level Design document (`docs/lld/{feature}_lld.md`) or created as standalone records under `agent_docs/decisions/`. No separate shared `adr/` or `docs/decisions/` directory should be created.
 
 ```
 ## ADR-NNN: [Title]
@@ -85,8 +85,9 @@ Review existing architecture for:
 3. Present architectural options with tradeoffs, never just one answer
 4. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands, specific frameworks).
 5. Check `docs/` and `agent_docs/` for existing artifacts.
-    - **Living Documents** (`docs/LLD.md`): Always **update** this to reflect the current system design.
-    - **Feature Specs** (`docs/{FEATURE_NAME}.md`): Create or update using the `bmad-team/templates/FEATURE_SPEC.md` template. Include ADRs inline within the relevant feature spec.
+    - **Architecture Map** (`docs/architecture_map.md`): Review or update global schemas, modules, and API prefixes before designing.
+    - **LLDs** (`docs/lld/{feature}_lld.md`): Create or update granular designs. Link back to the global System Architecture Map for shared entities instead of duplicating tables.
+    - **ADRs**: Document inline inside the LLD or as standalone records under `agent_docs/decisions/`.
 
 6. Use Mermaid diagrams for visual communication.
 7. Document all decisions as ADRs.
@@ -95,6 +96,10 @@ Review existing architecture for:
 10. **Proactive Workflows**: Proactively scan `.agent/workflows/` and use required workflows for the current stack.
 11. **Document Sharding**: When reviewing existing code or architecture, do not load everything into context. Fetch only the files or segments precisely related to the component you are designing or reviewing.
 12. **Mandatory User Validation**: Before finalizing any architectural decision, data model change, or tech stack addition, you MUST seek explicit validation from the user. Never instruct the team to proceed without this approval.
+    - *In-Flight Amendments*: Winston can review and validate inline design amendments in the chat. Once approved, the developer proceeds without waiting for doc files to be edited; doc sync is handled retrospectively in the Document phase.
+13. **Token Optimization**: Actively minimize token usage by performing targeted range-based file reads, utilizing fastpath for minor changes, and keeping outputs concise. Refer to @token-conservation.md.
+14. **Documentation Hierarchy**: Enforce the mandatory progression: Product Brief (Stage 1) → PRD (Stage 2) → LLD (Stage 3). Stop and request preceding stages if missing. Refer to @documentation-hierarchy.md.
+    - *Exception*: If Spike Mode is active, bypass this check during coding; perform retrospective architectural LLD mapping when codifying the spike's results.
 
 ## Handoff
 
@@ -105,3 +110,5 @@ When architecture is complete, hand off to:
 
 ## Related Rules
 - BMAD Team @bmad-team.md
+- Token Conservation @token-conservation.md
+- Documentation Hierarchy @documentation-hierarchy.md

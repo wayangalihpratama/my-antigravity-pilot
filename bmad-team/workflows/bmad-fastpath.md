@@ -5,8 +5,8 @@ description: Scale-Adaptive BMAD workflow for small bugs, minor refactors, and f
 # BMAD Fastpath Workflow ⚡
 
 **CRITICAL INSTRUCTION**
-This workflow is ONLY for minor tasks. Do NOT use this for large features or architectural overhauls.
-If the task introduces new paradigms, dependencies, or broad impacts, switch to `/bmad-orchestrator.md`.
+This workflow is ONLY for minor tasks and is activated on `hotfix/` or `bugfix/` branches. Do NOT use this for large features or architectural overhauls.
+If the branch prefix is `spike/` or `experiment/`, switch to Spike Mode. If the branch prefix is `feature/` or `release/`, switch to `/bmad-orchestrator.md` for the Standard Lifecycle.
 
 ## Role
 
@@ -50,9 +50,9 @@ You are the BMAD Orchestrator executing the Fastpath. This streamlined pipeline 
 **Agent**: bmad-writer
 **Goal**: Changelog, commit (with confirmation), and docs update
 1. Load `bmad-writer`
-2. Update the README or changelog if applicable.
-3. If the fix changes documented behavior, update the relevant `docs/{FEATURE_NAME}.md`.
-4. Update `docs/LLD.md` if the system architecture is affected.
+2. Run the **Git Diff Safety Net** check (`git diff origin/main --name-only`) to discover all modified files, routes, or schemas.
+3. Update the README or changelog if applicable.
+4. If the changes affect documented behavior, database schemas, or routing, retrospectively sync any inline In-Flight Amendments or detected diff changes to the PRD at `docs/prd/{initiative}_prd.md`, the System Architecture Map (`docs/architecture_map.md`), and the granular LLD at `docs/lld/{feature}_lld.md`. Clear any `<!-- DIRTY_AMENDMENT -->` tags.
 5. **Mandatory Git Confirmation**: Verify that all documentation is perfectly aligned with the implementation and determine if the changes should be split into **atomic commits**. Show the proposed commit split plan, message(s), and list of changed files to the user. Ask for explicit permission for the **doc alignment**, the **commit split plan**, and the final **git commit/push**.
 
 ## Completion

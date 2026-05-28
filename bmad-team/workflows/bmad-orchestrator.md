@@ -20,14 +20,15 @@ Before starting:
 2. **Detect the current stack** (e.g., FastAPI/Next.js, Laravel, Streamlit) by checking the directory name and its `.agent/rules/`.
 3. Create an `agent_docs/` directory for internal sprint artifacts
 4. **Check for existing artifacts**:
-    - `docs/` for shared feature specs and LLD (git-tracked)
+    - `docs/briefs/`, `docs/prd/`, and `docs/lld/` (git-tracked)
     - `agent_docs/` for sprint plans and stories (local only)
 
-5. Ask the user: "**Is this a new feature, refinement, refactor, minor bug, or a general task?**"
-6. **Scale-Adaptive Routing**:
-    - If the task is a minor bug, minor refactor, or small ticket, immediately switch to the `/bmad-fastpath` workflow.
-    - If the task is a new feature that needs scoping, detailed requirements, and ballpark estimation before any implementation begins, switch to the `/0-planning` workflow.
-    - Only proceed with the full 8-agent orchestrator phase below if it is a major feature or architectural change.
+5. Run `git branch --show-current` to identify the active branch name and its prefix.
+6. **Scale-Adaptive Routing (Deterministic Branch Routing)**:
+    - If the branch prefix is `spike/` or `experiment/`, immediately activate **Spike Mode** (bypass Phase 0-5, execute coding directly, log changes under `## Micro-Retrofit Log` in `agent_docs/spike_notes.md`, and retro-fit all design docs at Phase 8).
+    - If the branch prefix is `hotfix/` or `bugfix/`, immediately route to the `/bmad-fastpath` workflow.
+    - If the branch prefix is `feature/` or `release/`, route to the Standard Lifecycle (Phase 0 Planning or Phase 1 Ideate).
+    - For untracked branches, ask the user: "Is this a new feature (Standard Mode), an experimental prototype (Spike Mode), or a minor fix (Fastpath)?"
 7. Ask if the user wants to run all phases or start from a specific phase (if continuing with the orchestrator).
 
 
@@ -36,9 +37,9 @@ Before starting:
 **CRITICAL: DOCUMENTATION MAINTENANCE**
 For every phase, check both `docs/` and `agent_docs/`:
 1. Read existing artifacts first.
-2. Feature specs go to `docs/{FEATURE_NAME}.md` (shared, git-tracked, follows `bmad-team/templates/FEATURE_SPEC.md`).
-3. Sprint plans and stories go to `agent_docs/` (local only).
-4. `docs/LLD.md` is a living document — always update it when architecture changes.
+2. Product Briefs go to `docs/briefs/{release_or_product}_brief.md`, PRDs go to `docs/prd/{initiative}_prd.md`, and LLDs go to `docs/lld/{feature}_lld.md`. All of these are versioned in Git.
+3. Sprint plans and user stories go to `agent_docs/` (local only).
+4. Low-Level Designs (LLDs) are granularly stored per feature, component, or service and always updated when architecture changes.
 
 
 
@@ -47,22 +48,22 @@ For every phase, check both `docs/` and `agent_docs/`:
 **Goal**: Define a detailed PRD/specification and ballpark estimation before starting implementation.
 **Steps**:
 1. Load the `0-planning` workflow.
-2. Complete all sections of `docs/{FEATURE_NAME}_spec.md` (Overview, User Journey, Must-Have/Nice-to-Have/Out-of-Scope, Edge cases, Telemetry, and ballpark Epic estimations).
-**Gate**: User reviews and approves the specification, then manually triggers implementation.
+2. Complete all sections of `docs/prd/{initiative}_prd.md` (Overview, Goals, User Stories, Functional/Non-Functional Requirements, Scope, Edge cases, Telemetry, and ballpark Epic estimations).
+**Gate**: User reviews and approves the PRD, then manually triggers implementation.
 
 ---
 
 ### Phase 1: Ideate 📋
 **Agent**: bmad-pm (John, Product Manager)
-**Goal**: Define project vision (Skeleton) or feature requirements
+**Goal**: Define product vision/release brief or initiative requirements (PRD)
 **Steps**:
 1. Load the bmad-pm skill
-2. For "Feature" or "Refinement" tasks, create a **Feature Specification** in `docs/{FEATURE_NAME}.md` using the `bmad-team/templates/FEATURE_SPEC.md` template.
-3. For "General Task" or "Vision Change", update `agent_docs/prd.md` or `agent_docs/product-brief.md`.
+2. Create/update a **Product Brief** at `docs/briefs/{product}_brief.md` using the `bmad-team/templates/PRODUCT_BRIEF.md` template for a major release.
+3. Translate the approved Product Brief into one or more initiative-level **PRDs** at `docs/prd/{initiative}_prd.md` using the `bmad-team/templates/PRD.md` template.
 **Artifacts Produced**:
-- `docs/{FEATURE_NAME}.md` (New/Update — git-tracked)
-- `agent_docs/product-brief.md`, `agent_docs/prd.md` (internal only)
-**Gate**: User approves the Feature Specification before proceeding
+- `docs/briefs/{product}_brief.md` (Stage 1 — git-tracked)
+- `docs/prd/{initiative}_prd.md` (Stage 2 — git-tracked)
+**Gate**: User approves the Product Brief/PRD before proceeding
 
 ---
 
@@ -71,11 +72,11 @@ For every phase, check both `docs/` and `agent_docs/`:
 **Goal**: Deepen and validate requirements
 **Steps**:
 1. Load the bmad-analyst skill
-2. Review Feature Specification from Phase 1 (`docs/{FEATURE_NAME}.md`)
-3. Conduct deep research on key areas
-4. Refine Feature Specification with hardened requirements
+2. Review PRD from Phase 1 (`docs/prd/{initiative}_prd.md`)
+3. Conduct deep research on key areas and user stories
+4. Refine PRD with hardened functional requirements (FR-xxx)
 **Artifacts Produced**:
-- `docs/{FEATURE_NAME}.md` (refined — git-tracked)
+- `docs/prd/{initiative}_prd.md` (refined — git-tracked)
 - `agent_docs/research_logs/` (internal research logs and findings)
 **Gate**: All requirements are testable and traceable
 
@@ -83,17 +84,16 @@ For every phase, check both `docs/` and `agent_docs/`:
 
 ### Phase 3: Architect 🏗️
 **Agent**: bmad-architect (Winston, Architect)
-**Goal**: Design the technical architecture
+**Goal**: Design the technical architecture and low-level specifications
 **Steps**:
 1. Load the bmad-architect skill
-2. Review refined Feature Spec from Phase 2
-3. Design system architecture with tech stack decisions
-4. Document ADRs inline in `docs/{FEATURE_NAME}.md` or `docs/LLD.md`
-5. Design data model and API contracts
+2. Review refined PRD from Phase 2
+3. Design component architecture, data models, and API contracts
+4. Document architectural decisions (ADRs) inline inside `docs/lld/{feature}_lld.md`
+5. Generate developer-ready LLD at `docs/lld/{feature}_lld.md` using the `bmad-team/templates/LLD.md` template.
 **Artifacts Produced**:
-- `docs/LLD.md` (updated)
-- `docs/{FEATURE_NAME}.md` (architecture section updated)
-**Gate**: Architecture reviewed and approved
+- `docs/lld/{feature}_lld.md` (Stage 3 — new/updated — git-tracked)
+**Gate**: LLD reviewed and approved by Tech Lead/User
 
 ---
 
@@ -163,19 +163,24 @@ For every phase, check both `docs/` and `agent_docs/`:
 
 ### Phase 8: Document 📚
 **Agent**: bmad-writer (Paige, Tech Writer)
-**Goal**: Create comprehensive technical documentation
+**Goal**: Create comprehensive technical documentation, retrospectively sync in-flight amendments, and codify spikes.
 **Steps**:
 1. Load the bmad-writer skill
-2. Review all artifacts from previous phases
-3. Update `docs/LLD.md` with final architecture
-4. Update `docs/{FEATURE_NAME}.md` with implementation details
-5. Update `README.md`
+2. Review all artifacts and code changes. Proactively run the **Git Diff Safety Net** check (`git diff origin/main --name-only`) to identify all modified code schemas, model files, or routing paths. Locate any **In-Flight Design Amendments**, `<!-- DIRTY_AMENDMENT -->` tags, or **Spike Notes** (`agent_docs/spike_notes.md`).
+3. If Spike Mode was active, run a retrospective documentation cycle (utilizing the parsed git diff and spike notes to auto-retrofit):
+    - Retrofit the Product Brief (`docs/briefs/`), PRD (`docs/prd/`), and LLD (`docs/lld/`) with the detected structural shifts.
+    - Add the spike record to the Retrospective Spike Log in `docs/architecture_map.md`.
+4. If in-flight design amendments were made or structural changes were detected by the git diff:
+    - Update `docs/lld/{feature}_lld.md`, `docs/prd/{initiative}_prd.md`, and `docs/architecture_map.md` to match final code schemas.
+    - Clear and delete all `DIRTY_AMENDMENT` tags from LLD files.
+5. Update `README.md` and standard project documents.
 6. **Mandatory Git Confirmation**: Verify that all documentation is perfectly aligned with the implementation and determine if the changes should be split into **atomic commits**. Show the proposed commit split plan, message(s), and list of changed files to the user. Ask for explicit permission for the **doc alignment**, the **commit split plan**, and the final **git commit/push**.
 **Artifacts Produced**:
-- `docs/LLD.md` (updated)
-- `docs/{FEATURE_NAME}.md` (finalized)
+- `docs/lld/{feature}_lld.md` (updated/retrofitted)
+- `docs/prd/{initiative}_prd.md` (finalized/retrofitted)
+- `docs/architecture_map.md` (updated with schema changes and logs)
 - Updated `README.md`
-**Gate**: Documentation passes quality audit
+**Gate**: Documentation passes quality audit and matches final implementation exactly.
 
 ---
 
@@ -224,13 +229,13 @@ Users may start from any phase if prerequisites are met:
 
 | Phase | Agent | Skill | Key Output |
 |-------|-------|-------|------------|
-| 0. Plan & Estimate | John & Bob | bmad-pm / bmad-sm | Feature Spec (`docs/`) & Ballpark Estimates |
-| 1. Ideate | John | bmad-pm | Feature Spec (`docs/`) |
-| 2. Analyze | Mary | bmad-analyst | Refined Feature Spec |
-| 3. Architect | Winston | bmad-architect | LLD (`docs/`) + ADRs (`agent_docs/`) |
+| 0. Plan & Estimate | John & Bob | bmad-pm / bmad-sm | PRD (`docs/prd/`) & Ballpark Estimates |
+| 1. Ideate | John | bmad-pm | Product Brief (`docs/briefs/`) / PRD (`docs/prd/`) |
+| 2. Analyze | Mary | bmad-analyst | Refined PRD (`docs/prd/`) |
+| 3. Architect | Winston | bmad-architect | LLD (`docs/lld/`) |
 | 4. Design | Sally | bmad-ux | UX Specification |
 | 5. Plan | Bob | bmad-sm | User Stories (`agent_docs/`) |
 | 6. Implement | Amelia | bmad-dev | Working Code |
 | 7. Test | Murat | bmad-tester | Test Strategy |
-| 8. Document | Paige | bmad-writer | Final Docs (`docs/`) |
+| 8. Document | Paige | bmad-writer | Final Docs (`docs/prd/` and `docs/lld/`) |
 | 9. Pull Request | Amelia | bmad-dev | PR Description |

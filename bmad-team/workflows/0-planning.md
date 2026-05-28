@@ -9,6 +9,7 @@ Define the detailed scope, user experience, requirements, edge cases, rollout st
 
 > [!IMPORTANT]
 > **NO IMPLEMENTATION / CODE CHANGES**: The agent must NOT write any implementation code, write unit tests, or run command line updates during this phase. This workflow halts immediately after generating and refining the specification document, requiring the user to explicitly invoke `/1-research` or `/2-implement` to begin development.
+> *(Note: If Spike Mode is active, this planning phase is bypassed entirely for velocity, and documentation is generated retrospectively.)*
 
 ---
 
@@ -23,8 +24,8 @@ Before creating the document, analyze the user's request and conduct a 5W1H anal
 - **Why**: Why is this feature necessary? What user pain point does it address?
 - **How**: How will it behave? Describe the high-level logic flow.
 
-### 2. Document Creation
-Create a new feature specification or PRD (Product Requirement Document) under `docs/{FEATURE_NAME}_spec.md`. The document MUST be concise, scannable, and include the following sections:
+### 2. PRD Creation
+Create or update an initiative/epic-level PRD (Product Requirements Document) under `docs/prd/{initiative}_prd.md` using the template `bmad-team/templates/PRD.md`. The document MUST be concise, scannable, and include the following sections:
 
 #### I. Overview & Goal
 - **Problem Statement**: What specific user or technical problem is being solved?
@@ -72,14 +73,14 @@ Break down the epic into high-level tasks or components (e.g., Frontend, API Bac
 
 ## Completion Criteria
 - [ ] Requirements gathered and 5W1H analyzed
-- [ ] Scannable feature specification created at `docs/{FEATURE_NAME}_spec.md` with all requested sections
+- [ ] Scannable initiative PRD created at `docs/prd/{initiative}_prd.md` using the PRD template
 - [ ] Out of Scope boundaries explicitly agreed upon
 - [ ] Ballpark estimations and epic breakdown completed
-- [ ] User has reviewed and approved the specification
+- [ ] User has reviewed and approved the PRD
 
 ## 🛑 HALT: Workflow Stop
 **STOP! Do not write code or proceed to implementation.**
-Present the finalized `docs/{FEATURE_NAME}_spec.md` to the user.
+Present the finalized `docs/prd/{initiative}_prd.md` to the user.
 
 **Handoff Protocol**:
 - To begin the next phase, the user must explicitly initiate the **`/1-research`** workflow or **`/2-implement`** workflow.

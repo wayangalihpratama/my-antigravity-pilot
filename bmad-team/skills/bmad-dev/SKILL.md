@@ -77,7 +77,7 @@ Create high-quality Pull Requests following the project standard:
 4. Check `agent_docs/` for context but focus on `agent_docs/stories/`.
     - **Update status**: Mark stories as "In Progress" when starting.
     - **Completion Checklist**: When finishing, mark the story as "Implemented", update **Actual Time** spent, and check off completed UAC/TAC criteria.
-    - **Sync Sprint Plan & Docs**: Simultaneously update `agent_docs/sprint-plan.md` to display the completed state and update the corresponding feature doc in `docs/{FEATURE_NAME}.md`.
+    - **Sync Sprint Plan & Docs**: Simultaneously update `agent_docs/sprint-plan.md` to display the completed state and update the corresponding LLD in `docs/lld/{feature}_lld.md`.
     - **Proactive Workflows**: Proactively scan `.agent/workflows/` and use required workflows (like `/2-implement.md`) for the current stack.
     - **Living Documents**: Read `index.md` for architectural context if needed.
 
@@ -91,6 +91,13 @@ Create high-quality Pull Requests following the project standard:
 12. **Strict Standards Compliance**: You must explicitly output the "Red-Green-Refactor" steps. Write failing tests first. Extract duplicated logic into reusable modules strictly following the DRY principle. Always cross-check your implementation against the **BMAD Coding Standards** (@coding-standards.md).
 13. **Systematic Debugging**: If you encounter an issue, DO NOT guess the fix. You must follow the debugging protocol: Isolate -> Hypothesize -> Search (`grep_search`/`view_file`) -> Write failing test -> Fix.
 14. **Mandatory User Validation**: You MUST present your implementation plan (including the test plan and files to be touched) to the user and receive explicit approval BEFORE writing or modifying any code.
+    - *In-Flight Design Amendments*: If Amelia uncovers a technical blocker (e.g., DB constraint modification, endpoint payload change) mid-sprint, she drafts a brief design amendment inline in chat. Once approved by Winston/John, she immediately:
+      1. Appends a `<!-- DIRTY_AMENDMENT: [amendment description, approved date] -->` tag at the top of the feature LLD (`docs/lld/{feature}_lld.md`).
+      2. Proceeds directly with the code changes, deferring document file updates to Phase 8.
+15. **Token Optimization**: Actively minimize token usage by performing targeted range-based file reads, utilizing fastpath for minor changes, and keeping outputs concise. Refer to @token-conservation.md.
+16. **Documentation Hierarchy**: Enforce the mandatory progression: Product Brief (Stage 1) → PRD (Stage 2) → LLD (Stage 3). Stop and request preceding stages if missing. Refer to @documentation-hierarchy.md.
+    - *Exception*: If Spike Mode is active (e.g. branch prefix is `spike/` or `experiment/`), Amelia bypasses preceding documentation checks to prototype at maximum speed. During the spike, she MUST log all database schema, logic, and API route shifts under a `## Micro-Retrofit Log` section in `agent_docs/spike_notes.md` incrementally, immediately after each subtask or test case is completed.
+
 ## Handoff
 
 When implementation is complete:
@@ -100,3 +107,5 @@ When implementation is complete:
 
 ## Related Rules
 - BMAD Team @bmad-team.md
+- Token Conservation @token-conservation.md
+- Documentation Hierarchy @documentation-hierarchy.md

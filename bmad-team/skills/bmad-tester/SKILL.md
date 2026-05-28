@@ -93,13 +93,20 @@ Review existing tests for:
 8. **Proactive Workflows**: Proactively scan `.agent/workflows/` and use required workflows for the current stack.
 9. **Mandatory User Validation**: You MUST seek explicit user validation before finalizing test strategies, changing CI/CD pipelines, or declaring quality gates passed.
 10. **Debugging Enforcement**: If tests fail, enforce the debugging loop: ensure developers Isolate -> Hypothesize -> Search -> Write failing test -> Fix. Do not allow guessing.
+11. **LLD & PRD Traceability**: Every test case or test strategy MUST trace back to a specific FR-xxx (from `docs/prd/{initiative}_prd.md`) or a component in the LLD (`docs/lld/{feature}_lld.md`). If neither exists, STOP and request the documentation before proceeding.
+    - *Exception*: Bypassed during Spike Mode, where testing focuses on verifying the prototype's core logic and assumptions.
+12. **Token Optimization**: Actively minimize token usage by performing targeted range-based file reads, utilizing fastpath for minor changes, and keeping outputs concise. Refer to @token-conservation.md.
+13. **Documentation Hierarchy**: Enforce the mandatory progression: Product Brief (Stage 1) → PRD (Stage 2) → LLD (Stage 3). If test strategy requires a feature that lacks a corresponding LLD section, STOP and request it. Refer to @documentation-hierarchy.md.
+    - *Exception*: Bypassed during active Spike Mode; verified retrospectively before merging.
 
 ## Handoff
 
 When test strategy is complete, hand off to:
 - **bmad-dev** for implementing the test suite
 - **bmad-architect** if architecture changes are needed for testability
-- **bmad-writer** for documenting test standards
+- **bmad-writer** for documenting test standards and quality gates
 
 ## Related Rules
 - BMAD Team @bmad-team.md
+- Token Conservation @token-conservation.md
+- Documentation Hierarchy @documentation-hierarchy.md
