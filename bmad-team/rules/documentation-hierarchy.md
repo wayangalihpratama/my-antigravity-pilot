@@ -12,13 +12,16 @@ All initiatives and features in this team MUST progress through three documentat
 ### Stage 1: Product Brief (Owner: PM / Product Lead)
 **Template**: `bmad-team/templates/PRODUCT_BRIEF.md`
 **Frequency**: One brief per product or major release cycle. It is the executive-facing north star.
-**Location**: `docs/briefs/{release_or_product}_brief.md` (shared, git-tracked)
+**Location**: `docs/briefs/{release_or_product}_brief.md` (shared, git-tracked) or `docs/product_brief.md` directly under the `docs/` folder (if present).
 Before any initiative is designed, produce a 1–2 page Product Brief containing:
 - **Problem Statement**: The specific user pain point or business gap, with supporting data
 - **Target Audience**: The primary persona(s) affected
 - **Strategic Alignment**: The company OKR or business goal this supports
 - **Success Criteria & KPIs**: Quantified, measurable outcomes with target dates
 - **Assumptions & Open Questions**: Key assumptions and unknowns to validate before the PRD
+
+> [!IMPORTANT]
+> If a `product_brief.md` file is available directly under the `docs/` folder (`docs/product_brief.md`), it MUST always be respected and followed as the primary product brief/source of truth.
 
 *Exit criterion: Brief reviewed and approved by at least one stakeholder outside the product team.*
 

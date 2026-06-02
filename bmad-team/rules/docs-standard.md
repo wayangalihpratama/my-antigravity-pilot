@@ -23,6 +23,8 @@ The versioned source of truth for all developers, agents, and stakeholders. Stru
 ```
 docs/
 ├── architecture_map.md       # Living global system overview & module registry
+├── product_brief.md          # Alternative/Override Product Brief (if present, always respect)
+├── api_contract.md           # API JSON Contract specification (if present, always respect)
 ├── briefs/                   # Product Briefs (1 per product or major release)
 │   └── product_v2_brief.md
 ├── prd/                      # Product Requirements Documents (1 per initiative/epic)
@@ -38,7 +40,7 @@ docs/
 
 ### Product Brief & PRD Development
 
-Every new product release or major cycle starts with a Product Brief in `docs/briefs/`. Once approved, it is translated by the PM into one or more initiative-level PRDs under `docs/prd/`. These documents must be reviewed and approved before LLDs or development begins.
+Every new product release or major cycle starts with a Product Brief in `docs/briefs/`. Once approved, it is translated by the PM into one or more initiative-level PRDs under `docs/prd/`. These documents must be reviewed and approved before LLDs or development begins. If a `product_brief.md` is available directly under the `docs/` folder, it must always be respected and followed as the primary product brief/source of truth.
 
 ### LLD (Low-Level Design) Development
 
@@ -61,9 +63,9 @@ This serves as a visual indicator to all other engineers that the LLD is out-of-
 ### Implementation-Doc Synchronization
 
 > [!IMPORTANT]
-> For every completed task, you MUST ensure that all relevant documentation (`docs/lld/{feature}_lld.md`, the corresponding `docs/prd/{initiative}_prd.md`, `docs/architecture_map.md`, and `README.md`) is perfectly aligned with the actual implementation.
-> 1. **Check Discrepancies**: Look for mismatches in API contracts, data models, or feature behavior.
-> 2. **Resolve**: Update the documentation if the implementation is correct, or fix the implementation if it deviates from the approved specification.
+> For every completed task, you MUST ensure that all relevant documentation (`docs/lld/{feature}_lld.md`, the corresponding `docs/prd/{initiative}_prd.md`, `docs/architecture_map.md`, `docs/api_contract.md` if present, and `README.md`) is perfectly aligned with the actual implementation.
+> 1. **Check Discrepancies**: Look for mismatches in API contracts (such as `docs/api_contract.md` specifications, payloads, types, or endpoints), data models, or feature behavior.
+> 2. **Resolve**: Update the documentation if the implementation is correct, or fix the implementation if it deviates from the approved specification or contract. If `docs/api_contract.md` exists, its API structures must be strictly respected.
 > 3. **Verify with User**: Explicitly ask the user to confirm the alignment before proceeding to the commit phase.
 
 ### No Credentials Policy
