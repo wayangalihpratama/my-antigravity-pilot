@@ -19,7 +19,7 @@ Define the high-level product goals, technical architecture (LLD), and feature i
 
 ## Steps
 
-### 1. Requirements Discovery & 5W1H
+### 1. Requirements Discovery & 5W1H (Read-Only Research)
 Before creating any document, analyze the user's request and conduct a 5W1H analysis to build a complete picture:
 - **Who**: Who are the primary actors or personas interacting with this feature?
 - **What**: What is the feature, and what are its key functional requirements?
@@ -27,12 +27,14 @@ Before creating any document, analyze the user's request and conduct a 5W1H anal
 - **When**: When does it trigger, or when in the timeline is it needed?
 - **Why**: Why is this feature necessary? What user pain point does it address?
 - **How**: How will it behave? Describe the high-level logic flow.
+- **Research Boundary**: Limit Phase 0 codebase research strictly to *interfaces, models, routes, and component boundaries*. Do NOT spend time analyzing helper logic, optimization paths, or internal function details to avoid analysis paralysis.
 
 ### 2. Project-Level PRD & LLD Alignment & Updates
 Establish the foundational design and system constraints, and check for required updates:
 - **Check for Updates**: Determine if the new feature request changes high-level system rules, core metrics, or global architecture. If yes, **update the high-level Project PRD and LLD first** before drafting individual feature specs.
 - **Project PRD (High-Level)**: Ensure a high-level Project PRD exists at `docs/prd/project_prd.md` (or transform an existing System Design Document / SDD). If missing, generate one using the `generate-prd` workflow and the `bmad-team/templates/PRD.md` template.
 - **Project LLD (Derived from PRD)**: Based on the high-level PRD, generate/align the project-level LLD at `docs/lld/project_lld.md` using the `generate-lld` workflow and the `bmad-team/templates/LLD.md` template.
+- **Modular LLD References**: If the project-level LLD becomes too large, modularize it by placing component-specific low-level designs in sub-files under `docs/lld/components/{module}_lld.md` and referencing them in the main `docs/lld/project_lld.md` index to prevent git merge conflicts.
 - **Do NOT Create Per-Feature PRD/LLD**: Avoid generating separate PRD and LLD documents for each minor feature. Keep them consolidated at the project level to prevent documentation sprawl.
 
 ### 3. Feature Specification / Implementation Plan
@@ -70,3 +72,4 @@ Present the finalized `docs/features/{feature_name}_spec.md` to the user.
 
 **Handoff Protocol**:
 - To begin the next phase, the user must explicitly initiate the **`/1-research`** workflow or **`/2-implement`** workflow.
+- **Fast-Track Option**: If the Feature Spec is complete, fully aligned, and has no open questions, the agent may ask: *"Would you like to fast-track directly into Phase 1 (Research) or Phase 2 (Implementation)?"*. If the user approves, the agent may transition immediately without stopping.

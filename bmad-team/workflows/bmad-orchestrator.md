@@ -37,19 +37,20 @@ Before starting:
 **CRITICAL: DOCUMENTATION MAINTENANCE**
 For every phase, check both `docs/` and `agent_docs/`:
 1. Read existing artifacts first.
-2. Product Briefs go to `docs/briefs/{release_or_product}_brief.md`, PRDs go to `docs/prd/{initiative}_prd.md`, and LLDs go to `docs/lld/{feature}_lld.md`. All of these are versioned in Git.
+2. Product Briefs go to `docs/briefs/{release_or_product}_brief.md`, Project PRD goes to `docs/prd/project_prd.md`, Project LLD goes to `docs/lld/project_lld.md` (or modular sub-components under `docs/lld/components/`), and Feature Specs go to `docs/features/{feature_name}_spec.md`. All of these are versioned in Git.
 3. Sprint plans and user stories go to `agent_docs/` (local only).
-4. Low-Level Designs (LLDs) are granularly stored per feature, component, or service and always updated when architecture changes.
+4. Project-Level Low-Level Designs (LLDs) describe the global system architecture, and individual Feature Specs contain specific implementation blueprints.
 
 
 
 ### Phase 0: Plan & Estimate (Optional) 📋
 **Agent**: bmad-pm (John, Product Manager) & bmad-sm (Bob, Scrum Master)
-**Goal**: Define a detailed PRD/specification and ballpark estimation before starting implementation.
+**Goal**: Align on project-level specs (PRD, LLD) and draft a detailed feature-level Implementation Plan (Feature Spec).
 **Steps**:
 1. Load the `0-planning` workflow.
-2. Complete all sections of `docs/prd/{initiative}_prd.md` (Overview, Goals, User Stories, Functional/Non-Functional Requirements, Scope, Edge cases, Telemetry, and ballpark Epic estimations).
-**Gate**: User reviews and approves the PRD, then manually triggers implementation.
+2. Ensure project-level PRD (`docs/prd/project_prd.md`) and LLD (`docs/lld/project_lld.md`) are created or updated.
+3. Complete the Feature Specification at `docs/features/{feature_name}_spec.md` using the `FEATURE_SPEC.md` template.
+**Gate**: User reviews and approves the Feature Specification, then triggers implementation (manually or via the fast-track option).
 
 ---
 
@@ -59,10 +60,10 @@ For every phase, check both `docs/` and `agent_docs/`:
 **Steps**:
 1. Load the bmad-pm skill
 2. Create/update a **Product Brief** at `docs/briefs/{product}_brief.md` using the `bmad-team/templates/PRODUCT_BRIEF.md` template for a major release.
-3. Translate the approved Product Brief into one or more initiative-level **PRDs** at `docs/prd/{initiative}_prd.md` using the `bmad-team/templates/PRD.md` template.
+3. Translate the approved Product Brief into one or more initiative-level **PRDs** at `docs/prd/project_prd.md` using the `bmad-team/templates/PRD.md` template.
 **Artifacts Produced**:
 - `docs/briefs/{product}_brief.md` (Stage 1 — git-tracked)
-- `docs/prd/{initiative}_prd.md` (Stage 2 — git-tracked)
+- `docs/prd/project_prd.md` (Stage 2 — git-tracked)
 **Gate**: User approves the Product Brief/PRD before proceeding
 
 ---
@@ -72,11 +73,11 @@ For every phase, check both `docs/` and `agent_docs/`:
 **Goal**: Deepen and validate requirements
 **Steps**:
 1. Load the bmad-analyst skill
-2. Review PRD from Phase 1 (`docs/prd/{initiative}_prd.md`)
+2. Review PRD from Phase 1 (`docs/prd/project_prd.md`)
 3. Conduct deep research on key areas and user stories
 4. Refine PRD with hardened functional requirements (FR-xxx)
 **Artifacts Produced**:
-- `docs/prd/{initiative}_prd.md` (refined — git-tracked)
+- `docs/prd/project_prd.md` (refined — git-tracked)
 - `agent_docs/research_logs/` (internal research logs and findings)
 **Gate**: All requirements are testable and traceable
 
@@ -84,15 +85,15 @@ For every phase, check both `docs/` and `agent_docs/`:
 
 ### Phase 3: Architect 🏗️
 **Agent**: bmad-architect (Winston, Architect)
-**Goal**: Design the technical architecture and low-level specifications
+**Goal**: Design the technical architecture and project-level design specifications
 **Steps**:
 1. Load the bmad-architect skill
 2. Review refined PRD from Phase 2
 3. Design component architecture, data models, and API contracts
-4. Document architectural decisions (ADRs) inline inside `docs/lld/{feature}_lld.md`
-5. Generate developer-ready LLD at `docs/lld/{feature}_lld.md` using the `bmad-team/templates/LLD.md` template.
+4. Document architectural decisions (ADRs) inline or in `agent_docs/decisions/`
+5. Generate or update the project-level LLD at `docs/lld/project_lld.md` using the `bmad-team/templates/LLD.md` template (and modular components under `docs/lld/components/` if needed).
 **Artifacts Produced**:
-- `docs/lld/{feature}_lld.md` (Stage 3 — new/updated — git-tracked)
+- `docs/lld/project_lld.md` (Stage 3 — new/updated — git-tracked)
 **Gate**: LLD reviewed and approved by Tech Lead/User
 
 ---
@@ -168,16 +169,19 @@ For every phase, check both `docs/` and `agent_docs/`:
 1. Load the bmad-writer skill
 2. Review all artifacts and code changes. Proactively run the **Git Diff Safety Net** check (`git diff origin/main --name-only`) to identify all modified code schemas, model files, or routing paths. Locate any **In-Flight Design Amendments**, `<!-- DIRTY_AMENDMENT -->` tags, or **Spike Notes** (`agent_docs/spike_notes.md`).
 3. If Spike Mode was active, run a retrospective documentation cycle (utilizing the parsed git diff and spike notes to auto-retrofit):
-    - Retrofit the Product Brief (`docs/briefs/`), PRD (`docs/prd/`), and LLD (`docs/lld/`) with the detected structural shifts.
+    - Retrofit the Product Brief (`docs/briefs/`), Project PRD (`docs/prd/project_prd.md`), and Project LLD (`docs/lld/project_lld.md`) with the detected structural shifts.
     - Add the spike record to the Retrospective Spike Log in `docs/architecture_map.md`.
 4. If in-flight design amendments were made or structural changes were detected by the git diff:
-    - Update `docs/lld/{feature}_lld.md`, `docs/prd/{initiative}_prd.md`, and `docs/architecture_map.md` to match final code schemas.
+    - Update `docs/lld/project_lld.md` (and components under `docs/lld/components/`), `docs/prd/project_prd.md`, and `docs/architecture_map.md` to match final code schemas.
+    - **LLD Index Synchronization**: Automatically synchronize the table of contents/index in `docs/lld/project_lld.md` by listing any new or modified files found in `docs/lld/components/`.
     - Clear and delete all `DIRTY_AMENDMENT` tags from LLD files.
-5. Update `README.md` and standard project documents.
-6. **Mandatory Git Confirmation**: Verify that all documentation is perfectly aligned with the implementation and determine if the changes should be split into **atomic commits**. Show the proposed commit split plan, message(s), and list of changed files to the user. Ask for explicit permission for the **doc alignment**, the **commit split plan**, and the final **git commit/push**.
+5. **Feature Spec Archiving**: Mark the feature's specification plan as complete by moving the file to `docs/features/implemented/{feature_name}_spec.md` (or prepending `[STATUS: IMPLEMENTED]` at the top) to ensure only active feature specs reside in the main features directory.
+6. Update `README.md` and standard project documents.
+7. **Mandatory Git Confirmation**: Verify that all documentation is perfectly aligned with the implementation and determine if the changes should be split into **atomic commits**. Show the proposed commit split plan, message(s), and list of changed files to the user. Ask for explicit permission for the **doc alignment**, the **commit split plan**, and the final **git commit/push**.
 **Artifacts Produced**:
-- `docs/lld/{feature}_lld.md` (updated/retrofitted)
-- `docs/prd/{initiative}_prd.md` (finalized/retrofitted)
+- `docs/lld/project_lld.md` & component LLDs (updated/retrofitted/indexed)
+- `docs/prd/project_prd.md` (finalized/retrofitted)
+- `docs/features/implemented/{feature_name}_spec.md` (archived/completed spec)
 - `docs/architecture_map.md` (updated with schema changes and logs)
 - Updated `README.md`
 **Gate**: Documentation passes quality audit and matches final implementation exactly.
