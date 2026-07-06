@@ -15,20 +15,29 @@ Documentation is strictly streamlined to minimize overhead and document clutter.
 
 ### `docs/` — Shared Project Documentation (IN git)
 
-The versioned source of truth for all developers, agents, and stakeholders. Structured in subdirectories:
+The versioned source of truth for all developers, agents, and stakeholders.
+
+> [!IMPORTANT]
+> **STRICT DOCUMENTATION CONSTRAINTS**:
+> 1. **No Untemplated Documents**: Agents must NEVER create any documentation files that are not explicitly defined by templates in `bmad-team/templates/` (`PRODUCT_BRIEF.md`, `PRD.md`, `LLD.md`, `FEATURE_SPEC.md`, `architecture_map.md`).
+> 2. **Sequential Sorting (Document Evolution)**: To track document evolution easily, files in `docs/briefs/` and `docs/features/` MUST use a three-digit sequential prefix (e.g. `001_`, `002_`).
 
 ```
 docs/
-├── architecture_map.md       # Living global system overview & module registry
-├── product_brief.md          # Alternative/Override Product Brief (if present, always respect)
-├── api_contract.md           # API JSON Contract specification (if present, always respect)
-├── briefs/                   # Product Briefs (1 per product or major release)
-│   └── product_v2_brief.md
-├── prd/                      # Product Requirements Documents (1 per initiative/epic)
-│   └── agent_memory_prd.md
-└── lld/                      # Low-Level Designs (1 per feature, component, or service)
-    ├── tool_schema_validation_lld.md
-    └── memory_retrieval_lld.md
+├── architecture_map.md             # Living global system overview & module registry
+├── api_contract.md                 # API JSON Contract specification (if present)
+├── briefs/                         # Product Briefs (sequentially sorted)
+│   └── 001_product_v2_brief.md
+├── prd/                            # Product requirements
+│   └── project_prd.md              # Project-level PRD
+├── lld/                            # Low-Level designs
+│   ├── project_lld.md              # Project-level LLD
+│   └── components/                 # Modular design sub-components (if needed)
+│       └── auth_lld.md
+└── features/                       # Feature implementation plans
+    ├── 002_billing_spec.md         # Active specs (sequentially sorted)
+    └── implemented/
+        └── 001_chat_playground_spec.md # Archived specs (preserves timeline)
 ```
 
 ### System Architecture Map
