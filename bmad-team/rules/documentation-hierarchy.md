@@ -27,38 +27,45 @@ Before any initiative is designed, produce a 1–2 page Product Brief containing
 
 ---
 
-### Stage 2: PRD – Product Requirements Document (Owner: PM + Design)
+### Stage 2: Project PRD – Product Requirements Document (Owner: PM + Design)
 **Template**: `bmad-team/templates/PRD.md`
-**Frequency**: One PRD per initiative or epic (representing 3–8 features).
-**Location**: `docs/prd/{initiative}_prd.md` (shared, git-tracked)
-Translate the approved Brief into a full PRD containing:
-- **User Stories & Personas**: Structured user stories with clear priority (MoSCoW)
-- **Functional Requirements**: Numbered, unambiguous, testable feature specs (FR-001, FR-002...)
-- **Non-Functional Requirements**: Performance targets, availability SLAs, accessibility, security compliance
-- **User Flows & Wireframes**: Visual flowcharts (Mermaid) and wireframe links
-- **Scope & Dependencies**: Clearly defined v1 boundaries (what is in/out of scope) and external blockages
+**Frequency**: One high-level Project PRD per project or major initiative.
+**Location**: `docs/prd/project_prd.md` (shared, git-tracked)
+Translate the approved Brief into a Project PRD containing:
+- **Goals & Core Metrics**: Structured success outcomes linked to business metrics.
+- **Scope**: Explicit Must-Have, Nice-to-Have, and Out-of-Scope boundaries.
+- **Assumptions & Open Questions**: Core constraints to resolve before technical design.
 
-*Exit criterion: PRD signed off by Engineering Lead and Design Lead before LLD begins.*
+*Exit criterion: Project PRD signed off by Leads before Project LLD begins.*
 
 ---
 
-### Stage 3: LLD – Low-Level Design (Owner: Tech Lead / Senior Engineer)
+### Stage 3: Project LLD – Low-Level Design (Owner: Tech Lead / Architect)
 **Template**: `bmad-team/templates/LLD.md`
-**Frequency**: One LLD per individual feature, component, or service.
-**Location**: `docs/lld/{feature}_lld.md` (shared, git-tracked)
-Translate the PRD requirements into a developer-ready technical design containing:
-- **Class & Component Diagrams**: UML diagrams detailing new/modified components
-- **Data Flow & Database Schema**: Entity relationship diagrams, schema definitions, indexing strategies, API contracts
-- **Logic & Algorithms**: Pseudocode or step-by-step logic for non-trivial requirements
-- **Error Handling & Edge Cases**: Failure modes, timeouts, empty states, and fallback behaviors
-- **Design Patterns**: Named patterns applied with rationale (e.g. Repository, Strategy)
+**Frequency**: One project-wide system design.
+**Location**: `docs/lld/project_lld.md` (and components under `docs/lld/components/{module}_lld.md` if complex).
+Translate the high-level PRD requirements into technical designs:
+- **Core Architecture & Data Flow**: Global schemas, APIs, auth, and external integrations.
+- **Modular Layout**: For large systems, store sub-components in `docs/lld/components/` and automatically maintain the index/TOC in the main `project_lld.md` map.
 
-*Exit criterion: LLD reviewed in a tech design review session; zero open questions remain before task tickets are created.*
+*Exit criterion: Project LLD approved; structural patterns aligned before Feature Specs are drafted.*
+
+---
+
+### Stage 4: Feature Specification / Implementation Plan (Owner: Developer / Tech Lead)
+**Template**: `bmad-team/templates/FEATURE_SPEC.md`
+**Frequency**: Created per feature request/feature branch.
+**Location**: `docs/features/{feature_name}_spec.md` (moved to `docs/features/implemented/` or marked `[STATUS: IMPLEMENTED]` after completion).
+The detailed feature-level blueprint covering:
+- **Architecture Overview**: Step-by-step logic sequences and Mermaid diagrams.
+- **Backend & Database Model**: Specific schema updates, models, migrations, and API router payloads.
+- **Frontend & UI Wireframes**: State management hooks, layout components, and ASCII mockups.
+- **Verification & Estimations**: Test commands, manual testing plans, and precise task estimations in developer hours (capped at 16h per task).
 
 ---
 
 ### Rule of Thumb
-- **PRD vs LLD Scope**: If two things share the same "why" and success metrics, they belong in the same PRD (initiative/epic level). If they have different technical implementations or different developers owning them, they each get their own LLD (feature/component/service level).
+- **PRD/LLD vs Feature Spec**: High-level constraints, databases, and global layouts go to the project-level PRD and LLD. Specific implementation steps, feature routes, database model file schemas, and UI components go into the per-feature Implementation Plan (Feature Spec). We do not create separate PRD or LLD files for individual features.
 
 ---
 
