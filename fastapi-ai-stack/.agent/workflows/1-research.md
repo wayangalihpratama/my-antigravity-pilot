@@ -24,7 +24,7 @@ Before starting research, you MUST verify the requirements and check for high-le
 ### 1. Analyze Request & Workspace Context
 Parse the user's request and cross-reference with the project state:
 - **Scope:** Define what is being asked.
-- **Context:** Check `docs/` and `agent_docs/` to align with the project's current phase.
+- **Context:** Check `docs/` to align with the project's current phase.
 - **Analyst Collaboration**: For complex domain logic, invoke **Mary (Business Analyst)** for deep research.
 
 ### 2. Repository Reconnaissance (Internal KB)
@@ -42,7 +42,7 @@ Inventory the "Knowns":
 ### 4. Define Scope & Task Boundary
 Create a plan with bite-sized atomic tasks in `task.md`:
 - Map tasks to specific files identified in Step 2.
-- **Sprint Planning**: If this is a new feature, invoke **Bob (Scrum Master)** to create stories and a sprint plan in `agent_docs/`.
+- **Checklist Breakdown**: Translate the approved Feature Spec's tasks directly into the local `task.md` checklist. No separate sprint plans or stories are required.
 
 ### 5. Identify Research Topics
 List specific technologies and internal patterns that need verification.
@@ -52,21 +52,18 @@ Perform targeted queries for the project's specific versions:
 - Use **Web Search** for exact versions.
 - Search for "Migration Guides" or "Breaking Changes" if touching older dependencies.
 
-### 7. Document Findings (Research Logs)
-Create `agent_docs/research_logs/{feature_name}_md`. Must Include:
-- **Internal References:** "Follows pattern found in `path/to/existing/file`."
-- **API Signatures:** Verified from current documentation.
-- **Workspace Gotchas:** Specific issues found in this repo's history/code.
+### 7. Document Findings
+Document key research findings and verified API signatures directly in the Feature Spec (`docs/features/{feature_name}_spec.md`) under a new "Technical Audit" section, or inline inside the local `task.md` file.
 
-### 8. Architectural Decision Records (ADRs)
-If structural changes are needed, invoke **Winston (Architect)** to create an ADR at `agent_docs/decisions/NNNN-title.md`.
+### 8. Architectural Decisions
+If structural changes or architectural deviations are needed, invoke **Winston (Architect)** to document them inline in `docs/lld/project_lld.md` or as a new component file under `docs/lld/components/`.
 
 ## Completion Criteria
 - [ ] PRD, LLD, and Feature Spec verified and confirmed with the user (unless in Spike Mode)
 - [ ] Workspace analyzed (Patterns & Versions identified)
-- [ ] `task.md` created with file-specific atomic tasks
-- [ ] Research log created at `agent_docs/research_logs/{feature_name}.md`
-- [ ] ADR created if architectural patterns are deviated from
+- [ ] `task.md` created in the root with file-specific atomic tasks
+- [ ] Research findings documented inside the Feature Spec or `task.md`
+- [ ] Architectural decisions documented in Project LLD / components if needed
 
 ## Next Phase
 Ready for implementation? Use the `/2-implement` workflow or invoke **Amelia (Developer)**.

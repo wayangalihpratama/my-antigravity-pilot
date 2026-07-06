@@ -5,16 +5,13 @@ description: Standardizes the split between local agent_docs/ and git-tracked do
 
 ## Documentation Standard
 
-Documentation is split into two directories with distinct purposes:
+## Documentation Standard
 
-### `agent_docs/` — Local Agent State (NOT in git)
+Documentation is strictly streamlined to minimize overhead and document clutter. We rely on the git-tracked `docs/` directory for system designs, and a single local `task.md` file for task checklists:
 
-Sprint-level execution artifacts. High-velocity, frequently changing.
-
-- `sprint-plan.md` — Current sprint tracking
-- `stories/` — User stories and acceptance criteria
-- `research_logs/` — Raw research, technical investigations, and brainstorming notes
-- `decisions/` — Architectural Decision Records (ADRs) and design choices (local drafts)
+### Local Coordination (Not in Git)
+- **`task.md`**: Created in the workspace root for step-by-step checklist tracking during implementation. This is the only local execution document needed. No other local tracking folders (like `agent_docs/`) should be created.
+- **`spike_notes.md`** (optional): Root-level gitignored file used to temporarily log details during Spike Mode prototyping.
 
 ### `docs/` — Shared Project Documentation (IN git)
 

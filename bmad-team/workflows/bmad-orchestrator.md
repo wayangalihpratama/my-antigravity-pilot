@@ -35,10 +35,10 @@ Before starting:
 ## Lifecycle Phases
 
 **CRITICAL: DOCUMENTATION MAINTENANCE**
-For every phase, check both `docs/` and `agent_docs/`:
+For every phase, check the `docs/` directory:
 1. Read existing artifacts first.
 2. Product Briefs go to `docs/briefs/{release_or_product}_brief.md`, Project PRD goes to `docs/prd/project_prd.md`, Project LLD goes to `docs/lld/project_lld.md` (or modular sub-components under `docs/lld/components/`), and Feature Specs go to `docs/features/{feature_name}_spec.md`. All of these are versioned in Git.
-3. Sprint plans and user stories go to `agent_docs/` (local only).
+3. No separate sprint plans or stories folders are created. The developer and Scrum Master rely on the local `task.md` checklist in the workspace root for task execution.
 4. Project-Level Low-Level Designs (LLDs) describe the global system architecture, and individual Feature Specs contain specific implementation blueprints.
 
 

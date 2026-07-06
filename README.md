@@ -46,8 +46,8 @@ To prevent AI drift, every major decision—from architectural choices and UX sp
 
 ### 2. Strict Documentation Boundaries
 We enforce a hard boundary between local agent state and shared project truth:
-- **`docs/` (Git-Tracked)**: The source of truth. Contains `LLD.md`, `PRD.md`, and finalized Feature Specifications.
-- **`agent_docs/` (Git-Ignored)**: Local coordination state. Contains `sprint-plan.md`, `stories/`, and `research-logs/`.
+- **`docs/` (Git-Tracked)**: The source of truth. Contains the high-level Project PRD (`docs/prd/project_prd.md`), Project LLD (`docs/lld/project_lld.md` and modular components), active/implemented Feature Specifications (`docs/features/`), and API contracts.
+- **`agent_docs/` (Git-Ignored)**: Local coordination state. Contains `sprint-plan.md`, `stories/`, and `research_logs/`.
 
 ### 3. Pixel-Perfect Design (Figma Dev Mode)
 Our UX and Dev agents are configured to use the **Figma Dev Mode MCP Server**. When provided with a Figma link, they extract precise design tokens, layout variables, and typography directly from the source, ensuring 100% visual fidelity without "AI guessing."
@@ -108,7 +108,7 @@ We have built-in tooling to make this easier:
 
 | Component | Role | Description |
 |-----------|------|-------------|
-| **`/0-planning`** | Workflow | Guides feature planning, scoping (PRD), and ballpark estimations, then halts. |
+| **`/0-planning`** | Workflow | Guides project-level PRD/LLD alignment and feature-level implementation specs (`FEATURE_SPEC.md`), then halts. |
 | **`/2-implement`** | Workflow | Automates the TDD cycle. Hardcodes the steps so you don't forget them. |
 | **`bmad-dev`** | Agent | Amelia is prompted to *refuse* code requests without a test plan. |
 | **`testing-strategy.md`** | Rule | Defines valid test patterns (Pytest classes, Jest specs). |
