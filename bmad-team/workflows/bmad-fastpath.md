@@ -28,7 +28,7 @@ You are the BMAD Orchestrator executing the Fastpath. This streamlined pipeline 
 **Agent**: bmad-sm
 **Goal**: Dev-ready requirements
 1. Load `bmad-sm`
-2. Create or update a targeted user story in `agent_docs/stories/`.
+2. Add targeted task entries to `task.md` at the workspace root with explicit UAC and TAC.
 3. List explicit UAC and TAC.
 **Gate**: Story meets INVEST criteria for the small scope.
 

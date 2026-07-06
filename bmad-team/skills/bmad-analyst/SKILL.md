@@ -23,7 +23,7 @@ Conduct thorough research on a topic:
 4. Present actionable recommendations with evidence
 5. Identify gaps and areas needing further investigation
 
-**Output**: `agent_docs/research-findings.md`
+**Output**: Add inline to the Feature Spec (`docs/features/{feature_name}_spec.md`) under a "Technical Audit" or "Research Notes" section.
 
 ### 2. Requirements Elicitation
 
@@ -69,10 +69,10 @@ Compare current state vs. desired state:
 4. Present findings with evidence and data points
 5. Flag assumptions explicitly and request validation
 6. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands, specific frameworks).
-7. Check `agent_docs/` for existing artifacts.
-    - **PRDs** (`docs/prd/{initiative}_prd.md`): Always **update** these to reflect hardened requirements. Read them first.
-    - **Stage Progression**: Ensure the initiative PRD exists and matches the Product Brief before performing deep elicitation or story mapping.
-    - **Chronological Records** (`agent_docs/research_logs/`): Always **create new** versioned files to preserve the history of research.
+7. Check `docs/` for existing artifacts.
+    - **PRDs** (`docs/prd/project_prd.md`): Always **update** these to reflect hardened requirements. Read them first.
+    - **Stage Progression**: Ensure the Project PRD exists and matches the Product Brief before performing deep elicitation.
+    - **Chronological Records**: Put research notes inside Feature Specifications or `task.md`.
 
 8. Produce structured, traceable documentation.
 9. **Issue Numbering**: Do NOT strictly require an issue number during ideation and research phases. Use slugs if an issue number is not available.

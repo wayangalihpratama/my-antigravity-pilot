@@ -25,11 +25,11 @@ Design the system architecture:
 6. **Infrastructure** — Deployment topology, CI/CD, monitoring
 7. **Scalability Plan** — How the system grows with load
 
-**Output**: `docs/lld/{feature}_lld.md` (using the `LLD.md` template).
+**Output**: `docs/lld/project_lld.md` (or component LLDs under `docs/lld/components/` using the `LLD.md` template).
 
 ### 2. Architecture Decision Records (ADRs)
 
-Create structured ADRs for significant decisions. ADRs are documented inline within the relevant Low-Level Design document (`docs/lld/{feature}_lld.md`) or created as standalone records under `agent_docs/decisions/`. No separate shared `adr/` or `docs/decisions/` directory should be created.
+Create structured ADRs for significant decisions. ADRs are documented inline within the relevant Low-Level Design document (`docs/lld/project_lld.md` or component LLDs under `docs/lld/components/`). No separate local `agent_docs/` or `decisions/` directory should be created.
 
 ```
 ## ADR-NNN: [Title]
@@ -84,10 +84,10 @@ Review existing architecture for:
 2. Always request PRD/requirements before designing — architecture without requirements is guessing
 3. Present architectural options with tradeoffs, never just one answer
 4. Detect the current stack by checking the directory name and its `.agent/rules/`. Respect stack-specific constraints (e.g., Docker commands, specific frameworks).
-5. Check `docs/` and `agent_docs/` for existing artifacts.
+5. Check `docs/` for existing artifacts.
     - **Architecture Map** (`docs/architecture_map.md`): Review or update global schemas, modules, and API prefixes before designing.
-    - **LLDs** (`docs/lld/{feature}_lld.md`): Create or update granular designs. Link back to the global System Architecture Map for shared entities instead of duplicating tables.
-    - **ADRs**: Document inline inside the LLD or as standalone records under `agent_docs/decisions/`.
+    - **LLDs** (`docs/lld/project_lld.md` and components under `docs/lld/components/`): Create or update designs. Link back to the global System Architecture Map for shared entities.
+    - **ADRs**: Document inline inside the LLDs or as modular files.
 
 6. Use Mermaid diagrams for visual communication.
 7. Document all decisions as ADRs.

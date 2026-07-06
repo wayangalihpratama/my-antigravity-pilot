@@ -11,8 +11,8 @@ All initiatives and features in this team MUST progress through three documentat
 
 ### Stage 1: Product Brief (Owner: PM / Product Lead)
 **Template**: `bmad-team/templates/PRODUCT_BRIEF.md`
-**Frequency**: One brief per product or major release cycle. It is the executive-facing north star.
-**Location**: `docs/briefs/{release_or_product}_brief.md` (shared, git-tracked) or `docs/product_brief.md` directly under the `docs/` folder (if present).
+**Frequency**: One brief per product or major release cycle. It is the executive-facing north star. **Per-feature product briefs are forbidden.**
+**Location**: `docs/briefs/{NNN}_{release_or_product}_brief.md` (shared, git-tracked) or `docs/product_brief.md` directly under the `docs/` folder (if present).
 Before any initiative is designed, produce a 1–2 page Product Brief containing:
 - **Problem Statement**: The specific user pain point or business gap, with supporting data
 - **Target Audience**: The primary persona(s) affected
@@ -21,7 +21,7 @@ Before any initiative is designed, produce a 1–2 page Product Brief containing
 - **Assumptions & Open Questions**: Key assumptions and unknowns to validate before the PRD
 
 > [!IMPORTANT]
-> If a `product_brief.md` file is available directly under the `docs/` folder (`docs/product_brief.md`), it MUST always be respected and followed as the primary product brief/source of truth.
+> If a `product_brief.md` file is available directly under the `docs/` folder (`docs/product_brief.md`), it MUST always be respected and followed as the primary product brief/source of truth. Per-feature briefs are not used.
 
 *Exit criterion: Brief reviewed and approved by at least one stakeholder outside the product team.*
 
@@ -55,8 +55,8 @@ Translate the high-level PRD requirements into technical designs:
 ### Stage 4: Feature Specification / Implementation Plan (Owner: Developer / Tech Lead)
 **Template**: `bmad-team/templates/FEATURE_SPEC.md`
 **Frequency**: Created per feature request/feature branch.
-**Location**: `docs/features/{feature_name}_spec.md` (moved to `docs/features/implemented/` or marked `[STATUS: IMPLEMENTED]` after completion).
-The detailed feature-level blueprint covering:
+**Location**: `docs/features/{NNN}_{feature_name}_spec.md` (moved to `docs/features/implemented/` or marked `[STATUS: IMPLEMENTED]` after completion).
+The Feature Specification is the **single, complete technical source of truth** for feature design and implementation tasks. It covers:
 - **Architecture Overview**: Step-by-step logic sequences and Mermaid diagrams.
 - **Backend & Database Model**: Specific schema updates, models, migrations, and API router payloads.
 - **Frontend & UI Wireframes**: State management hooks, layout components, and ASCII mockups.
@@ -81,7 +81,7 @@ To remove agent cognitive load, the active execution workflow is bound directly 
 For rapid prototyping, R&D, or experimental "spike" tasks where technical feasibility is being tested:
 - **Activation**: Binds deterministically to `spike/*` or `experiment/*` branches.
 - **Bypass**: Preceding documentation stages (Brief, PRD, LLD) are bypassed entirely to prioritize velocity.
-- **Micro-Retrofit Log**: To prevent documentation debt, the developer MUST maintain a running list of structural, schema, and API changes under a `## Micro-Retrofit Log` section in `agent_docs/spike_notes.md` (local only, git-ignored) during implementation. **Updates must be logged incrementally immediately after each subtask or test case is completed.**
+- **Micro-Retrofit Log**: To prevent documentation debt, the developer MUST maintain a running list of structural, schema, and API changes under a `## Micro-Retrofit Log` section in a root-level gitignored `spike_notes.md` file during implementation. **Updates must be logged incrementally immediately after each subtask or test case is completed.**
 - **Hard Gate**: Spikes are **never** merged directly to `main`. A retrospective documentation cycle (retrofitting Product Brief, PRD, and LLD) must parse the Micro-Retrofit Log and codify it into the `docs/` subdirectories before the merge request can be opened.
 
 ---
@@ -90,14 +90,14 @@ For rapid prototyping, R&D, or experimental "spike" tasks where technical feasib
 If a developer uncovers a technical blocker or requires a design change (e.g. database schema tweak, API contract modification) *during* active story implementation:
 - **No Blocking Loopback**: Work does not stop. The developer drafts a quick amendment detailing the change in the chat.
 - **Peer/Architect Validation**: Share the amendment in the chat. Once approved by Winston/John, code implementation proceeds.
-- **"Dirty LLD" Tagging**: The developer immediately appends a `<!-- DIRTY_AMENDMENT: [amendment details, approved date] -->` tag at the top of the feature LLD (`docs/lld/{feature}_lld.md`). This alerts other developers that the spec is dirty and in-flight.
+- **"Dirty LLD" Tagging**: The developer immediately appends a `<!-- DIRTY_AMENDMENT: [amendment details, approved date] -->` tag at the top of the project LLD (`docs/lld/project_lld.md`) or relevant component LLD. This alerts other developers that the spec is dirty and in-flight.
 - **Retrospective Sync & Git Diff Safety Net**: The Tech Writer (`bmad-writer`) harvests these tags in Phase 8 (Document), updates the PRD/LLD/System Map, and clears the tags. **As a safety net to catch untagged changes, the writer must run `git diff origin/main --name-only` to identify all modified codebase files and synchronize their structural implications.**
 
 ---
 
 ### Enforcement
 - Agents must detect the active mode deterministically by running a git branch check during Pre-Flight.
-- Agents generating user stories must reference an approved PRD section and issue numbers (e.g., FR-007)
-- Agents generating code must reference an approved LLD component or schema definition (e.g., in `docs/lld/{feature}_lld.md`)
+- Agents generating tasks or code must reference an approved requirement in `docs/prd/project_prd.md` and the Feature Specification.
+- Agents generating code must reference an approved LLD component or schema definition (e.g., in `docs/lld/project_lld.md`)
 - If a preceding Brief, PRD, or LLD is missing or unapproved, the agent must STOP and request it before proceeding — unless **Spike Mode** is active.
 - At Phase 8, the Tech Writer MUST execute the Git Diff Safety Net check to guarantee that all actual code schema modifications are synchronized with documentation.

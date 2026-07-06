@@ -1,6 +1,6 @@
 ---
-trigger: always_on
-description: BMAD Coding Standards — DRY, KISS, YAGNI, TDD, SOC, BDUF, and SOLID
+trigger: model_decision
+description: BMAD Coding Standards — DRY, KISS, YAGNI, TDD, SOC, BDUF, and SOLID. Load when implementing code or reviewing technical designs.
 ---
 
 # BMAD Coding Standards

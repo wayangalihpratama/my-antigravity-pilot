@@ -18,14 +18,13 @@ You are the BMAD Orchestrator, responsible for guiding a product through its ent
 Before starting:
 1. Confirm the project name and scope with the user
 2. **Detect the current stack** (e.g., FastAPI/Next.js, Laravel, Streamlit) by checking the directory name and its `.agent/rules/`.
-3. Create an `agent_docs/` directory for internal sprint artifacts
-4. **Check for existing artifacts**:
-    - `docs/briefs/`, `docs/prd/`, and `docs/lld/` (git-tracked)
-    - `agent_docs/` for sprint plans and stories (local only)
+3. **Check for existing artifacts**:
+    - `docs/briefs/`, `docs/prd/`, `docs/lld/`, and `docs/features/` (git-tracked)
+    - `task.md` at the workspace root (local progress tracker)
 
 5. Run `git branch --show-current` to identify the active branch name and its prefix.
 6. **Scale-Adaptive Routing (Deterministic Branch Routing)**:
-    - If the branch prefix is `spike/` or `experiment/`, immediately activate **Spike Mode** (bypass Phase 0-5, execute coding directly, log changes under `## Micro-Retrofit Log` in `agent_docs/spike_notes.md`, and retro-fit all design docs at Phase 8).
+    - If the branch prefix is `spike/` or `experiment/`, immediately activate **Spike Mode** (bypass Phase 0-5, execute coding directly, log changes under `## Micro-Retrofit Log` in the root-level `spike_notes.md` file, and retro-fit all design docs at Phase 8).
     - If the branch prefix is `hotfix/` or `bugfix/`, immediately route to the `/bmad-fastpath` workflow.
     - If the branch prefix is `feature/` or `release/`, route to the Standard Lifecycle (Phase 0 Planning or Phase 1 Ideate).
     - For untracked branches, ask the user: "Is this a new feature (Standard Mode), an experimental prototype (Spike Mode), or a minor fix (Fastpath)?"
@@ -37,7 +36,7 @@ Before starting:
 **CRITICAL: DOCUMENTATION MAINTENANCE**
 For every phase, check the `docs/` directory:
 1. Read existing artifacts first.
-2. Product Briefs go to `docs/briefs/{release_or_product}_brief.md`, Project PRD goes to `docs/prd/project_prd.md`, Project LLD goes to `docs/lld/project_lld.md` (or modular sub-components under `docs/lld/components/`), and Feature Specs go to `docs/features/{feature_name}_spec.md`. All of these are versioned in Git.
+2. Product Briefs go to `docs/briefs/{NNN}_{release_or_product}_brief.md`, Project PRD goes to `docs/prd/project_prd.md`, Project LLD goes to `docs/lld/project_lld.md` (or modular sub-components under `docs/lld/components/`), and Feature Specs go to `docs/features/{NNN}_{feature_name}_spec.md`. All of these are versioned in Git.
 3. No separate sprint plans or stories folders are created. The developer and Scrum Master rely on the local `task.md` checklist in the workspace root for task execution.
 4. Project-Level Low-Level Designs (LLDs) describe the global system architecture, and individual Feature Specs contain specific implementation blueprints.
 
@@ -49,7 +48,7 @@ For every phase, check the `docs/` directory:
 **Steps**:
 1. Load the `0-planning` workflow.
 2. Ensure project-level PRD (`docs/prd/project_prd.md`) and LLD (`docs/lld/project_lld.md`) are created or updated.
-3. Complete the Feature Specification at `docs/features/{feature_name}_spec.md` using the `FEATURE_SPEC.md` template.
+3. Complete the Feature Specification at `docs/features/{NNN}_{feature_name}_spec.md` using the `FEATURE_SPEC.md` template.
 **Gate**: User reviews and approves the Feature Specification, then triggers implementation (manually or via the fast-track option).
 
 ---
@@ -62,8 +61,8 @@ For every phase, check the `docs/` directory:
 2. Create/update a **Product Brief** at `docs/briefs/{product}_brief.md` using the `bmad-team/templates/PRODUCT_BRIEF.md` template for a major release.
 3. Translate the approved Product Brief into one or more initiative-level **PRDs** at `docs/prd/project_prd.md` using the `bmad-team/templates/PRD.md` template.
 **Artifacts Produced**:
-- `docs/briefs/{product}_brief.md` (Stage 1 — git-tracked)
-- `docs/prd/project_prd.md` (Stage 2 — git-tracked)
+    - `docs/briefs/{NNN}_{product}_brief.md` (Stage 1 — git-tracked)
+    - `docs/prd/project_prd.md` (Stage 2 — git-tracked)
 **Gate**: User approves the Product Brief/PRD before proceeding
 
 ---
@@ -78,7 +77,6 @@ For every phase, check the `docs/` directory:
 4. Refine PRD with hardened functional requirements (FR-xxx)
 **Artifacts Produced**:
 - `docs/prd/project_prd.md` (refined — git-tracked)
-- `agent_docs/research_logs/` (internal research logs and findings)
 **Gate**: All requirements are testable and traceable
 
 ---
@@ -90,7 +88,7 @@ For every phase, check the `docs/` directory:
 1. Load the bmad-architect skill
 2. Review refined PRD from Phase 2
 3. Design component architecture, data models, and API contracts
-4. Document architectural decisions (ADRs) inline or in `agent_docs/decisions/`
+4. Document architectural decisions (ADRs) inline within `docs/lld/project_lld.md` or the relevant component LLD. No separate ADR directories are created.
 5. Generate or update the project-level LLD at `docs/lld/project_lld.md` using the `bmad-team/templates/LLD.md` template (and modular components under `docs/lld/components/` if needed).
 **Artifacts Produced**:
 - `docs/lld/project_lld.md` (Stage 3 — new/updated — git-tracked)
@@ -108,8 +106,7 @@ For every phase, check the `docs/` directory:
 4. Select design system
 5. Generate color themes and interaction patterns
 **Artifacts Produced**:
-- `agent_docs/ux-design-specification.md`
-- `agent_docs/ux-color-themes.html` (optional)
+- `docs/features/{NNN}_{feature_name}_ux_spec.md` (UX design notes embedded in or alongside the Feature Spec)
 **Gate**: UX specification validated and approved
 
 ---
@@ -120,13 +117,12 @@ For every phase, check the `docs/` directory:
 **Steps**:
 1. Load the bmad-sm skill
 2. Review PRD, Architecture, and UX Spec
-3. Decompose epics into user stories
+3. Decompose epics into user stories with UAC/TAC criteria and log them to `task.md` at the workspace root
 4. Add acceptance criteria and technical notes
-5. Plan initial sprint(s)
+5. Plan sprint tasks sequentially in `task.md`
 **Artifacts Produced**:
-- `agent_docs/stories/`
-- `agent_docs/sprint-plan.md`
-**Gate**: Stories meet INVEST criteria and are approved
+- `task.md` (workspace root — updated with sprint tasks and acceptance criteria)
+**Gate**: Tasks in `task.md` meet INVEST criteria and are approved
 
 ---
 
@@ -135,10 +131,10 @@ For every phase, check the `docs/` directory:
 **Goal**: Build the product using TDD
 **Steps**:
 1. Load the bmad-dev skill
-2. Pick approved stories from sprint plan
-3. For each story, run TDD cycle (Red → Green → Refactor)
+2. Pick approved tasks from `task.md`
+3. For each task, run TDD cycle (Red → Green → Refactor)
 4. Delegate to stack-specific `/2-implement` workflow
-5. Mark stories as Implemented and **Update Actual Time** in the story document.
+5. Mark tasks as complete (`[x]`) and note actual time in `task.md`.
 **Artifacts Produced**:
 - Working code with tests
 - Updated story statuses
@@ -156,7 +152,7 @@ For every phase, check the `docs/` directory:
 4. Identify coverage gaps
 5. Define CI/CD quality gates
 **Artifacts Produced**:
-- `agent_docs/test-strategy.md`
+- Test strategy notes appended to the relevant `docs/features/{NNN}_{feature_name}_spec.md`
 - Quality gate configuration
 **Gate**: All quality gates pass
 
@@ -167,7 +163,7 @@ For every phase, check the `docs/` directory:
 **Goal**: Create comprehensive technical documentation, retrospectively sync in-flight amendments, and codify spikes.
 **Steps**:
 1. Load the bmad-writer skill
-2. Review all artifacts and code changes. Proactively run the **Git Diff Safety Net** check (`git diff origin/main --name-only`) to identify all modified code schemas, model files, or routing paths. Locate any **In-Flight Design Amendments**, `<!-- DIRTY_AMENDMENT -->` tags, or **Spike Notes** (`agent_docs/spike_notes.md`).
+2. Review all artifacts and code changes. Proactively run the **Git Diff Safety Net** check (`git diff origin/main --name-only`) to identify all modified code schemas, model files, or routing paths. Locate any **In-Flight Design Amendments**, `<!-- DIRTY_AMENDMENT -->` tags, or **Spike Notes** (root-level `spike_notes.md`).
 3. If Spike Mode was active, run a retrospective documentation cycle (utilizing the parsed git diff and spike notes to auto-retrofit):
     - Retrofit the Product Brief (`docs/briefs/`), Project PRD (`docs/prd/project_prd.md`), and Project LLD (`docs/lld/project_lld.md`) with the detected structural shifts.
     - Add the spike record to the Retrospective Spike Log in `docs/architecture_map.md`.
@@ -233,13 +229,13 @@ Users may start from any phase if prerequisites are met:
 
 | Phase | Agent | Skill | Key Output |
 |-------|-------|-------|------------|
-| 0. Plan & Estimate | John & Bob | bmad-pm / bmad-sm | PRD (`docs/prd/`) & Ballpark Estimates |
+| 0. Plan & Estimate | John & Bob | bmad-pm / bmad-sm | PRD (`docs/prd/`) & Feature Spec (`docs/features/`) |
 | 1. Ideate | John | bmad-pm | Product Brief (`docs/briefs/`) / PRD (`docs/prd/`) |
 | 2. Analyze | Mary | bmad-analyst | Refined PRD (`docs/prd/`) |
 | 3. Architect | Winston | bmad-architect | LLD (`docs/lld/`) |
-| 4. Design | Sally | bmad-ux | UX Specification |
-| 5. Plan | Bob | bmad-sm | User Stories (`agent_docs/`) |
+| 4. Design | Sally | bmad-ux | UX Spec (in `docs/features/`) |
+| 5. Plan | Bob | bmad-sm | Sprint Tasks (`task.md`) |
 | 6. Implement | Amelia | bmad-dev | Working Code |
-| 7. Test | Murat | bmad-tester | Test Strategy |
-| 8. Document | Paige | bmad-writer | Final Docs (`docs/prd/` and `docs/lld/`) |
+| 7. Test | Murat | bmad-tester | Test notes (in `docs/features/`) |
+| 8. Document | Paige | bmad-writer | Final Docs (`docs/prd/`, `docs/lld/`, `docs/features/implemented/`) |
 | 9. Pull Request | Amelia | bmad-dev | PR Description |

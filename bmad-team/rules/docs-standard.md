@@ -1,6 +1,6 @@
 ---
 trigger: always_on
-description: Standardizes the split between local agent_docs/ and git-tracked docs/ directories.
+description: Standardizes git-tracked docs/ directory as the single source of truth.
 ---
 
 ## Documentation Standard
@@ -50,11 +50,11 @@ Every new product release or major cycle starts with a Product Brief in `docs/br
 
 ### LLD (Low-Level Design) Development
 
-Every feature, component, or service listed in a PRD must have its own dedicated LLD file under `docs/lld/{feature}_lld.md` following the template in `bmad-team/templates/LLD.md`. The LLD is the technical blueprint that must be completed and reviewed before task implementation.
+Every new feature, component, or service listed in a PRD must have a Feature Specification at `docs/features/{NNN}_{feature_name}_spec.md` following the `bmad-team/templates/FEATURE_SPEC.md` template. The Feature Spec is the technical blueprint and the sole source of truth for implementation. It must be completed and reviewed before task execution begins.
 
 ### Spike Mode Documentation
 
-During experimental prototyping spikes, all intermediate notes, schema changes, and API updates are tracked in `agent_docs/spike_notes.md` under the header `## Micro-Retrofit Log`. Developers must log these changes incrementally immediately after completing each subtask or test case. When a spike is ready for production merge, these logged changes are used to create the git-tracked PRD and LLD documents before the merge request can be opened.
+During experimental prototyping spikes, all intermediate notes, schema changes, and API updates are tracked in the root-level `spike_notes.md` file (gitignored) under the header `## Micro-Retrofit Log`. Developers must log these changes incrementally immediately after completing each subtask or test case. When a spike is ready for production merge, these logged changes are used to create the git-tracked PRD and LLD documents before the merge request can be opened.
 
 ### "Dirty LLD" Tagging Standard
 
