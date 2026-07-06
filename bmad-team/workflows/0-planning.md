@@ -39,7 +39,8 @@ Establish the foundational design and system constraints, and check for required
 
 ### 3. Feature Specification / Implementation Plan
 For each specific feature request, follow the **Akvo Feature Spec standard** to create a detailed, actionable implementation plan. Do not create separate user stories.
-Create `docs/features/{feature_name}_spec.md` using the template `bmad-team/templates/FEATURE_SPEC.md`. The document MUST cover:
+- **Auto-Increment Naming Prefix**: Automatically scan existing files in `docs/features/` (including the `implemented/` subdirectory) to find the highest 3-digit prefix (e.g., `001`, `002`), increment it by 1, and name the new file like `docs/features/{NNN}_{feature_name}_spec.md` to maintain the evolution timeline.
+Create the specification using the template `bmad-team/templates/FEATURE_SPEC.md`. The document MUST cover:
 - **Overview**: High-level explanation of the feature and target outcome.
 - **Architecture Overview**: Step-by-step logic flow (e.g. API requests, async processing, background workers, event dispatching) with a Mermaid diagram representing the interaction sequence.
 - **Backend Implementation**:
