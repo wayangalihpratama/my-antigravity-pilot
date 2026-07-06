@@ -16,7 +16,7 @@ Understand the implementation context within the existing codebase. This phase f
 
 ### 0. Specification & High-Level Doc Verification
 Before starting research, you MUST verify the requirements and check for high-level changes:
-- **Check for Specs**: Ensure the project-level PRD (`docs/prd/project_prd.md`), LLD (`docs/lld/project_lld.md`), and the specific feature's spec (`docs/features/{feature_name}_spec.md`) exist and are approved.
+- **Check for Specs**: Ensure the project-level PRD (`docs/prd/project_prd.md`), LLD (`docs/lld/project_lld.md`), and the specific feature's spec (`docs/features/{NNN}_{feature_name}_spec.md`) exist and are approved.
 - **Check for High-Level Updates**: Assess if the workspace structure or library analysis reveals that the high-level PRD or LLD needs to be updated to support the feature's implementation. If so, update the project-level documentation first.
 - **User Confirmation**: Ask the user: "Are these the correct PRD, LLD, and Feature Spec documents for this task?" or "Should I create/transform/update them first?"
 - **PM Collaboration**: If feature requirements or scopes in the spec are ambiguous, invoke **John (Product Manager)** to clarify.
@@ -53,7 +53,7 @@ Perform targeted queries for the project's specific versions:
 - Search for "Migration Guides" or "Breaking Changes" if touching older dependencies.
 
 ### 7. Document Findings
-Document key research findings and verified API signatures directly in the Feature Spec (`docs/features/{feature_name}_spec.md`) under a new "Technical Audit" section, or inline inside the local `task.md` file.
+Document key research findings and verified API signatures directly in the Feature Spec (`docs/features/{NNN}_{feature_name}_spec.md`) under a new "Technical Audit" section, or inline inside the local `task.md` file.
 
 ### 8. Architectural Decisions
 If structural changes or architectural deviations are needed, invoke **Winston (Architect)** to document them inline in `docs/lld/project_lld.md` or as a new component file under `docs/lld/components/`.

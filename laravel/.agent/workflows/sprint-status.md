@@ -9,11 +9,11 @@ This workflow provides a clear overview of the current sprint's progress. It rea
 
 ## Steps
 
-### 1. Read Current Sprint Plan
-- Review `agent_docs/sprint-plan.md` to understand the overall sprint timeline, goals, and committed stories.
+### 1. Read Current Task List
+- Review `task.md` at the workspace root to understand the overall sprint tasks, goals, and committed items.
 
-### 2. Read All Active Stories
-- Read all files inside `agent_docs/stories/` that are part of the current sprint.
+### 2. Read All Active Tasks
+- Read all uncompleted `[ ]` and in-progress `[/]` items in `task.md`.
 - Extract the following information from each story:
   - **Status** (e.g., Todo, In Progress, Implemented)
   - **Estimated Time / Effort Points**
@@ -48,5 +48,5 @@ Generate a concise status report for the user:
 ```
 
 ## Completion Criteria
-- [ ] Read `sprint-plan.md` and `stories/`.
+- [ ] Read `task.md`.
 - [ ] Presented the Sprint Status Overview to the user.

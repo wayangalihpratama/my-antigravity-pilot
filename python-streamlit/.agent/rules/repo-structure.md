@@ -9,8 +9,8 @@ This is a **multi-stack agent skeleton repository**. Each subdirectory represent
 ### Directory Convention
 
 ├── .agent/           # Local agent config (Rules, Skills, Workflows) — NOT in git
-├── agent_docs/       # Local agent state (Sprint plans, Stories) — NOT in git
-├── docs/             # Shared versioned documentation (briefs/, prd/, lld/) — IN git
+├── docs/             # Shared versioned documentation (briefs/, prd/, lld/, features/) — IN git
+├── task.md           # Local execution checklist — NOT in git
 └── ...
 
 See @docs-standard.md for the full documentation standard.

@@ -9,7 +9,7 @@ Write production code following a strict **Test-Driven Development (TDD)** princ
 
 ## Prerequisites
 - **Phase 1 (Research)** completed with a confirmed Specification.
-- **Sprint Plan & Stories** (Status: Approved) available in `agent_docs/`.
+- **Feature Spec** (`docs/features/{NNN}_{feature_name}_spec.md`) approved and available — this is the sole implementation source.
 - **Developer Collaboration**: Invoke **Amelia (Developer)** for core logic and **Sally (UX)** for frontend styling.
 
 ## Steps
@@ -56,8 +56,8 @@ Continue the Red-Green-Refactor cycle for each story requirement until the task 
 - [ ] Unit tests passing (TDD cycle strictly followed)
 - [ ] **Standards**: Complies with **DRY, KISS, YAGNI, SOC, SOLID, Readability, and Reliability** (@coding-standards.md)
 - [ ] **Security**: User inputs sanitized and validated
-- [ ] Implementation aligns with UAC/TAC in `agent_docs/stories/`
-- [ ] Document Sync: Update `agent_docs/sprint-plan.md` and stories (Actual Time, Status)
+- [ ] Implementation aligns with UAC/TAC in the Feature Spec (`docs/features/{NNN}_{feature_name}_spec.md`)
+- [ ] Document Sync: Update `task.md` (mark tasks `[x]`, note actual time)
 
 ## Next Phase
 Ready for integration? Use the `/3-integrate` workflow or invoke **Amelia (Developer)** and **Murat (Tester)**.

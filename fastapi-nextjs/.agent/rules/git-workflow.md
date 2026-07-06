@@ -57,7 +57,7 @@ When creating a PR:
 >
 > **Protocol**:
 1. **Doc Alignment Check**: Verify that the corresponding `docs/lld/{feature}_lld.md`, `docs/prd/{initiative}_prd.md`, `docs/architecture_map.md`, and the implementation are perfectly aligned. If there are discrepancies, update the docs or implementation as needed.
-2. **Sprint Status Check**: Verify that the `agent_docs/sprint-plan.md` and relevant stories are updated (statuses, actual time spent, and AC checklists).
+2. **Task Status Check**: Verify that `task.md` is fully updated — all tasks marked `[x]` with actual time noted.
 3. **User Confirmation**: Present the alignment and sprint status to the user and ask: "Is the documentation aligned and the sprint plan updated?"
 4. **Atomic Commit Strategy**: Analyze the changed files and logical updates. Determine if the changes should be split into multiple atomic commits. Propose a commit split plan to the user.
 5. **Commit Preparation**: Prepare the commit message(s) and show them to the user along with the list of files for each commit.
