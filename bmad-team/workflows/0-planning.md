@@ -5,10 +5,14 @@ description: Planning & Estimation Phase - creates a detailed features specifica
 # Phase 0: Planning & Estimation 📋
 
 ## Purpose
-Define the detailed scope, user experience, requirements, edge cases, rollout strategy, and ballpark estimation for a new feature. This phase focus entirely on alignment and estimation. It is designed to run prior to any implementation, allowing stakeholders to make informed decisions before allocating development resources.
+Define the high-level product goals, technical architecture (LLD), and feature implementation plans (Feature Spec). This phase focuses entirely on alignment and estimation. It is designed to run prior to any implementation, allowing stakeholders to make informed decisions before allocating development resources.
 
 > [!IMPORTANT]
-> **NO IMPLEMENTATION / CODE CHANGES**: The agent must NOT write any implementation code, write unit tests, or run command line updates during this phase. This workflow halts immediately after generating and refining the specification document, requiring the user to explicitly invoke `/1-research` or `/2-implement` to begin development.
+> **DISTINCTION BETWEEN PLANNING & RESEARCH WORKFLOWS**:
+> - **Phase 0: Planning (This Phase)**: Focuses on *what* to build, high-level system architecture, and drafting the Feature Specification (`FEATURE_SPEC.md`). **Read-only research of the codebase is fully allowed and expected** during this phase to determine exact database models, routes, and paths. However, **NO file modifications, code creation, tests, or command-line updates** may be executed.
+> - **Phase 1: Research**: Bridges the gap between the approved Feature Specification and implementation. Focuses on *how* to implement the approved spec (locating precise insertion points, mapping imports, identifying package constraints, and constructing the detailed checklist in `task.md`).
+>
+> **NO IMPLEMENTATION / WRITE CHANGES**: The agent must NOT write any implementation code, write unit tests, or run modifying command line updates during Phase 0. This workflow halts immediately after generating and refining the specification documents, requiring the user to explicitly invoke `/1-research` or `/2-implement` to begin development.
 > *(Note: If Spike Mode is active, this planning phase is bypassed entirely for velocity, and documentation is generated retrospectively.)*
 
 ---
@@ -16,7 +20,7 @@ Define the detailed scope, user experience, requirements, edge cases, rollout st
 ## Steps
 
 ### 1. Requirements Discovery & 5W1H
-Before creating the document, analyze the user's request and conduct a 5W1H analysis to build a complete picture:
+Before creating any document, analyze the user's request and conduct a 5W1H analysis to build a complete picture:
 - **Who**: Who are the primary actors or personas interacting with this feature?
 - **What**: What is the feature, and what are its key functional requirements?
 - **Where**: Where does it live in the current system (frontend paths, backend modules, database schemas)?
@@ -24,67 +28,45 @@ Before creating the document, analyze the user's request and conduct a 5W1H anal
 - **Why**: Why is this feature necessary? What user pain point does it address?
 - **How**: How will it behave? Describe the high-level logic flow.
 
-### 2. PRD Creation
-Create or update an initiative/epic-level PRD (Product Requirements Document) under `docs/prd/{initiative}_prd.md` using the template `bmad-team/templates/PRD.md`. The document MUST be concise, scannable, and include the following sections:
+### 2. Project-Level PRD & LLD Alignment & Updates
+Establish the foundational design and system constraints, and check for required updates:
+- **Check for Updates**: Determine if the new feature request changes high-level system rules, core metrics, or global architecture. If yes, **update the high-level Project PRD and LLD first** before drafting individual feature specs.
+- **Project PRD (High-Level)**: Ensure a high-level Project PRD exists at `docs/prd/project_prd.md` (or transform an existing System Design Document / SDD). If missing, generate one using the `generate-prd` workflow and the `bmad-team/templates/PRD.md` template.
+- **Project LLD (Derived from PRD)**: Based on the high-level PRD, generate/align the project-level LLD at `docs/lld/project_lld.md` using the `generate-lld` workflow and the `bmad-team/templates/LLD.md` template.
+- **Do NOT Create Per-Feature PRD/LLD**: Avoid generating separate PRD and LLD documents for each minor feature. Keep them consolidated at the project level to prevent documentation sprawl.
 
-#### I. Overview & Goal
-- **Problem Statement**: What specific user or technical problem is being solved?
-- **Core Metric**: What is the primary metric we want to move/improve (e.g., reduce checkout drop-off by 5%, reduce API response time by 100ms)?
-
-#### II. User Stories & Flows
-- **User Personas**: Who is the feature for and what do they need?
-- **User Journey / Flow**: Step-by-step wireframe descriptions or text-based user flows showing the interaction from trigger to completion.
-- **Wireframes / UI Mockups (If Needed)**: For user-facing features, include low-fidelity ASCII wireframes or layout maps directly in the markdown to clarify component hierarchy, placement, and interactions before design sign-off.
-
-#### III. Requirements (Scope Guardrails)
-To prevent feature creep, categorize requirements into bulleted lists:
-- **Must-Have**: Core requirements that must be present in the initial release.
-- **Nice-to-Have**: Optional features that can be deferred to future iterations.
-- **Out of Scope**: Explicitly documented boundaries of what will *not* be built.
-
-#### IV. Architecture Design (If Needed)
-- **Data Flow / Logic Flow**: Visualized using Mermaid flowcharts or sequence diagrams.
-- **Data Model changes**: Brief description of new database columns, collections, or API payload interfaces.
-
-#### V. Acceptance Criteria
-- **User Acceptance Criteria (UAC)**: Requirements from the user's perspective (e.g., "Given X, when Y, then Z").
-- **Technical Acceptance Criteria (TAC)**: Non-functional requirements (e.g., performance thresholds, security constraints, logging).
-
-#### VI. Edge Cases & Errors
-- **Failures**: How does the system respond when an API call fails or a timeout occurs?
-- **Empty States**: What does the user see when there is no data to display?
-- **Boundary Conditions**: How are inputs validated (e.g., character limits, negative values, null states)?
-
-#### VII. Analytics & Telemetry
-- **Tracking Events**: Exactly which events and properties will be sent to the analytics backend.
-- **Success Metrics**: How the product team will measure the success of this feature post-rollout.
-
-#### VIII. Rollout & Rollback Plan
-- **Rollout Strategy**: Phased release plan (e.g., 10% beta users first, feature flag control).
-- **Rollback Plan**: Emergency plan detailing how to disable or revert the feature if critical errors occur in production.
-
-#### IX. Epic & Ballpark Estimation
-Break down the epic into concrete phases, technical tasks, or component deliveries:
-- **Epic Details & Breakdowns**: Divide the initiative into logical epic components or implementation phases (e.g., Phase 1: Core Database & Backend APIs, Phase 2: Frontend Implementation & Integration, Phase 3: Verification & Hardening).
-- **Task-Level Breakdown**: For each epic component/phase, list concrete tasks (e.g., "Create database migration for schema update", "Implement auth middleware", "Build responsive layout component").
-- **Ballpark Estimation (Developer Hours)**: Provide estimations explicitly in developer hours rather than story points.
-  - Break tasks down so no single task exceeds 16 hours (2 days) to ensure accuracy.
-  - Include best-case and worst-case ranges or explicitly add an uncertainty buffer (e.g., +20% for integration).
-  - Define the confidence level (Low, Medium, High) for each estimate block.
-- **Assumptions & Dependencies**: Key assumptions, critical path tasks, or external dependencies affecting the timeline.
+### 3. Feature Specification / Implementation Plan
+For each specific feature request, follow the **Akvo Feature Spec standard** to create a detailed, actionable implementation plan. Do not create separate user stories.
+Create `docs/features/{feature_name}_spec.md` using the template `bmad-team/templates/FEATURE_SPEC.md`. The document MUST cover:
+- **Overview**: High-level explanation of the feature and target outcome.
+- **Architecture Overview**: Step-by-step logic flow (e.g. API requests, async processing, background workers, event dispatching) with a Mermaid diagram representing the interaction sequence.
+- **Backend Implementation**:
+  - Detailed database model updates (fields, types, constraints).
+  - Database migration paths.
+  - API router modifications and exact HTTP payload/response schemas.
+- **Frontend Implementation**:
+  - State management changes (hooks, API integration).
+  - UI component design, layout hierarchy, and user interaction states (including ASCII wireframes if needed).
+- **Verification & Testing**:
+  - Commands for automated testing.
+  - Manual verification instructions.
+- **Epic & Ballpark Estimation (Developer Hours)**:
+  - Concrete tasks broken down so no single task exceeds 16 hours (2 days).
+  - Est. Hours ranges (Min - Max) and confidence levels.
 
 ---
 
 ## Completion Criteria
-- [ ] Requirements gathered and 5W1H analyzed
-- [ ] Scannable initiative PRD created at `docs/prd/{initiative}_prd.md` using the PRD template
-- [ ] Out of Scope boundaries explicitly agreed upon
-- [ ] Ballpark estimations and epic breakdown completed
-- [ ] User has reviewed and approved the PRD
+- [ ] Requirements gathered and 5W1H analyzed.
+- [ ] High-level Project-level PRD aligned/created.
+- [ ] Project-level LLD generated and aligned based on the high-level PRD.
+- [ ] Feature Specification (`docs/features/{feature_name}_spec.md`) created using the `FEATURE_SPEC.md` template.
+- [ ] Estimates in developer hours and epic tasks finalized in the Feature Spec.
+- [ ] User has reviewed and approved the Feature Specification.
 
 ## 🛑 HALT: Workflow Stop
 **STOP! Do not write code or proceed to implementation.**
-Present the finalized `docs/prd/{initiative}_prd.md` to the user.
+Present the finalized `docs/features/{feature_name}_spec.md` to the user.
 
 **Handoff Protocol**:
 - To begin the next phase, the user must explicitly initiate the **`/1-research`** workflow or **`/2-implement`** workflow.
