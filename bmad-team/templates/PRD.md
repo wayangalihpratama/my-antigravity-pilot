@@ -106,6 +106,21 @@ flowchart TD
 
 **Figma / Wireframe Reference**: [Link to design file]
 
+### Wireframes & Layouts (If Needed)
+
+```text
++-----------------------------------------------------------+
+| [Logo]                    [Search Input]       [Profile]  |
++-----------------------------------------------------------+
+| Sidebar        | Main Dashboard Panel                     |
+| - Overview     |                                          |
+| - Settings     | [Metric Card 1]   [Metric Card 2]        |
+| - Users        | +--------------------------------------+ |
+|                | | Interactive Data Chart / Flow Graph  | |
+|                | +--------------------------------------+ |
++-----------------------------------------------------------+
+```
+
 ### Error / Edge Case Flows
 
 ```mermaid
@@ -148,7 +163,33 @@ flowchart TD
 
 ---
 
-## 10. Change Log
+## 10. Epic & Ballpark Estimation
+
+> Provide ballpark estimates in developer hours. Break complex tasks down so that no individual task exceeds 16 hours (2 days).
+
+### Milestone 1: [e.g., Core API & Database Migration]
+- Confidence Level: [High / Medium / Low]
+- Dependencies: [e.g., None]
+
+| Task ID | Component & Description | Est. Hours (Min - Max) | Priority |
+|---------|-------------------------|------------------------|----------|
+| T-001   | [e.g., DB Schema Migration for User Status] | 4h - 8h | Must Have |
+| T-002   | [e.g., PUT /user/status API Route & Validation] | 8h - 12h | Must Have |
+
+### Milestone 2: [e.g., Frontend Implementation & Integration]
+- Confidence Level: [Medium]
+- Dependencies: [Milestone 1 APIs]
+
+| Task ID | Component & Description | Est. Hours (Min - Max) | Priority |
+|---------|-------------------------|------------------------|----------|
+| T-003   | [e.g., Setup component layout and sidebar state] | 6h - 10h | Must Have |
+| T-004   | [e.g., Integrate endpoints with error handling UX] | 8h - 16h | Must Have |
+
+*Note: Total ballpark development estimation includes a +20% integration buffer for testing and QA.*
+
+---
+
+## 11. Change Log
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|

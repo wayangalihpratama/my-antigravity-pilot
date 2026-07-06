@@ -34,6 +34,7 @@ Create or update an initiative/epic-level PRD (Product Requirements Document) un
 #### II. User Stories & Flows
 - **User Personas**: Who is the feature for and what do they need?
 - **User Journey / Flow**: Step-by-step wireframe descriptions or text-based user flows showing the interaction from trigger to completion.
+- **Wireframes / UI Mockups (If Needed)**: For user-facing features, include low-fidelity ASCII wireframes or layout maps directly in the markdown to clarify component hierarchy, placement, and interactions before design sign-off.
 
 #### III. Requirements (Scope Guardrails)
 To prevent feature creep, categorize requirements into bulleted lists:
@@ -63,11 +64,14 @@ To prevent feature creep, categorize requirements into bulleted lists:
 - **Rollback Plan**: Emergency plan detailing how to disable or revert the feature if critical errors occur in production.
 
 #### IX. Epic & Ballpark Estimation
-Break down the epic into high-level tasks or components (e.g., Frontend, API Backend, DB Migration, QA) and provide ballpark estimations:
-- **Component Breakdown**: Distinct areas of effort.
-- **Complexity Assessment**: Simple, Medium, Complex.
-- **Ballpark Estimate**: Rough order of magnitude in story points, developer hours, or developer days.
-- **Assumptions**: Key assumptions or external dependencies affecting the timeline.
+Break down the epic into concrete phases, technical tasks, or component deliveries:
+- **Epic Details & Breakdowns**: Divide the initiative into logical epic components or implementation phases (e.g., Phase 1: Core Database & Backend APIs, Phase 2: Frontend Implementation & Integration, Phase 3: Verification & Hardening).
+- **Task-Level Breakdown**: For each epic component/phase, list concrete tasks (e.g., "Create database migration for schema update", "Implement auth middleware", "Build responsive layout component").
+- **Ballpark Estimation (Developer Hours)**: Provide estimations explicitly in developer hours rather than story points.
+  - Break tasks down so no single task exceeds 16 hours (2 days) to ensure accuracy.
+  - Include best-case and worst-case ranges or explicitly add an uncertainty buffer (e.g., +20% for integration).
+  - Define the confidence level (Low, Medium, High) for each estimate block.
+- **Assumptions & Dependencies**: Key assumptions, critical path tasks, or external dependencies affecting the timeline.
 
 ---
 
