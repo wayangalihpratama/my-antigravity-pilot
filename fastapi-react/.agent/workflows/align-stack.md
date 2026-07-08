@@ -1,39 +1,107 @@
 ---
-description: Align the project with the copied .agent knowledge and project-specific requirements.
+description: Align the copied .agent config to the destination project's real stack, conventions, and feature doc standard.
 ---
 
 # Align Project Stack
 
-## Purpose
-When setting up a new project or importing generic `.agent` structures (e.g., using `setup.sh`), the `.agent` conventions might assume specific scripts (like `./dc.sh`) or configurations that do not perfectly align with the destination project's reality.
+> **Context**: Run from within the **destination project directory** (where BMAD assets were copied via `setup.sh`), NOT from `my-antigravity-pilot`.
 
-This workflow ensures the copied `.agent` configuration is properly aligned and tailored to your running project.
+## Purpose
+
+After `setup.sh` copies BMAD assets into a project, the `.agent/` config may not match the project's real setup — especially when initiated by another toolchain (Claude, Cursor, Windsurf). This workflow makes BMAD respect what the existing team already decided.
+
+---
 
 ## Steps
 
-### 1. Identify Assumptions
-1. Read the current project's `README.md` and `package.json` (or `composer.json`, `requirements.txt`, etc.).
-2. Scan the current project's root for execution entry points (e.g., `dc.sh`, `docker-compose.yml`, `Makefile`).
+### 1. Scan for External AI Convention Files (Highest Priority)
 
-### 2. Identify Discrepancies
-Compare the discovered reality with the expectations inside `.agent/rules/` and `.agent/workflows/`. Example checks:
-- Do the `.agent` files assume the project runs inside `./dc.sh`, but the project actually uses raw `docker compose` or direct `npm`?
-- Do the `.agent` files mandate Tailwind CSS version X, but the project uses version Y or another UI library?
+Check for existing convention files from other AI toolchains — these **win over BMAD defaults**:
 
-### 3. Ask for Clarification (If needed)
-If the project's setup is ambiguous, notify the user.
-- *Example:* "I notice the generic `.agent` configuration expects `./dc.sh` for all Docker commands, but you only have `docker-compose.yml`. Should I create a `./dc.sh` wrapper, or should I update the `.agent` rules to use raw `docker compose exec`?"
+| File | Toolchain |
+|------|-----------|
+| `CLAUDE.md`, `CLAUDE.local.md` | Claude (Anthropic) |
+| `AGENTS.md` | Generic multi-agent |
+| `.cursorrules` | Cursor AI |
+| `WINDSURF.md` | Windsurf |
+| `.github/copilot-instructions.md` | GitHub Copilot |
+| `.aider.conf.yml` | Aider |
 
-### 4. Update the `.agent` Configurations
-1. **Modify Agent Skills:** Update the `bmad-*` skills in `.agent/skills/` (like `bmad-dev`, `bmad-tester`) to explicitly mention the project's actual tech stack (e.g., "Use Next.js 14 App Router," "Use PyTest," "Use Laravel Eloquent").
-2. **Modify Rules:** Update any rules inside `.agent/rules/` (such as `docker-commands.md` or `repo-structure.md`) so they perfectly describe the project's actual commands and environments.
-3. **Modify Workflows:** Update the workflows in `.agent/workflows/` (like `/2-implement.md`, `/4-verify.md`) to substitute the placeholder commands with the project's true commands.
+For each file found, extract: tech stack, coding conventions, architecture decisions, run/test/lint commands, and any "do not do X" rules.
 
-### 5. Validate Alignment
-- Run a dummy status check or listing using the newly corrected assumed commands to verify they work on the current repository.
+**Report** all files found and their key rules. If none found: "No external AI convention files found — BMAD defaults are authoritative."
+
+### 2. Scan Project Structure
+
+Read to identify the real stack:
+- **Dependency manifests**: `package.json`, `composer.json`, `requirements.txt`, `pyproject.toml`, `Pipfile`, `Cargo.toml`, `go.mod`
+- **Runners**: `Makefile`, `docker-compose.yml`, `dc.sh`, `justfile`, `.env.example`
+- **README**: `README.md` or `README.rst`
+- **Existing agent config**: `.agent/rules/`, `.agent/workflows/`
+
+Extract: language/framework, test runner, package manager, how the app runs, env vars, linter/formatter.
+
+### 3. Identify Conflicts and Gaps
+
+Compare Steps 1–2 findings against `.agent/` files. Flag:
+- **Conflicts**: external convention says X but BMAD config says Y
+- **Gaps**: project reality not mentioned in `.agent/` at all
+
+### 4. Ask for Clarification (If Needed)
+
+For direct conflicts, present them and ask. **Default rule**: external convention files win. Only ask when the conflict is genuinely ambiguous.
+
+### 5. Create / Update `project-context.md`
+
+Create or update `.agent/rules/project-context.md` using the template at `bmad-team/templates/PROJECT_CONTEXT.md`.
+
+> **Re-run Safety**: If the file already exists, **merge** new findings into it — do not overwrite. Append `<!-- last-aligned: YYYY-MM-DD -->`.
+
+### 6. Discover the Project's Feature Documentation Standard
+
+Scan doc directories for existing feature doc patterns:
+- `docs/`, `documentation/`, `docs/features/`, `docs/specs/`, `docs/stories/`, `docs/tickets/`, `doc/`, `wiki/`, `.docs/`
+
+For each `.md` found, detect: naming convention, frontmatter fields, section headings, folder structure (in-progress vs done), PRD/LLD references.
+
+**Confidence threshold** (pick 2–3 representative files):
+- **3+ consistent** → High confidence; adapt template.
+- **1–2 found** → Medium; use them, note "may not be fully representative."
+- **0 found** → Keep BMAD defaults. Report: "No existing feature docs found."
+- **Inconsistent** → Ask user: "Which file is the standard?"
+
+**Update `.agent/templates/FEATURE_SPEC.md`**: Adapt section headings, naming convention, and file location to match the project's pattern. Preserve BMAD core content (architecture, backend/frontend, verification, estimation) but restructured.
+
+**Update `.agent/rules/documentation-hierarchy.md`**: Set the Feature Spec path/naming to the discovered convention.
+
+**Report** to user: discovered pattern vs BMAD default, and proposed changes.
+
+### 7. Update `.agent/` Configs for Conflicts Only
+
+Update only files that conflict with project standards:
+- `4-verify.md` — actual test/lint commands
+- `2-implement.md` — correct directory paths
+- `5-commit.md` — commit conventions
+- `coding-standards.md` — project addendums (do not replace BMAD defaults)
+- `bmad-dev/SKILL.md` — real stack and commands
+
+> Only modify files that *conflict*. Leave BMAD defaults that aren't contradicted.
+
+### 8. Validate & Report
+
+Sanity check: confirm runtime accessible, test discovery works, dir layout matches `.agent/rules/`.
+
+**Summarize**: convention files found, feature doc pattern adapted, `project-context.md` updated, workflows aligned, any open decisions for the user.
+
+---
 
 ## Completion Criteria
-- [ ] Read the project root files (README, package definitions).
-- [ ] Adjusted `.agent/rules/` to fit the real architecture.
-- [ ] Adjusted `.agent/workflows/` to fit the real commands.
-- [ ] Confirmed alignment with the user.
+
+- [ ] External AI convention files scanned; key rules extracted
+- [ ] `project-context.md` created/updated in `.agent/rules/`
+- [ ] Feature doc directories scanned; naming, location, template discovered
+- [ ] `.agent/templates/FEATURE_SPEC.md` adapted to project's feature doc standard
+- [ ] `.agent/rules/documentation-hierarchy.md` updated with correct feature spec path
+- [ ] `.agent/workflows/` updated to project's actual commands
+- [ ] No BMAD rule silently overrides project's external conventions
+- [ ] Alignment confirmed with the user

@@ -4,13 +4,12 @@ description: TDD implementation workflow
 
 # Phase 2: Implement (Generic)
 
-## Purpose
-Write production code following a strict **Test-Driven Development (TDD)** principles and project-specific design patterns.
+Write production code following strict **TDD** principles and project-specific design patterns.
 
 ## Prerequisites
 - **Phase 1 (Research)** completed with a confirmed Specification.
-- **Feature Spec** (`docs/features/{NNN}_{feature_name}_spec.md`) approved and available — this is the sole implementation source.
-- **Developer Collaboration**: Invoke **Amelia (Developer)** for core logic and **Sally (UX)** for frontend styling.
+- **Feature Spec** (path per @documentation-hierarchy.md or `project-context.md`) approved and available — sole implementation source.
+- **Collaboration**: Invoke **Amelia (Developer)** for core logic, **Sally (UX)** for frontend styling.
 
 ## Steps
 
@@ -54,7 +53,7 @@ Continue the Red-Green-Refactor cycle for each story requirement until the task 
 
 ## Completion Criteria
 - [ ] Unit tests passing (TDD cycle strictly followed)
-- [ ] **Standards**: Complies with **DRY, KISS, YAGNI, SOC, SOLID, Readability, and Reliability** (@coding-standards.md)
+- [ ] **Standards**: DRY, KISS, YAGNI, SOC, SOLID, Security — see @coding-standards.md
 - [ ] **Security**: User inputs sanitized and validated
 - [ ] Implementation aligns with UAC/TAC in the Feature Spec (`docs/features/{NNN}_{feature_name}_spec.md`)
 - [ ] Document Sync: Update `task.md` (mark tasks `[x]`, note actual time)
