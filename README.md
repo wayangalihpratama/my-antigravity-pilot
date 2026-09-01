@@ -20,22 +20,33 @@ Think of it as a "starter kit" for your AI pair programmer — pre-loaded with b
 | **Strapi + Next.js** | [`strapi-nextjs/`](./strapi-nextjs/) | ✅ Ready |
 | *More coming...* | | |
 
-## BMAD Agent Team
+## BMAD v6 Multi-Agent Subagent Architecture 🚀
 
-The **BMAD (Business-Model-Architecture-Development) Method** provides 8 specialized AI agent roles that guide your project through a structured product development lifecycle. These are included automatically with every stack via `setup.sh`.
+The **BMAD v6 (Breakthrough Method for Agile AI-Driven Development)** framework standardizes 8 specialized AI personas as native **Antigravity Subagents** (`.agent/subagents/`). Subagents operate in dedicated context windows with role-scoped tools, tiered models, and isolated branch workspaces.
 
-| Agent | Name | Role | Skill | Input | Output |
-|-------|------|------|-------|-------|--------|
-| 📋 PM | John | Product Manager | `bmad-pm` | Ideas | Product Brief, PRD |
-| 📊 Analyst | Mary | Business Analyst | `bmad-analyst` | PRD | Research Logs, Refined PRD |
-| 🏗️ Architect | Winston | Architect | `bmad-architect` | PRD | LLD, ADRs |
-| 🎨 UX | Sally | UX Designer | `bmad-ux` | Requirements | Design Spec (Figma-Ready) |
-| 🏃 SM | Bob | Scrum Master | `bmad-sm` | Specs | User Stories |
-| 💻 Dev | Amelia | Developer | `bmad-dev` | User Story | Well-Tested Code |
-| 🧪 Tester | Murat | Test Architect | `bmad-tester` | Code | Test Strategy & Gates |
-| 📚 Writer | Paige | Tech Writer | `bmad-writer` | Artifacts | User/System Documentation |
+| Agent | Name | Role | Subagent | Model | Tool Permissions | Output |
+|-------|------|------|----------|-------|------------------|--------|
+| 📋 PM | John | Product Manager | `bmad-pm` | `flash` | Read-only | Product Brief, PRD |
+| 📊 Analyst | Mary | Business Analyst | `bmad-analyst` | `flash` | Read-only | Refined PRD, Requirements |
+| 🏗️ Architect | Winston | Architect | `bmad-architect` | `pro` | Read + Diagram MCP | LLD (`docs/lld/`), ADRs |
+| 🎨 UX | Sally | UX Designer | `bmad-ux` | `pro` | Figma Dev Mode MCP | Design Spec (Figma-Ready) |
+| 🏃 SM | Bob | Scrum Master | `bmad-sm` | `flash_lite`| Workspace `task.md` | User Stories, Sprint Checklist |
+| 🎭 Council | Council | Party Mode Deliberation | `bmad-party` | `pro` | Read-only | Multi-Agent Trade-off Notes |
+| 💻 Dev | Amelia | Developer | `bmad-dev` | `pro` | Write + Terminal (`branch`) | TDD Code & Passing Tests |
+| 🧪 Tester | Murat | Test Architect (TEA) | `bmad-tester` | `flash` | Automated Test Runner | Quality Gates & Regression Verification |
+| 🔍 Reviewer | Rachel | Code Reviewer | `bmad-reviewer` | `pro` | Diff & Security Audit | PR Review Report & Security Gates |
+| 📚 Writer | Paige | Tech Writer | `bmad-writer` | `flash` | Doc Synchronization | AST Code-Schema Sync, Docs |
 
-**Lifecycle:** Plan & Estimate (PM/SM) → Ideate (PM) → Analyze (Analyst) → Architect → Design (UX) → Plan (SM) → Implement (Dev) → Test (Tester) → Document (Writer)
+**Lifecycle:** Plan & Estimate (PM/SM) → Ideate (PM) → Analyze (Analyst) → Architect → Design (UX) → Plan (SM) → **Party Mode (Council)** → Implement (Dev in `branch`) → Test (TEA QA) → **Review (Rachel)** → Document (Writer)
+
+**Interactive Workflows:**
+- `/bmad-help` — Context-aware CLI/IDE guidance to inspect active branch mode, sprint state, and recommend the next action.
+- `/bmad-party` — Multi-agent pre-flight deliberation between Architect, Dev, and Tester to resolve edge cases and trade-offs.
+- `/bmad-review` — Senior staff code review and security audit on PR diffs (`[SEC]`, `[DATA]`, `[ARCH]`).
+- `/bmad-orchestrator` — Full multi-agent lifecycle orchestration with automated subagent spawning.
+- `/bmad-fastpath` — Scale-adaptive 2-step *Quick-Spec + Ship* flow for minor bugfixes and refactors.
+
+
 
 ---
 

@@ -335,6 +335,7 @@ main() {
             update_directory "${BMAD_TEAM_DIR}/skills" "${project_agent_dir}/skills"
             update_directory "${BMAD_TEAM_DIR}/workflows" "${project_agent_dir}/workflows"
             update_directory "${BMAD_TEAM_DIR}/templates" "${project_agent_dir}/templates"
+            update_directory "${BMAD_TEAM_DIR}/subagents" "${project_agent_dir}/subagents"
             echo ""
         done
 
@@ -409,6 +410,7 @@ main() {
     update_directory "${BMAD_TEAM_DIR}/skills" "${target_agent_dir}/skills"
     update_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
     update_directory "${BMAD_TEAM_DIR}/templates" "${target_agent_dir}/templates"
+    update_directory "${BMAD_TEAM_DIR}/subagents" "${target_agent_dir}/subagents"
 
     # Initialize .agent/config.yaml if not already present
     if [[ ! -f "${target_agent_dir}/config.yaml" && ! -f "${target_path}/.agents/config.yaml" && -f "${BMAD_TEAM_DIR}/templates/CONFIG.yaml" ]]; then
@@ -416,7 +418,7 @@ main() {
         print_success "Skill filter configuration initialized (.agent/config.yaml)"
         ((STATS_ADDED++)) || true
     fi
-    print_success "BMAD team rules, skills, workflows, and templates merged"
+    print_success "BMAD team rules, skills, workflows, templates, and subagents merged"
 
     # Step 4: Bootstrap docs/ directory
     print_info "Bootstrapping docs/ directory ..."
@@ -446,36 +448,39 @@ main() {
     local total_rules=$(find "${target_agent_dir}/rules" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
     local total_skills=$(find "${target_agent_dir}/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
     local total_workflows=$(find "${target_agent_dir}/workflows" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+    local total_subagents=$(find "${target_agent_dir}/subagents" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 
     echo ""
     echo -e "${GREEN}${BOLD}╔══════════════════════════════════════════════════╗${NC}"
-    echo -e "${GREEN}${BOLD}║       ✨ Setup Complete!                         ║${NC}"
+    echo -e "${GREEN}${BOLD}║       ✨ Setup Complete! (BMAD v6 Ready)        ║${NC}"
     echo -e "${GREEN}${BOLD}╚══════════════════════════════════════════════════╝${NC}"
     echo ""
     echo -e "  ${BOLD}Project:${NC}    ${target_path}"
-    echo -e "  ${BOLD}Stack:${NC}      ${selected_stack} + BMAD Team
+    echo -e "  ${BOLD}Stack:${NC}      ${selected_stack} + BMAD v6 Team
   ${BOLD}Mode:${NC}       ${mode}
   ${BOLD}Summary:${NC}    ${GREEN}${STATS_ADDED} added${NC}, ${BLUE}${STATS_UPDATED} updated${NC}, ${YELLOW}${STATS_SKIPPED} skipped${NC}
 "
+    echo -e "  ${BOLD}Subagents:${NC}  ${total_subagents} personas (BMAD v6 Agent-as-Code)"
     echo -e "  ${BOLD}Skills:${NC}     ${total_skills} skills"
     echo -e "  ${BOLD}Workflows:${NC}  ${total_workflows} workflows"
     echo ""
     echo -e "  ${BOLD}Documentation & Config:${NC}"
     echo -e "    📂 docs/           → Shared (git-tracked): briefs/, prd/, lld/ (versioned docs)"
     echo -e "    📂 agent_docs/     → Local (gitignored): sprint plans + stories"
-    echo -e "    📂 .agent/         → Local (gitignored): rules, skills, workflows"
+    echo -e "    📂 .agent/         → Local (gitignored): rules, skills, workflows, subagents"
     echo -e "    ⚙️  .agent/config.yaml → Skill pruning (reduces token usage)"
     echo ""
-    echo -e "  ${BOLD}BMAD Agents Available:${NC}"
+    echo -e "  ${BOLD}BMAD v6 Subagent Personas Available:${NC}"
     echo -e "    📋 PM (John)       📊 Analyst (Mary)     🏗️  Architect (Winston)"
     echo -e "    🎨 UX (Sally)      🏃 SM (Bob)           💻 Dev (Amelia)"
-    echo -e "    🧪 Tester (Murat)  📚 Writer (Paige)"
+    echo -e "    🧪 Tester (Murat)  📚 Writer (Paige)     🎭 Council (Party Mode)"
     echo ""
-    echo -e "  ${CYAN}To align stack & prune tokens: use /align-stack${NC}"
-    echo -e "  ${CYAN}To start the BMAD lifecycle:   use /bmad-orchestrator${NC}"
-    echo -e "  ${CYAN}To invoke a specific agent:    use the bmad-{role} skill${NC}"
-    echo -e "  ${CYAN}To generate an initial LLD:    use /generate-lld${NC}"
+    echo -e "  ${CYAN}To check status & next steps: use /bmad-help${NC}"
+    echo -e "  ${CYAN}To run Party Mode deliberation: use /bmad-party${NC}"
+    echo -e "  ${CYAN}To run full v6 lifecycle:      use /bmad-orchestrator${NC}"
+    echo -e "  ${CYAN}To run 2-step Fastpath:        use /bmad-fastpath${NC}"
     echo ""
 }
+
 
 main "$@"

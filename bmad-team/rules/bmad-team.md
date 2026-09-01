@@ -18,7 +18,9 @@ The BMAD (Business-Model-Architecture-Development) Method defines a structured p
 | 🏃 SM | Bob | Scrum Master | Story creation, sprint planning, backlog grooming |
 | 💻 Dev | Amelia | Developer | TDD implementation, story-driven coding |
 | 🧪 Tester | Murat | Test Architect | Test strategy, CI/CD, quality gates |
+| 🔍 Reviewer | Rachel | Code Reviewer | PR diff audits, security scanning, code quality |
 | 📚 Writer | Paige | Tech Writer | API docs, architecture docs, user guides |
+
 
 > [!IMPORTANT]
 > **Research Phase**: Before starting analysis or architecture, we must perform official documentation research and latest best practice discovery (Docs-First).
@@ -47,6 +49,9 @@ The BMAD (Business-Model-Architecture-Development) Method defines a structured p
 19. **Deterministic Mode Routing**: To eliminate agent cognitive load, agents must auto-detect the active mode at Pre-Flight using git branch prefix checks (`spike/` or `experiment/` -> Spike Mode; `hotfix/` or `bugfix/` -> Fastpath; all others -> Standard Lifecycle).
 20. **AST Code-Schema Auditing**: To prevent silent documentation drift in `docs/architecture_map.md`, the Tech Writer (`bmad-writer`) must proactively scan migrations, database models, and route directories using search commands in Phase 8 to verify that documentation schemas match the code AST first.
 21. **Strict Project-Root-Relative Paths (#6)**: NEVER include local host usernames or system paths (e.g. `/Users/username/project/backend` or `/mycomputer/project/...`). All documentation, specifications, LLDs, PRDs, links, and code paths MUST use project-root-relative paths (e.g. `/backend/...` or `backend/...`).
+22. **BMAD v6 Subagent Architecture**: When running multi-step tasks or the full orchestrator, delegate execution to specialized subagents defined under `.agent/subagents/`. Use tiered models (`flash` for PM/Analyst/SM/Writer, `pro` for Architect/Dev) and isolated workspace branches (`Workspace: branch`) for developer subagents to maintain clean context and sandbox safety.
+23. **Party Mode Pre-Flight Deliberation**: On complex feature branches, trigger `/bmad-party` or the `bmad-party` council subagent to debate technical trade-offs, testability, and edge cases across Architect, Developer, and Test Architect before writing code.
+
 
 
 
