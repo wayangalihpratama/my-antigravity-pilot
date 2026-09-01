@@ -336,6 +336,7 @@ main() {
             update_directory "${BMAD_TEAM_DIR}/workflows" "${project_agent_dir}/workflows"
             update_directory "${BMAD_TEAM_DIR}/templates" "${project_agent_dir}/templates"
             update_directory "${BMAD_TEAM_DIR}/subagents" "${project_agent_dir}/subagents"
+            update_directory "${BMAD_TEAM_DIR}/scripts" "${project_agent_dir}/scripts"
             echo ""
         done
 
@@ -411,6 +412,7 @@ main() {
     update_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
     update_directory "${BMAD_TEAM_DIR}/templates" "${target_agent_dir}/templates"
     update_directory "${BMAD_TEAM_DIR}/subagents" "${target_agent_dir}/subagents"
+    update_directory "${BMAD_TEAM_DIR}/scripts" "${target_agent_dir}/scripts"
 
     # Initialize .agent/config.yaml if not already present
     if [[ ! -f "${target_agent_dir}/config.yaml" && ! -f "${target_path}/.agents/config.yaml" && -f "${BMAD_TEAM_DIR}/templates/CONFIG.yaml" ]]; then
@@ -418,7 +420,8 @@ main() {
         print_success "Skill filter configuration initialized (.agent/config.yaml)"
         ((STATS_ADDED++)) || true
     fi
-    print_success "BMAD team rules, skills, workflows, templates, and subagents merged"
+    print_success "BMAD team rules, skills, workflows, templates, subagents, and scripts merged"
+
 
     # Step 4: Bootstrap docs/ directory
     print_info "Bootstrapping docs/ directory ..."
