@@ -87,11 +87,61 @@ Update only files that conflict with project standards:
 
 > Only modify files that *conflict*. Leave BMAD defaults that aren't contradicted.
 
-### 8. Validate & Report
+### 8. Configure & Filter Unneeded Agent Skills (Token Optimization)
 
-Sanity check: confirm runtime accessible, test discovery works, dir layout matches `.agent/rules/`.
+Strip out unnecessary domain skills (science/medical DBs, mobile frameworks, heavy cloud/BigQuery pipelines) to minimize token consumption per turn:
 
-**Summarize**: convention files found, feature doc pattern adapted, `project-context.md` updated, workflows aligned, any open decisions for the user.
+1. **Check / Create `.agent/config.yaml` (or `.agents/config.yaml`)** from `bmad-team/templates/CONFIG.yaml`.
+2. **Align `skills.allowlist`** to match what the detected stack actually needs:
+   - Web/Fullstack/Python: `modern-web-guidance`, `managing-python-dependencies`, `uv`, `debugging-protocol`, `add-stack`, `troubleshooting`, `debug-optimize-lcp`, `chrome-devtools`, `a11y-debugging`, `memory-leak-debugging`
+   - Mobile: `flutter-*`, `dart-*`, `xcode-*`, `android-*` (only if mobile project)
+   - Data Engineering: `gcp-*`, `bigquery-*`, `dataform-*`, `dbt-*` (only if dedicated data pipeline)
+3. **Set `skills.blocklist`** to filter out domain categories irrelevant to the stack:
+   ```yaml
+   skills:
+     allowlist:
+       - modern-web-guidance
+       - managing-python-dependencies
+       - uv
+       - debugging-protocol
+       - add-stack
+       - troubleshooting
+       - debug-optimize-lcp
+       - chrome-devtools
+       - a11y-debugging
+       - memory-leak-debugging
+     blocklist:
+       - "flutter-*"
+       - "dart-*"
+       - "xcode-*"
+       - "android-*"
+       - "*-database"
+       - "alphafold-*"
+       - "alphagenome-*"
+       - "protein-*"
+       - "literature-search-*"
+       - "science-skills-*"
+       - "scienceskillscommon"
+       - "pymol"
+       - "gcp-*"
+       - "bigquery-*"
+       - "dataform-*"
+       - "dbt-*"
+       - "firebase-*"
+   ```
+4. **Automatically Reload Cache & Verify**:
+   - The agent executing `/align-stack` **MUST automatically run**:
+     ```bash
+     antigravity reload --clear-cache
+     ```
+     *(or `agy reload --clear-cache` depending on CLI alias)* to apply the pruned skill set immediately.
+   - Run `antigravity status --skills` to verify that blocked skills are eliminated from active context.
+
+### 9. Validate & Report
+
+Sanity check: confirm runtime accessible, test discovery works, dir layout matches `.agent/rules/`, and skills configuration is trimmed and reloaded.
+
+**Summarize**: convention files found, feature doc pattern adapted, `project-context.md` updated, `.agent/config.yaml` skill filters configured, cache cleared/reloaded, workflows aligned, any open decisions for the user.
 
 ---
 
@@ -102,6 +152,10 @@ Sanity check: confirm runtime accessible, test discovery works, dir layout match
 - [ ] Feature doc directories scanned; naming, location, template discovered
 - [ ] `.agent/templates/FEATURE_SPEC.md` adapted to project's feature doc standard
 - [ ] `.agent/rules/documentation-hierarchy.md` updated with correct feature spec path
+- [ ] `.agent/config.yaml` created/updated with optimized `skills.allowlist` and `skills.blocklist`
+- [ ] `antigravity reload --clear-cache` executed to apply skill filtering immediately
 - [ ] `.agent/workflows/` updated to project's actual commands
 - [ ] No BMAD rule silently overrides project's external conventions
 - [ ] Alignment confirmed with the user
+
+

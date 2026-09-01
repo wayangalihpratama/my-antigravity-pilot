@@ -55,6 +55,10 @@ Our UX and Dev agents are configured to use the **Figma Dev Mode MCP Server**. W
 ### 4. TDD & Systematic Debugging
 We strictly follow **Test-Driven Development (TDD)** and a rigorous **Global Debugging Protocol** (Isolate → Hypothesize → Surgical Search → Failing Test → Fix). No code is implemented without a test, and no bug is fixed by guessing.
 
+### 5. Token Optimization & Skill Pruning
+Default Antigravity environments load dozens of unused domain skills (science/medical DBs, mobile frameworks, heavy cloud pipelines) into the prompt context on every turn. Stacks include a `.agent/config.yaml` with explicit `skills.allowlist` and `skills.blocklist` to trim context window bloat and keep the model laser-focused on your tech stack. Run `/align-stack` to align skill filters to your project.
+
+
 ---
 
 ## Workflow Guide: When to Use What

@@ -409,6 +409,13 @@ main() {
     update_directory "${BMAD_TEAM_DIR}/skills" "${target_agent_dir}/skills"
     update_directory "${BMAD_TEAM_DIR}/workflows" "${target_agent_dir}/workflows"
     update_directory "${BMAD_TEAM_DIR}/templates" "${target_agent_dir}/templates"
+
+    # Initialize .agent/config.yaml if not already present
+    if [[ ! -f "${target_agent_dir}/config.yaml" && ! -f "${target_path}/.agents/config.yaml" && -f "${BMAD_TEAM_DIR}/templates/CONFIG.yaml" ]]; then
+        cp "${BMAD_TEAM_DIR}/templates/CONFIG.yaml" "${target_agent_dir}/config.yaml"
+        print_success "Skill filter configuration initialized (.agent/config.yaml)"
+        ((STATS_ADDED++)) || true
+    fi
     print_success "BMAD team rules, skills, workflows, and templates merged"
 
     # Step 4: Bootstrap docs/ directory
@@ -453,19 +460,21 @@ main() {
     echo -e "  ${BOLD}Skills:${NC}     ${total_skills} skills"
     echo -e "  ${BOLD}Workflows:${NC}  ${total_workflows} workflows"
     echo ""
-    echo -e "  ${BOLD}Documentation:${NC}"
+    echo -e "  ${BOLD}Documentation & Config:${NC}"
     echo -e "    📂 docs/           → Shared (git-tracked): briefs/, prd/, lld/ (versioned docs)"
     echo -e "    📂 agent_docs/     → Local (gitignored): sprint plans + stories"
     echo -e "    📂 .agent/         → Local (gitignored): rules, skills, workflows"
+    echo -e "    ⚙️  .agent/config.yaml → Skill pruning (reduces token usage)"
     echo ""
     echo -e "  ${BOLD}BMAD Agents Available:${NC}"
     echo -e "    📋 PM (John)       📊 Analyst (Mary)     🏗️  Architect (Winston)"
     echo -e "    🎨 UX (Sally)      🏃 SM (Bob)           💻 Dev (Amelia)"
     echo -e "    🧪 Tester (Murat)  📚 Writer (Paige)"
     echo ""
-    echo -e "  ${CYAN}To start the BMAD lifecycle: use /bmad-orchestrator${NC}"
-    echo -e "  ${CYAN}To invoke a specific agent: use the bmad-{role} skill${NC}"
-    echo -e "  ${CYAN}To generate an initial LLD: use /generate-lld${NC}"
+    echo -e "  ${CYAN}To align stack & prune tokens: use /align-stack${NC}"
+    echo -e "  ${CYAN}To start the BMAD lifecycle:   use /bmad-orchestrator${NC}"
+    echo -e "  ${CYAN}To invoke a specific agent:    use the bmad-{role} skill${NC}"
+    echo -e "  ${CYAN}To generate an initial LLD:    use /generate-lld${NC}"
     echo ""
 }
 

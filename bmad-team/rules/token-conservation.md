@@ -28,3 +28,8 @@ All agents under the `bmad-team` or `.agent` folder MUST strictly adhere to thes
 ### 5. Efficient Scanning
 - Avoid recursive directory listing (`list_dir` or similar) on large project roots.
 - Target search queries precisely using specific paths or includes.
+
+### 6. Skill Context Pruning & Filtering
+- All projects must configure `.agent/config.yaml` (or `.agents/config.yaml`) with tailored `skills.allowlist` and `skills.blocklist`.
+- Block unneeded heavy domain skills (e.g., `*-database`, `flutter-*`, `dart-*`, `gcp-*`, `alphafold-*`) to prevent hundreds of lines of unused tool descriptions from polluting every turn's system prompt context.
+
