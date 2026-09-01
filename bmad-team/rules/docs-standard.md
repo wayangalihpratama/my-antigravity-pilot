@@ -57,3 +57,10 @@ Tag dirty LLDs with `<!-- DIRTY_AMENDMENT: [details, approved date] -->` at the 
 
 > [!CAUTION]
 > Files in `docs/` are pushed to the repo. NEVER include API keys, passwords, tokens, credentials, or PII. Use placeholders like `YOUR_API_KEY`.
+
+### Project-Root-Relative Paths Only (#6)
+
+> [!CAUTION]
+> NEVER include local machine paths or usernames (e.g. `/Users/username/...`, `C:\Users\username\...`, `/home/username/...`, `/mycomputer/project/...`) in any documentation, link, template, or code comment.
+> ALWAYS refer to paths relative to the project workspace root (e.g., `/backend/models/...`, `/app/routers/...`, `docs/lld/project_lld.md`).
+

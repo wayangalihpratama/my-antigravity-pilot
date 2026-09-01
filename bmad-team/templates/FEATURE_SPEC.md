@@ -1,5 +1,9 @@
 # [Feature Name] - Implementation Plan
 
+> **Template Adaptation & Path Standard**:
+> - **Project-Root-Relative Paths (#6)**: Always use paths relative to workspace root (e.g., `/backend/models/...`, `/app/routers/...`). NEVER include local computer paths or usernames.
+> - **Repo Structure Alignment**: Tailor sections to current repo layout — add missing parts (e.g. Background Workers, AI Chains, Microservices) and remove unused parts (e.g. Frontend if backend-only, Migrations if no ORM).
+
 ## Overview
 [A brief explanation of the feature, its purpose, and what it achieves for the user/system.]
 

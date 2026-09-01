@@ -77,8 +77,9 @@ erDiagram
 
 > Index of all active Low-Level Designs.
 
-- [ ] [Feature Name 1](file:///absolute/path/to/docs/lld/feature1_lld.md) — Covers [Requirements]
-- [ ] [Feature Name 2](file:///absolute/path/to/docs/lld/feature2_lld.md) — Covers [Requirements]
+- [ ] [Feature Name 1](docs/lld/feature1_lld.md) — Covers [Requirements]
+- [ ] [Feature Name 2](docs/lld/feature2_lld.md) — Covers [Requirements]
+
 
 ---
 

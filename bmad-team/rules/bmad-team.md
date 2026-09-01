@@ -46,6 +46,8 @@ The BMAD (Business-Model-Architecture-Development) Method defines a structured p
 18. **In-Flight Design Amendments**: If developers uncover blockers during implementation, they can draft an amendment in chat. Once approved by the Architect/PM, they implement it immediately; the Tech Writer retrospectively syncs LLDs/PRDs during the Document phase to avoid blocking developers.
 19. **Deterministic Mode Routing**: To eliminate agent cognitive load, agents must auto-detect the active mode at Pre-Flight using git branch prefix checks (`spike/` or `experiment/` -> Spike Mode; `hotfix/` or `bugfix/` -> Fastpath; all others -> Standard Lifecycle).
 20. **AST Code-Schema Auditing**: To prevent silent documentation drift in `docs/architecture_map.md`, the Tech Writer (`bmad-writer`) must proactively scan migrations, database models, and route directories using search commands in Phase 8 to verify that documentation schemas match the code AST first.
+21. **Strict Project-Root-Relative Paths (#6)**: NEVER include local host usernames or system paths (e.g. `/Users/username/project/backend` or `/mycomputer/project/...`). All documentation, specifications, LLDs, PRDs, links, and code paths MUST use project-root-relative paths (e.g. `/backend/...` or `backend/...`).
+
 
 
 ### Invoking Agents

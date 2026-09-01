@@ -57,24 +57,36 @@ Create or update `.agent/rules/project-context.md` using the template at `bmad-t
 
 > **Re-run Safety**: If the file already exists, **merge** new findings into it — do not overwrite. Append `<!-- last-aligned: YYYY-MM-DD -->`.
 
-### 6. Discover the Project's Feature Documentation Standard
+### 6. Align Documentation Templates to Repo Structure & Standards
 
-Scan doc directories for existing feature doc patterns:
-- `docs/`, `documentation/`, `docs/features/`, `docs/specs/`, `docs/stories/`, `docs/tickets/`, `doc/`, `wiki/`, `.docs/`
+1. **Discover Feature Doc Standard & Hierarchy**:
+   Scan doc directories for existing patterns:
+   - `docs/`, `documentation/`, `docs/features/`, `docs/specs/`, `docs/stories/`, `docs/tickets/`, `doc/`, `wiki/`, `.docs/`
+   - Detect: naming convention (e.g., `001_name_spec.md`), frontmatter fields, section headings, folder structure (`implemented/` vs active), PRD/LLD references.
+   - **Confidence threshold**: 3+ consistent files → high confidence; 1–2 → medium; 0 found → keep BMAD defaults.
 
-For each `.md` found, detect: naming convention, frontmatter fields, section headings, folder structure (in-progress vs done), PRD/LLD references.
+2. **Adapt Templates to Actual Repository Architecture (`.agent/templates/`)**:
+   Inspect the real repository structure and tailor `.agent/templates/FEATURE_SPEC.md`, `LLD.md`, `PRD.md`, and `architecture_map.md`:
+   - **Add Missing Parts**:
+     - If the project includes background workers or queue processors (e.g., Celery, Redis queue, BullMQ, RQ), add dedicated `Worker / Background Tasks` sections.
+     - If the project includes AI/LLM workflows (e.g., LangGraph, RAG, DSPy, tool calling), add `AI Chains & Orchestration` sections.
+     - If the project includes microservices or monorepo packages (`packages/*`, `services/*`), add modular per-service sections.
+     - If the project includes containerization or special service dependencies (`docker-compose.yml`, `dc.sh`), add `Service & Infrastructure Configuration` sections.
+   - **Remove Unused Parts**:
+     - If backend-only / API-only (no frontend UI code in repo), remove `## 2. Frontend Implementation`, state management, and UI wireframe sections.
+     - If frontend-only / SPA (no backend in repo), remove backend, database model, and migration sections.
+     - If no database or migrations exist in the stack, remove Alembic/migration placeholders.
+   - **Align Directory Path Placeholders**:
+     - Update all path references to match the actual folder structure (e.g., `/app/models/...` instead of `/backend/models/...`, or `src/api/...` instead of `routers/...`).
 
-**Confidence threshold** (pick 2–3 representative files):
-- **3+ consistent** → High confidence; adapt template.
-- **1–2 found** → Medium; use them, note "may not be fully representative."
-- **0 found** → Keep BMAD defaults. Report: "No existing feature docs found."
-- **Inconsistent** → Ask user: "Which file is the standard?"
+3. **Strict Project-Root-Relative Paths Only (#6)**:
+   - **MANDATORY**: NEVER include local machine paths or usernames (e.g. `/Users/username/...`, `C:\Users\username\...`, `/home/username/...`, `/mycomputer/project/...`).
+   - ALWAYS use **project-root-relative paths** (e.g., `/backend/models/...`, `/app/routers/...`, `docs/lld/project_lld.md`).
+   - Ensure all links in docs use workspace-relative anchors or paths.
 
-**Update `.agent/templates/FEATURE_SPEC.md`**: Adapt section headings, naming convention, and file location to match the project's pattern. Preserve BMAD core content (architecture, backend/frontend, verification, estimation) but restructured.
-
-**Update `.agent/rules/documentation-hierarchy.md`**: Set the Feature Spec path/naming to the discovered convention.
-
-**Report** to user: discovered pattern vs BMAD default, and proposed changes.
+4. **Update Rule References**:
+   - Update `.agent/rules/documentation-hierarchy.md` with the confirmed feature spec path and template.
+   - **Report** to user: discovered structure, added/removed template sections, and path standard.
 
 ### 7. Update `.agent/` Configs for Conflicts Only
 
@@ -141,7 +153,7 @@ Strip out unnecessary domain skills (science/medical DBs, mobile frameworks, hea
 
 Sanity check: confirm runtime accessible, test discovery works, dir layout matches `.agent/rules/`, and skills configuration is trimmed and reloaded.
 
-**Summarize**: convention files found, feature doc pattern adapted, `project-context.md` updated, `.agent/config.yaml` skill filters configured, cache cleared/reloaded, workflows aligned, any open decisions for the user.
+**Summarize**: convention files found, feature doc pattern adapted (with added/removed sections matching repo layout), `project-context.md` updated, `.agent/config.yaml` skill filters configured, cache cleared/reloaded, workflows aligned, any open decisions for the user.
 
 ---
 
@@ -150,12 +162,14 @@ Sanity check: confirm runtime accessible, test discovery works, dir layout match
 - [ ] External AI convention files scanned; key rules extracted
 - [ ] `project-context.md` created/updated in `.agent/rules/`
 - [ ] Feature doc directories scanned; naming, location, template discovered
-- [ ] `.agent/templates/FEATURE_SPEC.md` adapted to project's feature doc standard
+- [ ] `.agent/templates/FEATURE_SPEC.md` adapted to project's feature doc standard (added missing parts, removed unused parts, aligned paths)
+- [ ] All document links and file paths verified to be strictly project-root-relative with no local computer or user references (#6)
 - [ ] `.agent/rules/documentation-hierarchy.md` updated with correct feature spec path
 - [ ] `.agent/config.yaml` created/updated with optimized `skills.allowlist` and `skills.blocklist`
 - [ ] `antigravity reload --clear-cache` executed to apply skill filtering immediately
 - [ ] `.agent/workflows/` updated to project's actual commands
 - [ ] No BMAD rule silently overrides project's external conventions
 - [ ] Alignment confirmed with the user
+
 
 

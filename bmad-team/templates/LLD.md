@@ -4,6 +4,8 @@
 > Owner: Tech Lead / Senior Engineer | Target Location: `docs/lld/{feature}_lld.md` | References: `docs/prd/[PRD_NAME].md`
 > Status: `Draft` | `In Review` | `Approved`
 > Design Review: _[Reviewer Name, Date]_ | Open Questions Remaining: `0`
+> **Path Standard (#6)**: All file paths & links MUST be project-root-relative (e.g. `/backend/...`, `/app/...`). NEVER use local machine paths or usernames.
+
 
 ---
 
