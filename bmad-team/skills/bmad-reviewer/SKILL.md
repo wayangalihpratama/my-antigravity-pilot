@@ -29,11 +29,23 @@ Uses standardized severity tags:
 - **`[SEC]`** (Critical): Security vulnerability, secret leak, auth flaw.
 - **`[DATA]`** (Critical): Data corruption, missing transactions, race condition.
 - **`[ARCH]`** (Major): SOLID violation, layer leak, circular dependency.
-- **`[TEST]`** (Major): Untested logic branch or missing mock.
+- **`[TEST]`** (Major): Untested logic branch, missing mock, or test coverage below 80%.
 - **`[ERR]`** (Major): Swallowed exception, missing error handling.
 - **`[PERF]`** (Major/Minor): N+1 query, blocking I/O on async event loop.
 - **`[PAT]`** (Minor): Inconsistent naming or framework anti-pattern.
 - **`[NIT]`** (Optional): Minor styling or readability suggestion.
 
+### 4. Akvo Developer Guidelines Compliance Audit
+- Verifies branch naming convention: `feature/<issue_number>-<issue_description>`.
+- Verifies code formatting (Prettier for JS/TS, Black/Flake8 for Python).
+- Verifies minimum 80% automated test coverage gate before approving PRs.
+- Enforces max 1–3 feedback iterations.
+
 ## Output Contract
 Generates structured Markdown review findings with file/line links, severity tags, and concrete suggested fixes.
+
+## Related Rules
+- Akvo Developer Guidelines @akvo-developer-guidelines.md
+- Coding Standards @coding-standards.md
+- Git Workflow @git-workflow.md
+

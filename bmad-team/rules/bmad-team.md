@@ -51,6 +51,8 @@ The BMAD (Business-Model-Architecture-Development) Method defines a structured p
 21. **Strict Project-Root-Relative Paths (#6)**: NEVER include local host usernames or system paths (e.g. `/Users/username/project/backend` or `/mycomputer/project/...`). All documentation, specifications, LLDs, PRDs, links, and code paths MUST use project-root-relative paths (e.g. `/backend/...` or `backend/...`).
 22. **BMAD v6 Subagent Architecture**: When running multi-step tasks or the full orchestrator, delegate execution to specialized subagents defined under `.agent/subagents/`. Use tiered models (`flash` for PM/Analyst/SM/Writer, `pro` for Architect/Dev) and isolated workspace branches (`Workspace: branch`) for developer subagents to maintain clean context and sandbox safety.
 23. **Party Mode Pre-Flight Deliberation**: On complex feature branches, trigger `/bmad-party` or the `bmad-party` council subagent to debate technical trade-offs, testability, and edge cases across Architect, Developer, and Test Architect before writing code.
+24. **Akvo Developer Guidelines Compliance**: The entire team strictly adheres to the official Akvo Developer Guidelines (@akvo-developer-guidelines.md), including `feature/<issue_number>-<issue_description>` branch naming, `git pull --rebase` history cleanliness, minimum 80% test coverage gate, and 1–3 PR review iteration limits.
+
 
 
 

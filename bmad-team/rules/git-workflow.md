@@ -18,7 +18,16 @@ Every commit MUST follow this format:
 > [!IMPORTANT]
 > If you are about to commit and do not have an issue number, you MUST ask the user to confirm the issue number before proceeding. Never invent an issue number.
 
+### Akvo Branch Naming Standard
+Every feature branch MUST be linked to an issue number (following Akvo Developer Guidelines):
+- **Format**: `feature/<issue_number>-<issue_description>`
+- **Examples**: `feature/13-backend-test-setup`, `feature/363-precommit-config`
+
+### Git Rebase Mandate (`git pull --rebase`)
+- **Always** use `git pull --rebase` instead of `git merge` or merge commits when syncing your branch with `origin/main` to keep a clean, linear commit history.
+
 ### Pull Request Strategy
+
 
 When creating a PR:
 1. **Title Format**: `[#issue_number] <Clear group/feature name> - <Short Description>`
