@@ -57,36 +57,33 @@ Create or update `.agent/rules/project-context.md` using the template at `bmad-t
 
 > **Re-run Safety**: If the file already exists, **merge** new findings into it — do not overwrite. Append `<!-- last-aligned: YYYY-MM-DD -->`.
 
-### 6. Align Documentation Templates to Repo Structure & Standards
+### 6. Adopt Target Project's Plan Doc Template & Folder Structure
 
-1. **Discover Feature Doc Standard & Hierarchy**:
-   Scan doc directories for existing patterns:
-   - `docs/`, `documentation/`, `docs/features/`, `docs/specs/`, `docs/stories/`, `docs/tickets/`, `doc/`, `wiki/`, `.docs/`
-   - Detect: naming convention (e.g., `001_name_spec.md`), frontmatter fields, section headings, folder structure (`implemented/` vs active), PRD/LLD references.
-   - **Confidence threshold**: 3+ consistent files → high confidence; 1–2 → medium; 0 found → keep BMAD defaults.
+When running `/align-stack` in a target project, our plan document template MUST respect and adopt the target project's existing plan documentation format and directory location:
 
-2. **Adapt Templates to Actual Repository Architecture (`.agent/templates/`)**:
-   Inspect the real repository structure and tailor `.agent/templates/FEATURE_SPEC.md`, `LLD.md`, `PRD.md`, and `architecture_map.md`:
-   - **Add Missing Parts**:
-     - If the project includes background workers or queue processors (e.g., Celery, Redis queue, BullMQ, RQ), add dedicated `Worker / Background Tasks` sections.
-     - If the project includes AI/LLM workflows (e.g., LangGraph, RAG, DSPy, tool calling), add `AI Chains & Orchestration` sections.
-     - If the project includes microservices or monorepo packages (`packages/*`, `services/*`), add modular per-service sections.
-     - If the project includes containerization or special service dependencies (`docker-compose.yml`, `dc.sh`), add `Service & Infrastructure Configuration` sections.
-   - **Remove Unused Parts**:
-     - If backend-only / API-only (no frontend UI code in repo), remove `## 2. Frontend Implementation`, state management, and UI wireframe sections.
-     - If frontend-only / SPA (no backend in repo), remove backend, database model, and migration sections.
-     - If no database or migrations exist in the stack, remove Alembic/migration placeholders.
-   - **Align Directory Path Placeholders**:
-     - Update all path references to match the actual folder structure (e.g., `/app/models/...` instead of `/backend/models/...`, or `src/api/...` instead of `routers/...`).
+1. **Scan for Target Project Plan / Spec Documentation**:
+   - Inspect the target project for existing planning documents, implementation plans, RFCs, design docs, or feature specifications (e.g., in `docs/`, `docs/plans/`, `docs/features/`, `docs/specs/`, `plans/`, `.github/`, `wiki/`, `.docs/`).
+   - Check if the target project already has an established plan doc template (e.g., `docs/templates/plan.md`, `docs/specs/template.md`, `.github/PULL_REQUEST_TEMPLATE/`, or representative existing plan files).
 
-3. **Strict Project-Root-Relative Paths Only (#6)**:
+2. **Adopt the Target Project's Plan Template into `.agent/templates/FEATURE_SPEC.md`**:
+   - **If the target project HAS existing plan documentation / templates**:
+     - Update `.agent/templates/FEATURE_SPEC.md` to replicate the target project's exact plan doc template and structure.
+     - **Add Missing Parts**: Add sections that the target project expects and uses (e.g., Acceptance Criteria, Security/Privacy Review, Rollout/Rollback Plan, User Stories, Impact Analysis, Custom Checklist).
+     - **Remove Unused Parts**: Strip out default BMAD sections that the target project does NOT use (e.g., remove the ballpark hourly estimation table if the team does not estimate in hours, remove LLD cross-links if they don't use LLDs, remove UI wireframes if it's an API-only service).
+   - **If the target project does NOT have existing plan documentation**:
+     - Keep the default BMAD template in `.agent/templates/FEATURE_SPEC.md`, but adjust paths and components to match the target project's directories (e.g. `/app/...` vs `/backend/...`).
+
+3. **Respect the Target Project's Plan Folder Location**:
+   - Detect the exact folder where the target project stores plan docs (e.g., `docs/plans/`, `docs/specs/`, `docs/features/`, or custom path).
+   - Record this location in `.agent/rules/project-context.md` and `.agent/rules/documentation-hierarchy.md` so that all subsequent planning workflows (e.g. `/0-planning`) save new plan documents directly to the target project's native folder.
+
+4. **Strict Project-Root-Relative Paths Only (#6)**:
    - **MANDATORY**: NEVER include local machine paths or usernames (e.g. `/Users/username/...`, `C:\Users\username\...`, `/home/username/...`, `/mycomputer/project/...`).
-   - ALWAYS use **project-root-relative paths** (e.g., `/backend/models/...`, `/app/routers/...`, `docs/lld/project_lld.md`).
+   - ALWAYS use **project-root-relative paths** (e.g., `/backend/models/...`, `/app/routers/...`, `docs/plans/...`).
    - Ensure all links in docs use workspace-relative anchors or paths.
 
-4. **Update Rule References**:
-   - Update `.agent/rules/documentation-hierarchy.md` with the confirmed feature spec path and template.
-   - **Report** to user: discovered structure, added/removed template sections, and path standard.
+5. **Report to User**:
+   - Summarize the discovered plan template, sections added/removed, and the configured target plan folder.
 
 ### 7. Update `.agent/` Configs for Conflicts Only
 
@@ -153,7 +150,7 @@ Strip out unnecessary domain skills (science/medical DBs, mobile frameworks, hea
 
 Sanity check: confirm runtime accessible, test discovery works, dir layout matches `.agent/rules/`, and skills configuration is trimmed and reloaded.
 
-**Summarize**: convention files found, feature doc pattern adapted (with added/removed sections matching repo layout), `project-context.md` updated, `.agent/config.yaml` skill filters configured, cache cleared/reloaded, workflows aligned, any open decisions for the user.
+**Summarize**: convention files found, plan doc template adopted from target project (with added/removed sections and target folder location configured), `project-context.md` updated, `.agent/config.yaml` skill filters configured, cache cleared/reloaded, workflows aligned, any open decisions for the user.
 
 ---
 
@@ -161,15 +158,15 @@ Sanity check: confirm runtime accessible, test discovery works, dir layout match
 
 - [ ] External AI convention files scanned; key rules extracted
 - [ ] `project-context.md` created/updated in `.agent/rules/`
-- [ ] Feature doc directories scanned; naming, location, template discovered
-- [ ] `.agent/templates/FEATURE_SPEC.md` adapted to project's feature doc standard (added missing parts, removed unused parts, aligned paths)
+- [ ] Target project scanned for existing plan docs/templates; `.agent/templates/FEATURE_SPEC.md` updated to adopt the project's exact plan doc template (added missing parts, removed unused parts)
+- [ ] Target project's plan doc folder location respected and recorded in `project-context.md` and `documentation-hierarchy.md`
 - [ ] All document links and file paths verified to be strictly project-root-relative with no local computer or user references (#6)
-- [ ] `.agent/rules/documentation-hierarchy.md` updated with correct feature spec path
 - [ ] `.agent/config.yaml` created/updated with optimized `skills.allowlist` and `skills.blocklist`
 - [ ] `antigravity reload --clear-cache` executed to apply skill filtering immediately
 - [ ] `.agent/workflows/` updated to project's actual commands
 - [ ] No BMAD rule silently overrides project's external conventions
 - [ ] Alignment confirmed with the user
+
 
 
 
