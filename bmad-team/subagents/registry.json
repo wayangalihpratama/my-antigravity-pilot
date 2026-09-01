@@ -63,7 +63,7 @@
       "persona": "Amelia",
       "role": "Developer",
       "description": "Developer responsible for TDD implementation, code refactoring, and branch-isolated development.",
-      "model": "pro",
+      "model": "flash",
       "workspace": "branch",
       "enable_write_tools": true,
       "enable_mcp_tools": true,
@@ -115,4 +115,3 @@
     }
   ]
 }
-
