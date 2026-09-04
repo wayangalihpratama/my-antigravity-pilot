@@ -38,10 +38,12 @@ Every feature branch MUST be linked to an issue number:
 ### As a Reviewer
 1. **Verify CI Status First**: If CI is red/failing, reject immediately and move the task back to *In Progress*.
 2. **Review Context**: Inspect the Technical Acceptance Criteria (Tech AC) and Low-Level Design (LLD).
-3. **Run Code Locally**: For complex or architectural changes, run and verify the code locally.
-4. **Time-box**: Keep PR reviews focused (target ≤ 1 hour).
-5. **Target Branch**: Verify PR is targeting `main`.
-6. **Limit Iteration Cycles**: Keep review iterations between **1 and 3 cycles** maximum.
+3. **Consolidated Numbered Findings**: Output all findings in a single numbered checklist (`[SEC]`, `[DATA]`, `[ARCH]`, `[PERF]`, `[TEST]`, `[PAT]`, `[NIT]`) so the author can resolve everything in one atomic pass.
+4. **Run Code Locally**: For complex or architectural changes, run and verify the code locally.
+5. **Time-box**: Keep PR reviews focused (target ≤ 1 hour).
+6. **Target Branch**: Verify PR is targeting `main`.
+7. **Limit Iteration Cycles**: Keep review iterations between **1 and 3 cycles** maximum (enforce single-pass fix batches).
+
 
 ---
 

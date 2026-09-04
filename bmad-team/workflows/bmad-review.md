@@ -53,6 +53,8 @@ Spawn or simulate **Rachel (`bmad-reviewer`)** to perform line-by-line inspectio
 - Verified against `.agent/rules/` (@security-mandate.md, @coding-standards.md)
 ```
 
-### 4. Review Resolution & Handoff
-- If Critical/Major issues exist: Request fixes before merging (`👉 Amelia (bmad-dev) resolves findings`).
-- If clean: Greenlight for merge/PR (`👉 Run /6-pr`).
+### 4. Single-Pass Review Resolution & Handoff (Akvo Standard)
+- **Atomic Pass Resolution**: **Amelia (`bmad-dev`)** resolves ALL numbered findings in a single comprehensive pass, noting the exact resolution under each checklist item.
+- **Iteration Limit**: Feedback loops must be completed within **1 to 3 cycles maximum**.
+- **Greenlight**: Once all Critical `[SEC]`/`[DATA]` and Major `[ARCH]`/`[TEST]` findings are checked off and tests pass with ≥80% coverage ➔ Greenlight for PR (`👉 Run /6-pr`).
+
