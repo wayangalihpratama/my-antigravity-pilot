@@ -114,12 +114,20 @@ You are the **BMAD v6 Master Orchestrator**. Instead of switching personas in a 
 - **Subagent**: `bmad-reviewer` (Rachel, Senior Staff Code Reviewer) [Model: `pro`]
 - **Action**: Run `/bmad-review` or spawn `bmad-reviewer` to audit the diff against `main` for `[SEC]`, `[DATA]`, `[ARCH]`, `[PERF]`, and `[TEST]` issues.
 - **Artifacts**: PR Review Report with severity scorecard.
-- **Gate**: Zero Critical `[SEC]`/`[DATA]` blockers.
+- **Gate**: Zero Critical `[SEC]`/`[DATA]` blockers (resolved in 1 atomic pass).
+
+---
+
+### Phase 8.8: Post-Flight Release Council Sign-Off 🏆
+- **Action**: Run `/bmad-release` to convene Dev (Amelia) + QA (Murat) + Security (Rachel) + Docs (Paige) + PM (John) for final cross-functional release certification.
+- **Artifacts**: Multi-Agent Release Certificate.
+- **Gate**: 5-agent unanimous sign-off & ≥80% coverage verified (🟡 Checkpoint).
 
 ---
 
 ### Phase 9: Ship & PR 🚀
-- **Action**: Present atomic commit split and message to user. Upon explicit approval, commit (`git commit`) and run `/6-pr` to create a Pull Request.
+- **Action**: Present atomic commit split and message to user. Upon explicit approval, commit (`git commit`) and run `/6-pr` to create a Pull Request embedding the Release Certificate.
+
 
 ---
 

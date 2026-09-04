@@ -95,13 +95,14 @@
       "name": "bmad-party",
       "persona": "BMAD Council",
       "role": "Party Mode Council",
-      "description": "Multi-Agent Deliberation Council (Architect + Dev + Tester) for cross-functional debate, risk trade-offs, and pre-flight validation.",
+      "description": "Multi-Agent Deliberation Council (Architect + Dev + Tester + Security Red Team) for cross-functional debate, risk trade-offs, and pre-flight validation.",
       "model": "flash",
       "workspace": "inherit",
       "enable_write_tools": false,
       "enable_mcp_tools": false,
       "definition_file": "bmad-party.md"
     },
+
     {
       "name": "bmad-reviewer",
       "persona": "Rachel",
