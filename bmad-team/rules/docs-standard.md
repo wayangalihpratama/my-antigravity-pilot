@@ -1,7 +1,8 @@
 ---
-trigger: always_on
-description: Standardizes git-tracked docs/ directory as the single source of truth.
+trigger: model_decision
+description: Documentation standard for docs/ directory, task.md, and spike_notes.md. Load when creating, modifying, reading, or structuring project documentation.
 ---
+
 
 ## Documentation Standard
 

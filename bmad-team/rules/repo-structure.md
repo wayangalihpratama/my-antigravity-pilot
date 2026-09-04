@@ -1,6 +1,8 @@
 ---
-trigger: always_on
+trigger: model_decision
+description: Multi-stack repository structure and directory conventions. Load when organizing project files, adding new stacks, or exploring directory layouts.
 ---
+
 
 ## Repository Structure
 

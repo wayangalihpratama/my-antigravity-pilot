@@ -33,3 +33,8 @@ All agents under the `bmad-team` or `.agent` folder MUST strictly adhere to thes
 - All projects must configure `.agent/config.yaml` (or `.agents/config.yaml`) with tailored `skills.allowlist` and `skills.blocklist`.
 - Block unneeded heavy domain skills (e.g., `*-database`, `flutter-*`, `dart-*`, `gcp-*`, `alphafold-*`) to prevent hundreds of lines of unused tool descriptions from polluting every turn's system prompt context.
 
+### 7. Subagent Handoff Output Budget (Max 15 Lines)
+- Subagents returning execution results to the parent orchestrator MUST limit their chat response to a **strict ≤15-line Executive Summary** (Status, Touchpoint Files, Test/Coverage Metrics, Blocking Issues).
+- **NEVER** dump full code blocks or entire file contents into the parent chat thread. Provide file paths and allow the parent or user to view targeted line ranges on demand.
+
+

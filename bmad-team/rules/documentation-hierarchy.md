@@ -1,7 +1,8 @@
 ---
-trigger: always_on
-description: Documentation Hierarchy Rule — BMAD doc progression and when each document applies.
+trigger: model_decision
+description: BMAD Documentation Hierarchy (Brief -> PRD -> LLD -> Feature Spec). Load when initiating new initiatives, planning features, or structuring product specs.
 ---
+
 
 ## Documentation Hierarchy: Brief → PRD → LLD → Feature Spec
 
