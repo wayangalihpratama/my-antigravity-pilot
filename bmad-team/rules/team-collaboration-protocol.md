@@ -90,3 +90,25 @@ In modern AI-assisted engineering ("vibe coding"), implementation speed is accel
 3. **🔍 QA & Review**: Security audit, manual smoke tests, PR review resolution, and sign-off.
 4. **⏱️ Total Time**: The true end-to-end velocity metric for planning and tracking.
 
+---
+
+## 6. Automated Parallel Subagent Execution Protocol ⚡
+
+Antigravity automatically supports launching multiple subagents concurrently in a single `invoke_subagent` tool call:
+
+```json
+{
+  "Subagents": [
+    { "TypeName": "bmad-analyst", "Role": "Mary (Analyst)", "Prompt": "..." },
+    { "TypeName": "bmad-ux", "Role": "Sally (UX)", "Prompt": "..." }
+  ]
+}
+```
+
+### Automation Rules:
+1. **Phase 2 & 4 (Analyze + UX)**: Always execute `bmad-analyst` and `bmad-ux` concurrently in a single tool call.
+2. **Phase 6 (Multi-Dev Slicing)**: Execute `/bmad-parallel-dev` to launch 2+ `bmad-dev` (Amelia) instances on isolated workspace branches (`Workspace: branch`) whenever independent stories exist in `task.md`.
+3. **Phase 7 & 8 (Verify + Docs)**: Always execute `bmad-tester` (80% coverage runner) and `bmad-writer` (AST Architecture Map generator) concurrently in a single tool call.
+4. **Reactive Wakeup**: Parent orchestrator halts tool calls while background subagents run. Antigravity automatically notifies the parent when subagents report back.
+
+
