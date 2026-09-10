@@ -70,3 +70,23 @@ To eliminate unnecessary conversational interruptions while preserving strict us
 - Approving breaking API changes or database migration schema changes.
 - Final commit split plan and executing `git commit` / `git push` (per `@git-workflow.md`).
 - Overriding an existing external convention file (`CLAUDE.md`, `.cursorrules`).
+
+---
+
+## 5. Vibe Coding Estimation Standard ⏱️
+
+In modern AI-assisted engineering ("vibe coding"), implementation speed is accelerated, while testing and verification become the primary quality safeguards. All task breakdowns and sprint checklists (`task.md`) MUST explicitly separate effort into three distinct phases:
+
+```markdown
+| Task ID | Story / Task Description | Vibe Coding (Dev) | Automated Testing | QA & Review | Total Est. | Actual Time |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
+| **TASK-01** | User Auth Endpoint (`POST /api/v1/login`) | 25m | 20m | 15m | **60m (1.0h)** | - |
+| **TASK-02** | JWT Token Validation & Middleware | 20m | 15m | 10m | **45m (0.75h)**| - |
+```
+
+### Allocation Guidelines:
+1. **💻 Vibe Coding (Implementation)**: Core logic, models, controllers, and UI built with AI assistance.
+2. **🧪 Automated Testing (TEA)**: Unit tests, mock fixtures, edge cases, and achieving the ≥80% coverage gate.
+3. **🔍 QA & Review**: Security audit, manual smoke tests, PR review resolution, and sign-off.
+4. **⏱️ Total Time**: The true end-to-end velocity metric for planning and tracking.
+

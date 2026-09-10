@@ -46,7 +46,7 @@ The spec MUST cover:
 - **Backend**: DB model changes (fields, constraints, migrations), API payloads/responses
 - **Frontend**: State management, UI components, ASCII wireframes if needed
 - **Verification**: Automated test commands + manual steps
-- **Estimation**: Tasks ≤16h each, with Min–Max hour ranges and confidence level
+- **Vibe Coding Estimation**: Task table with 3-part breakdown: **Vibe Coding (Dev)** + **Automated Testing** + **QA & Review** = **Total Est. Time** (atomic tasks ≤4h each)
 
 ---
 
@@ -55,8 +55,9 @@ The spec MUST cover:
 - [ ] 5W1H requirements analyzed
 - [ ] PRD/LLD checked (read if present, skipped if not — not created)
 - [ ] Feature Specification created at the project-native path
-- [ ] All tasks estimated in developer hours
+- [ ] All tasks estimated with 3-part Vibe Coding breakdown (Dev + Testing + QA)
 - [ ] User reviewed and approved the Feature Specification
+
 
 ## 🛑 HALT
 

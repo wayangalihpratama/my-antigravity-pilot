@@ -90,15 +90,16 @@
 
 ---
 
-## 4. Epic & Ballpark Estimation
+## 4. Epic & Vibe Coding Estimation ⏱️
 
-> Provide ballpark estimates in developer hours. Break complex tasks down so that no single task exceeds 16 hours (2 days).
+> Provide task estimates using the 3-part Vibe Coding breakdown: **Vibe Coding (Dev)** + **Automated Testing** + **QA & Review** = **Total Est. Time**. Break complex tasks down so that no single task exceeds 4 hours.
 - Confidence Level: [High / Medium / Low]
 - Dependencies: [e.g., None]
 
-| Task ID | Component & Description | Est. Hours (Min - Max) | Priority |
-|---------|-------------------------|------------------------|----------|
-| T-001   | [e.g., DB Schema Migration] | 4h - 8h | Must Have |
-| T-002   | [e.g., API Route & Validation] | 8h - 12h | Must Have |
-| T-003   | [e.g., Component layout & state] | 6h - 10h | Must Have |
+| Task ID | Component & Description | Vibe Coding (Dev) | Automated Testing | QA & Review | Total Est. Time | Priority |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **T-001** | [e.g., DB Schema Migration] | 30m | 20m | 15m | **65m (1.1h)** | Must Have |
+| **T-002** | [e.g., API Route & Validation] | 45m | 30m | 20m | **95m (1.6h)** | Must Have |
+| **T-003** | [e.g., Component layout & state] | 40m | 25m | 15m | **80m (1.3h)** | Must Have |
+
 

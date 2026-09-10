@@ -14,14 +14,15 @@ description: Scrum Master agent (Bob). Use when creating user stories, sprint pl
 
 ## Capabilities
 
-### 1. Create Feature Task Checklist
-Generate complete, implementable tasks directly inside the Feature Specification (`docs/features/{NNN}_{feature_name}_spec.md`) under the "Epic & Ballpark Estimation" section, and prepare the local `task.md` checklist in the workspace root:
+### 1. Create Feature Task Checklist & Vibe Coding Estimation ⏱️
+Generate complete, implementable tasks directly inside the Feature Specification (`docs/features/{NNN}_{feature_name}_spec.md`) under the "Epic & Vibe Coding Estimation" section, and prepare the local `task.md` checklist in the workspace root:
 
-- **Estimated Time**: Task estimations range (Min - Max) in developer hours.
-- **Task Breakdown**: Individual tasks must be small enough that no single task exceeds 16 hours.
-- **Technical & User Acceptance Criteria**: Detailed checklists for the developer to verify functionality.
+- **Vibe Coding Estimation Standard**: Break down every task into **Vibe Coding (Dev)** + **Automated Testing** + **QA & Review** = **Total Est. Time**.
+- **Task Breakdown**: Individual tasks must be small and atomic (targeting ≤4 hours total).
+- **Technical & User Acceptance Criteria**: Detailed checklists for the developer and QA to verify functionality.
 
-**Output**: Add tasks directly to the Feature Specification and write the initial checklist to `task.md` in the workspace root.
+**Output**: Add tasks directly to the Feature Specification and write the initial checklist table to `task.md` in the workspace root.
+
 
 ### 2. Backlog & Scope Refinement
 

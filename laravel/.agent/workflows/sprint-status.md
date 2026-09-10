@@ -31,21 +31,30 @@ Generate a concise status report for the user:
 ```markdown
 ## Sprint Status Overview
 - **Sprint Name**: [Sprint Name]
-- **Progress**: [X]% Completed ([Y]/[Z] Points)
+- **Progress**: [X]% Completed ([Y]/[Z] Stories)
 - **Time Tracking**: [Total Actual Time] spent vs [Total Estimated Time] estimated
 
+### ⏱️ Vibe Coding Breakdown
+| Phase | Estimated | Actual | Variance |
+| :--- | :---: | :---: | :---: |
+| 💻 **Vibe Coding (Dev)** | X.Xh | Y.Yh | +/- Zh |
+| 🧪 **Automated Testing** | X.Xh | Y.Yh | +/- Zh |
+| 🔍 **QA & Review** | X.Xh | Y.Yh | +/- Zh |
+| **Total** | **X.Xh** | **Y.Yh** | **+/- Zh** |
+
 ### Completed Stories
-- [Story Title] ([Points])
+- [Story Title] ([Total Est.] -> [Actual Time])
 
 ### In Progress
-- [Story Title] ([Points]) - [Actual Time] spent so far
+- [Story Title] ([Total Est.]) - [Actual Time] spent so far
 
 ### Remaining
-- [Story Title] ([Points])
+- [Story Title] ([Total Est.])
 
-### Blockers / Notes
-[Any missing UAC/TAC, lack of updates, or potential risks based on time tracking]
+### Blockers / Risks
+[Any missing UAC/TAC, test coverage shortfalls, or scope risks]
 ```
+
 
 ## Completion Criteria
 - [ ] Read `task.md`.

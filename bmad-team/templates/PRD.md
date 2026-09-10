@@ -163,29 +163,30 @@ flowchart TD
 
 ---
 
-## 10. Epic & Ballpark Estimation
+## 10. Epic & Vibe Coding Estimation ⏱️
 
-> Provide ballpark estimates in developer hours. Break complex tasks down so that no individual task exceeds 16 hours (2 days).
+> Provide task estimates using the 3-part Vibe Coding breakdown: **Vibe Coding (Dev)** + **Automated Testing** + **QA & Review** = **Total Est. Time**. Break complex tasks down so that no single task exceeds 4 hours.
 
 ### Milestone 1: [e.g., Core API & Database Migration]
 - Confidence Level: [High / Medium / Low]
 - Dependencies: [e.g., None]
 
-| Task ID | Component & Description | Est. Hours (Min - Max) | Priority |
-|---------|-------------------------|------------------------|----------|
-| T-001   | [e.g., DB Schema Migration for User Status] | 4h - 8h | Must Have |
-| T-002   | [e.g., PUT /user/status API Route & Validation] | 8h - 12h | Must Have |
+| Task ID | Component & Description | Vibe Coding (Dev) | Automated Testing | QA & Review | Total Est. Time | Priority |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **T-001** | [e.g., DB Schema Migration for User Status] | 30m | 20m | 15m | **65m (1.1h)** | Must Have |
+| **T-002** | [e.g., PUT /user/status API Route & Validation] | 45m | 30m | 20m | **95m (1.6h)** | Must Have |
 
 ### Milestone 2: [e.g., Frontend Implementation & Integration]
 - Confidence Level: [Medium]
 - Dependencies: [Milestone 1 APIs]
 
-| Task ID | Component & Description | Est. Hours (Min - Max) | Priority |
-|---------|-------------------------|------------------------|----------|
-| T-003   | [e.g., Setup component layout and sidebar state] | 6h - 10h | Must Have |
-| T-004   | [e.g., Integrate endpoints with error handling UX] | 8h - 16h | Must Have |
+| Task ID | Component & Description | Vibe Coding (Dev) | Automated Testing | QA & Review | Total Est. Time | Priority |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **T-003** | [e.g., Setup component layout and sidebar state] | 40m | 25m | 15m | **80m (1.3h)** | Must Have |
+| **T-004** | [e.g., Integrate endpoints with error handling UX] | 60m | 40m | 30m | **130m (2.2h)**| Must Have |
 
-*Note: Total ballpark development estimation includes a +20% integration buffer for testing and QA.*
+*Note: Total Vibe Coding cycle time explicitly accounts for implementation, unit/integration test coverage (≥80%), and QA/security review sign-off.*
+
 
 ---
 
