@@ -146,7 +146,13 @@ Strip out unnecessary domain skills (science/medical DBs, mobile frameworks, hea
      *(or `agy reload --clear-cache` depending on CLI alias)* to apply the pruned skill set immediately.
    - Run `antigravity status --skills` to verify that blocked skills are eliminated from active context.
 
-### 9. Validate & Report
+### 9. Intelligent Non-Destructive Environment Reconciliation
+When synchronizing `.env` files, Docker compose configs, and framework settings:
+1. **Never Blindly Overwrite Active Configurations**: If `.env` or `compose.yml` already exists with verified project keys, perform a key-by-key merge.
+2. **Preserve Custom Variables**: Retain all existing custom environment variables and port bindings. Only append missing required keys from `.env.example`.
+3. **Reconcile Database Credentials**: Ensure service connection strings match the active local container credentials without resetting initialized databases.
+
+### 10. Validate & Report
 
 Sanity check: confirm runtime accessible, test discovery works, dir layout matches `.agent/rules/`, and skills configuration is trimmed and reloaded.
 
@@ -158,6 +164,8 @@ Sanity check: confirm runtime accessible, test discovery works, dir layout match
 
 - [ ] External AI convention files scanned; key rules extracted
 - [ ] `project-context.md` created/updated in `.agent/rules/`
+- [ ] Non-destructive environment merging executed (no existing verified secrets or port bindings overwritten)
+- [ ] Target project scanned for existing plan docs/templates; `.agent/templates/FEATURE_SPEC.md` updated to adopt the project's exact plan doc template (added missing parts, removed unused parts)
 - [ ] Target project scanned for existing plan docs/templates; `.agent/templates/FEATURE_SPEC.md` updated to adopt the project's exact plan doc template (added missing parts, removed unused parts)
 - [ ] Target project's plan doc folder location respected and recorded in `project-context.md` and `documentation-hierarchy.md`
 - [ ] All document links and file paths verified to be strictly project-root-relative with no local computer or user references (#6)
