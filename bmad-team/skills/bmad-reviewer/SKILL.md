@@ -47,11 +47,20 @@ Uses standardized severity tags:
 - Verifies minimum 80% automated test coverage gate before approving PRs.
 - Enforces max 1–3 feedback iterations.
 
+### 5. Interactive Peer PR Review & GitHub Submission (`/bmad-peer-review`)
+When tasked with reviewing a colleague's PR:
+1. **Remote Diff Ingestion**: Fetch and analyze remote PR diffs via `gh pr view` and `gh pr diff`.
+2. **Interactive Calibration**: Present draft findings to the human reviewer; accept user amendments, dismissals, or added questions.
+3. **Automated GitHub Submission**: Post formatted reviews directly to GitHub (`gh pr review <PR> --comment / --request-changes / --approve`) with clear, constructive rationale.
+
+
 ## Output Contract
 Generates structured Markdown review findings with file/line links, severity tags, and concrete suggested fixes.
 
-## Related Rules
+## Related Rules & Workflows
 - Akvo Developer Guidelines @akvo-developer-guidelines.md
 - Coding Standards @coding-standards.md
 - Git Workflow @git-workflow.md
+- Peer Review Workflow @peer-review.md
+
 
