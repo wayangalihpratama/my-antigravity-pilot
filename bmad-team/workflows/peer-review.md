@@ -66,8 +66,15 @@ The agent generates a draft review scorecard in the chat:
 
 ---
 
-### 4. Review Refinement & Calibration
-The agent adjusts the comments and verdict based on your guidance until you are completely satisfied with the review.
+### 4. Interactive Comment Refinement & "Request Changes" Customization
+Before submitting anything to GitHub, you have full authority to edit, add, or delete review comments. You can give commands such as:
+- **Edit Comment**: *"Fix comment #1 to say: 'Please use parameterized query here instead of string interpolation'"*
+- **Add Comment**: *"Add a requested change on `backend/auth.py:L30` to check for token expiration"*
+- **Remove Comment**: *"Drop comment #3, that file is out of scope"*
+- **Adjust Severity / Verdict**: *"Upgrade this to REQUEST_CHANGES due to the security flaw"* or *"Downgrade to COMMENT since it's just a suggestion"*
+- **Attach Code Snippet**: *"Provide a sample refactored snippet for the loop batching in comment #2"*
+
+The agent regenerates the updated review draft in real-time until you give explicit approval.
 
 ---
 
@@ -75,15 +82,24 @@ The agent adjusts the comments and verdict based on your guidance until you are 
 Once confirmed by you, the agent submits the review directly using the GitHub CLI:
 
 ```bash
-# Option A: Request Changes with inline summary
+# Option A: Request Changes (Blocks PR merge until author fixes items)
 gh pr review <PR_NUMBER> --request-changes --body "<calibrated_review_markdown>"
 
-# Option B: General Review Comments
+# Option B: General Review Comments (Non-blocking feedback)
 gh pr review <PR_NUMBER> --comment --body "<calibrated_review_markdown>"
 
-# Option C: Approve PR
+# Option C: Approve PR (All criteria & tests verified)
 gh pr review <PR_NUMBER> --approve --body "<calibrated_approval_markdown>"
 ```
+
+---
+
+### 6. Author Response & Re-Review Loop 🔁
+When the PR author pushes new commits to address your requested changes:
+1. Run `/bmad-peer-review <PR_NUMBER> --delta` to inspect only the new commits.
+2. Verify that all previous `REQUEST_CHANGES` items have been addressed.
+3. If all items pass, submit an approval (`gh pr review <PR_NUMBER> --approve`).
+
 
 ---
 

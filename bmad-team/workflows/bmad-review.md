@@ -53,8 +53,17 @@ Spawn or simulate **Rachel (`bmad-reviewer`)** to perform line-by-line inspectio
 - Verified against `.agent/rules/` (@security-mandate.md, @coding-standards.md)
 ```
 
-### 4. Single-Pass Review Resolution & Handoff (Akvo Standard)
+### 4. Interactive Review Calibration & Comment Refinement
+Before finalizing the review report or executing code fixes:
+1. **User Calibration**: The user can modify, add, or delete review findings:
+   - *"Downgrade item #2 to a NIT, it's not blocking."*
+   - *"Add a finding on auth.py to verify JWT expiration."*
+   - *"Set verdict to REQUEST CHANGES until the race condition is resolved."*
+2. **Dispute Arbitration**: If the developer disputes a finding with valid technical rationale, the reviewer amends the checklist accordingly.
+
+### 5. Single-Pass Review Resolution & Handoff (Akvo Standard)
 - **Atomic Pass Resolution**: **Amelia (`bmad-dev`)** resolves ALL numbered findings in a single comprehensive pass, noting the exact resolution under each checklist item.
 - **Iteration Limit**: Feedback loops must be completed within **1 to 3 cycles maximum**.
 - **Greenlight**: Once all Critical `[SEC]`/`[DATA]` and Major `[ARCH]`/`[TEST]` findings are checked off and tests pass with ≥80% coverage ➔ Greenlight for PR (`👉 Run /6-pr`).
+
 
