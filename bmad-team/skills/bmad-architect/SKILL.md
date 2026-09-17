@@ -48,15 +48,16 @@ Evaluate technology options systematically:
 - Run proof-of-concept if needed
 - Document recommendation with reasoning
 
-### 4. API Design
+### 4. API & Integration Contract Design
 
-Design API contracts:
-- RESTful resource modeling
-- Endpoint specification with request/response schemas
-- Authentication and authorization patterns
-- Error handling conventions
-- Versioning strategy
-- Rate limiting approach
+Design API and inter-service contracts:
+- RESTful resource modeling & OpenAPI schema definitions
+- **Universal Third-Party Decoupling**: Isolate external SaaS/SDKs behind domain adapter interfaces to prevent vendor lock-in and shadow state leaks.
+- **Async RPC & Message Queue Governance**: Define strict payload schemas, retry/dead-letter queue behaviors, and idempotent consumers for all asynchronous and event-driven boundaries.
+- **Dependency Topology Lockstep**: Ensure client libraries and server service versions (e.g. database engines, message brokers, vector DBs) are explicitly pinned in lockstep across monorepos and microservices.
+- Authentication, authorization, and error handling conventions
+- Versioning and rate limiting strategy
+
 
 ### 5. Data Model Design
 

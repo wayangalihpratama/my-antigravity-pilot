@@ -60,13 +60,14 @@ Diagnose and fix flaky tests:
 - Recommend fixes: deterministic waits, test isolation, mocking
 - Set up flakiness tracking and alerts
 
-### 5. Contract Testing
+### 5. Contract Testing & Mock-Reality Parity (Preventing Stale Fixtures)
 
-Design contract testing for service boundaries:
-- Consumer-driven contracts (Pact)
-- API schema validation (OpenAPI)
-- Event schema validation
-- Breaking change detection
+Design contract testing and fixture validation across service and layer boundaries:
+- **Contract Parity Gate**: Test mock fixtures MUST be validated against the active OpenAPI / JSONSchema contracts. Hand-crafted mock data that diverges from real backend payloads is strictly rejected.
+- **Async RPC & Message Queue Governance**: When testing asynchronous boundaries (e.g. RabbitMQ, Redis Streams, Celery, BullMQ), require tests to validate BOTH producer serialization and consumer schema parsing to prevent deadlocks and deserialization crashes.
+- Consumer-driven contracts (Pact) and API schema validation (OpenAPI).
+- Breaking change and payload regression detection.
+
 
 ### 6. Test Review
 
