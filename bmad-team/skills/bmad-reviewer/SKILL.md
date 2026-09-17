@@ -41,11 +41,17 @@ Uses standardized severity tags:
 - **`[NIT]`** (Optional): Minor styling or readability suggestion.
 
 
-### 4. Akvo Developer Guidelines Compliance Audit
-- Verifies branch naming convention: `feature/<issue_number>-<issue_description>`.
-- Verifies code formatting (Prettier for JS/TS, Black/Flake8 for Python).
-- Verifies minimum 80% automated test coverage gate before approving PRs.
-- Enforces max 1–3 feedback iterations.
+### 4. Akvo Developer Guidelines Compliance Audit 🏢
+Strictly enforces compliance with **Akvo Developer Guidelines** (`@akvo-developer-guidelines.md`):
+- **Branch Naming Standard**: Verifies format `feature/<issue_number>-<issue_description>` (or `bugfix/`, `hotfix/`).
+- **Commit Message Traceability**: Verifies format `[#issue_number] <type>(<scope>): <description>`.
+- **Code Formatting & Linting**:
+  - **JS / TS**: Prettier (`tabWidth: 2`, `semi: true`, `singleQuote: true`, `printWidth: 80`, `trailingComma: "es5"`).
+  - **Python**: Black & Flake8 (`line-length: 79`, 4-space indentation, explicit relative imports).
+- **Mandatory Quality Gate**: All PRs must achieve and maintain **minimum 80% automated test coverage**.
+- **1–3 Review Iteration Cap**: Reviews must produce an actionable numbered checklist resolved by the author in a single atomic pass to prevent long review cycles.
+- **PR Documentation**: Verifies PR body adheres to the What/Why/How/Testing structure with linked issue IDs.
+
 
 ### 5. Interactive Peer PR Review & GitHub Submission (`/bmad-peer-review`)
 When tasked with reviewing a colleague's PR:
