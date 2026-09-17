@@ -44,12 +44,32 @@ description: BMAD Coding Standards — DRY, KISS, YAGNI, TDD, SOC, BDUF, SOLID. 
 
 ---
 
-## 4. Mandatory Validation Checklist
+## 4. Universal Anti-Pattern Prevention 🚫
+
+### A. Adapter-First Pattern (No Cloned Parallel Handlers)
+- When extending any service, router, or workflow to support a new entity variant, source format, or third-party SDK, **NEVER copy-paste parallel handler functions**.
+- Extract an **Adapter / Strategy** layer to normalize input into a common domain contract before calling business logic.
+
+### B. Centralized Enums & Variant Sets (No Scattered Ad-Hoc Checks)
+- **NEVER** scatter compound variant checks (e.g. `type === 'A' || type === 'B'`) across multiple files.
+- Define a single centralized `Set` or `Enum` constant in the domain constants module (e.g., `VALID_TYPES = new Set(['A', 'B'])`) and use membership checks (`.has()`, `in`).
+
+### C. Hard Ban on Unbatched I/O in Loops ($O(1)$ Round-Trip Invariant)
+- **NEVER** execute external operations (database queries, network requests, filesystem reads, or RPC calls) inside iteration loops (`for`, `while`, `map`, `forEach`).
+- Always use bulk queries (`IN (...)`), batched API requests, or single-pass annotated data transformations to guarantee constant $O(1)$ round-trip complexity.
+
+---
+
+## 5. Mandatory Validation Checklist
 
 Before finalizing any implementation:
 - [ ] DRY, KISS, YAGNI, SOC, TDD followed
 - [ ] SOLID: SRP, OCP, LSP, ISP, DIP respected
+- [ ] **Adapter-First**: No duplicate parallel execution paths cloned for new variants
+- [ ] **Centralized Enums**: No scattered inline compound checks repeated across files
+- [ ] **Batched I/O**: Zero database queries, HTTP calls, or file reads inside loops
 - [ ] Descriptive naming, no magic values, Akvo Prettier/Black formatting
 - [ ] Graceful error handling with explicit exceptions, inputs sanitized
 - [ ] All automated tests passing with **minimum 80% test coverage**
+
 

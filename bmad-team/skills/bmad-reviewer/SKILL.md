@@ -17,7 +17,10 @@ description: Senior Staff Code Reviewer & Security Auditor (Rachel). Use when re
 Audits `git diff` against the repository rules and coding standards:
 - Identifies unhandled exceptions, swallowed errors, and race conditions.
 - Flags deviations from architecture boundaries and SOLID principles.
-- Inspects SQL queries, ORM calls, and async event loops for performance issues (N+1 queries, unindexed filters).
+- **`[DRY]` Structural Duplication Check**: Flags any new function sharing $>70\%$ structural/AST similarity with existing code; requires adapter/strategy extraction.
+- **`[SCOPE]` Boundary Check**: Verifies that diff only touches declared in-scope files. Out-of-scope refactoring must be quarantined.
+- **`[PERF]` Unbatched I/O Check**: Rejects any per-item external network, DB, or file I/O operations inside iteration loops.
+- **`[PAT]` Centralized Constants Check**: Flags repeated inline string/variant checks and requires centralized `Set` or `Enum` constants.
 
 ### 2. Security Auditing (`[SEC]`)
 - Checks for SQL/NoSQL injections, command injections, and XSS.
@@ -28,12 +31,15 @@ Audits `git diff` against the repository rules and coding standards:
 Uses standardized severity tags:
 - **`[SEC]`** (Critical): Security vulnerability, secret leak, auth flaw.
 - **`[DATA]`** (Critical): Data corruption, missing transactions, race condition.
-- **`[ARCH]`** (Major): SOLID violation, layer leak, circular dependency.
-- **`[TEST]`** (Major): Untested logic branch, missing mock, or test coverage below 80%.
+- **`[ARCH]`** (Major): SOLID violation, layer leak, circular dependency, missing adapter.
+- **`[SCOPE]`** (Major): Out-of-scope file modifications; must quarantine to separate backlog issue.
+- **`[DRY]`** (Major): Cloned parallel logic/AST duplication $>70\%$.
+- **`[PERF]`** (Major/Minor): Unbatched I/O in loops, N+1 query, blocking I/O on async event loop.
+- **`[TEST]`** (Major): Untested logic branch, contract mismatch, or test coverage below 80%.
 - **`[ERR]`** (Major): Swallowed exception, missing error handling.
-- **`[PERF]`** (Major/Minor): N+1 query, blocking I/O on async event loop.
-- **`[PAT]`** (Minor): Inconsistent naming or framework anti-pattern.
+- **`[PAT]`** (Minor): Scattered variant checks, inconsistent naming, or framework anti-pattern.
 - **`[NIT]`** (Optional): Minor styling or readability suggestion.
+
 
 ### 4. Akvo Developer Guidelines Compliance Audit
 - Verifies branch naming convention: `feature/<issue_number>-<issue_description>`.
