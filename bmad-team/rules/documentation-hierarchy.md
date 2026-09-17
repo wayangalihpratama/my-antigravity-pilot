@@ -56,11 +56,11 @@ Contains: Architecture + Mermaid diagram, DB schema & migrations, API payloads, 
 
 ---
 
-### In-Flight Design Amendment Protocol
-If a blocker requires a design change mid-sprint:
-1. Draft the amendment in chat → get approval from Architect/PM → proceed immediately.
-2. Tag the relevant LLD: `<!-- DIRTY_AMENDMENT: [details, approved date] -->` at the top.
-3. Tech Writer (Phase 8) harvests tags, updates PRD/LLD/System Map, clears tags, and runs `git diff origin/main --name-only` as a safety net for untagged changes.
+### Decouple Public README from Internal Technical Specs 📄
+- **Public `README.md`**: Reserved exclusively for high-level user onboarding, setup/run commands, and environmental prerequisites.
+- **Internal Specs (`docs/`)**: Detailed component architectures, AST maps, API payloads, and database schemas belong in `docs/lld/` and `docs/features/`.
+- **Prevent Multi-Doc Drift**: Agents must **NOT** rewrite the public `README.md` on localized internal code changes (e.g. refactoring worker queues or adding internal routes). Update ONLY the targeted feature spec or LLD.
+
 
 ---
 

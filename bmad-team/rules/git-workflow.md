@@ -26,6 +26,15 @@ Every feature branch MUST be linked to an issue number (following Akvo Developer
 ### Git Rebase Mandate (`git pull --rebase`)
 - **Always** use `git pull --rebase` instead of `git merge` or merge commits when syncing your branch with `origin/main` to keep a clean, linear commit history.
 
+### Batch Staging Safeguards & No Blind `git add -A`
+- **NEVER** run blind blanket staging commands like `git add -A` or `git add .` on repository roots.
+- **Always** stage explicitly declared touchpoint files: `git add <file1> <file2>`.
+- Review `git status` before staging to verify that no accidental editor temp files, credential caches, or unrelated files are included.
+
+### AI Scratchpad & Artifact Isolation
+- Agent scratchpad files (e.g. `scratch/`, `.system_generated/`, temporary test harnesses, and draft notes) MUST be isolated and never committed to application source trees.
+
+
 ### Pull Request Strategy
 
 
