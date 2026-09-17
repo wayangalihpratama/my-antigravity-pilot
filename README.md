@@ -42,11 +42,11 @@ The **BMAD v6 (Breakthrough Method for Agile AI-Driven Development)** framework 
 **Interactive Workflows:**
 - `/bmad-help` — Context-aware CLI/IDE guidance to inspect active branch mode, sprint state, and recommend the next action.
 - `/bmad-party` — Multi-agent pre-flight deliberation between Architect, Dev, and Tester to resolve edge cases and trade-offs.
-- `/bmad-review` — Senior staff code review and security audit on PR diffs (`[SEC]`, `[DATA]`, `[ARCH]`).
+- `/bmad-review` — Senior staff code review and security audit on PR diffs (`[SEC]`, `[DATA]`, `[ARCH]`, `[PERF]`, `[DRY]`, `[SCOPE]`).
+- `/bmad-peer-review` — Interactive peer review assistant for colleagues' PRs with live GitHub comment submission and `REQUEST_CHANGES` calibration.
+- `/bmad-retrospective` — Post-sprint retrospective to extract DOs/DONTs and synthesize persistent rules.
 - `/bmad-orchestrator` — Full multi-agent lifecycle orchestration with automated subagent spawning.
 - `/bmad-fastpath` — Scale-adaptive 2-step *Quick-Spec + Ship* flow for minor bugfixes and refactors.
-
-
 
 ---
 
@@ -68,6 +68,10 @@ We strictly follow **Test-Driven Development (TDD)** and a rigorous **Global Deb
 
 ### 5. Token Optimization & Skill Pruning
 Default Antigravity environments load dozens of unused domain skills (science/medical DBs, mobile frameworks, heavy cloud pipelines) into the prompt context on every turn. Stacks include a `.agent/config.yaml` with explicit `skills.allowlist` and `skills.blocklist` to trim context window bloat and keep the model laser-focused on your tech stack. Run `/align-stack` to align skill filters to your project.
+
+### 6. Scope Governance & Change Quarantine 🛡️
+Agents strictly lock in-scope touchpoint files before implementation begins. Discovered out-of-scope debt or tangential improvements are **quarantined** into backlog tracking issues rather than applied in-flight, preventing diff bloat and hidden regressions.
+
 
 
 ---
