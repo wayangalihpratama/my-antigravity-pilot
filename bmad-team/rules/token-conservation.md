@@ -37,4 +37,13 @@ All agents under the `bmad-team` or `.agent` folder MUST strictly adhere to thes
 - Subagents returning execution results to the parent orchestrator MUST limit their chat response to a **strict ≤15-line Executive Summary** (Status, Touchpoint Files, Test/Coverage Metrics, Blocking Issues).
 - **NEVER** dump full code blocks or entire file contents into the parent chat thread. Provide file paths and allow the parent or user to view targeted line ranges on demand.
 
+### 8. Subagent Briefing Context Budgeting (Prevent Context Dumping)
+- Orchestrators and delegating agents MUST NOT dump entire conversation histories, giant logs, or raw source files into subagent prompts (`invoke_subagent`).
+- Every delegation MUST use the standardized **5-Point Briefing Packet** containing only: (1) Target Goal, (2) Touchpoint File paths, (3) Interface Signatures, (4) Boundary Constraints, and (5) Deterministic Verification Command.
+- Keep subagent prompts focused on the immediate task unit to keep input token costs minimal.
+
+### 9. Zero-Token Deterministic Tools First
+- Prefer running local deterministic Python/AST/ripgrep scripts (e.g. `scripts/generate_architecture_map.py`, `grep_search`) over asking an LLM to re-read and analyze whole repositories.
+
+
 

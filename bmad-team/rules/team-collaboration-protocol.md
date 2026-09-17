@@ -43,9 +43,10 @@ To prevent late-stage testing bottlenecks in Phase 7:
 ## 3. Single-Pass Review Resolution (Akvo 1-Cycle Protocol)
 
 To adhere strictly to Akvo's **1–3 review iteration limit**:
-1. **Consolidated Numbered Checklist**: When **Rachel (`bmad-reviewer`)** audits code diffs, she outputs a single comprehensive numbered checklist of findings categorized by severity (`[SEC]`, `[DATA]`, `[ARCH]`, `[PERF]`, `[TEST]`, `[PAT]`, `[NIT]`).
+1. **Consolidated Numbered Checklist**: When **Rachel (`bmad-reviewer`)** audits code diffs, she outputs a single comprehensive numbered checklist of findings categorized by severity (`[SEC]`, `[DATA]`, `[ARCH]`, `[PERF]`, `[DRY]`, `[SCOPE]`, `[TEST]`, `[PAT]`, `[NIT]`).
 2. **Atomic 1-Pass Resolution**: **Amelia (`bmad-dev`)** addresses ALL findings in a single, comprehensive pass.
 3. **Audit Verification**: Amelia notes the exact resolution and file line under each checkbox item and presents the diff back to Rachel for final sign-off.
+
 
 ---
 
