@@ -18,6 +18,8 @@ Think of it as a "starter kit" for your AI pair programmer — pre-loaded with b
 | **FastAPI AI Stack** | [`fastapi-ai-stack/`](./fastapi-ai-stack/) | ✅ Ready |
 | **Python + Streamlit** | [`python-streamlit/`](./python-streamlit/) | ✅ Ready |
 | **Strapi + Next.js** | [`strapi-nextjs/`](./strapi-nextjs/) | ✅ Ready |
+| **Business Landing** | [`business-landing/`](./business-landing/) | ✅ Ready (Zero-Build) |
+| **Retro Edu Minigame** | [`retro-game/`](./retro-game/) | ✅ Ready (Zero-Dependency) |
 | *More coming...* | | |
 
 ## BMAD v6 Multi-Agent Subagent Architecture 🚀

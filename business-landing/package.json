@@ -1,0 +1,10 @@
+{
+  "name": "business-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zero-build high-converting business landing page",
+  "scripts": {
+    "test": "node --test tests/landing.spec.js"
+  },
+  "type": "module"
+}

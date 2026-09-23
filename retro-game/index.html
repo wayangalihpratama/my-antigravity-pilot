@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Retro Edu Minigame - Arcade Eco Sort</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <div id="header-hud">
+      <div class="hud-item"><span class="label">SCORE:</span> <span id="score-display">0</span></div>
+      <div class="hud-item"><span class="label">HI:</span> <span id="hi-display">0</span></div>
+      <div class="hud-item"><span class="label">LIVES:</span> <span id="lives-display">❤❤❤</span></div>
+    </div>
+
+    <!-- Canvas (Native 320x240 scaled via CSS) -->
+    <canvas id="gameCanvas" width="320" height="240"></canvas>
+
+    <!-- Mobile Touch Controls D-Pad -->
+    <div id="touch-controls">
+      <div class="dpad">
+        <button id="btn-left" class="t-btn" aria-label="Move Left">◀</button>
+        <button id="btn-right" class="t-btn" aria-label="Move Right">▶</button>
+      </div>
+      <div class="actions">
+        <button id="btn-action" class="t-btn t-btn-action" aria-label="Action / Sort">A</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
