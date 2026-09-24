@@ -5,55 +5,74 @@ description: Guidance for creating, structuring, and optimizing agent skills. Us
 
 # Skill Development Guide
 
-Skills are modular, self-contained instruction packages that extend AI agent capabilities with specialized procedural knowledge, checklists, and domain best practices.
+A comprehensive architectural manual for creating, structuring, and optimizing modular AI agent skills with progressive disclosure, trigger tuning, and token efficiency.
 
-## Anatomy of a Skill
+---
 
-Every skill resides in its own directory with a required `SKILL.md` file:
+## 📚 The Progressive Disclosure Model
 
-```plaintext
-skill-name/
-├── SKILL.md              # Required: Main instructions and frontmatter
-├── scripts/              # Optional: Helper utilities and automated scripts
-├── references/           # Optional: Deep reference documentation
-└── examples/             # Optional: Concrete code and implementation examples
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ SYSTEM PROMPT INDEX (Always in Memory)                                 │
+│ Only YAML frontmatter `name` + `description` (~30 tokens)              │
+└────────────────────────────────────────────────────────────────────────┘
+                                    │
+                        Task Matches Skill Trigger
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ ON-DEMAND FULL ACTIVATION (Loaded via `view_file`)                     │
+│ Complete 2,000+ word deep manual with blueprints & checklists          │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Frontmatter Standard
+---
 
-The YAML frontmatter defines how and when the AI discovers and activates the skill:
+## ✍️ Authoring Effective Frontmatter Triggers
 
+The frontmatter description is the search index used by the AI router:
+
+### ❌ Ineffective Description (Too Vague / Cluttered)
 ```yaml
 ---
-name: skill-name
-description: A concise, highly specific 1-2 sentence description explaining WHAT the skill does and EXACTLY WHEN to use it. Include relevant trigger keywords and scenarios.
+name: database-tools
+description: Handles database stuff and queries.
 ---
 ```
 
-## Core Authoring Principles
+### ✅ High-Precision Description (Trigger-Dense & Explicit)
+```yaml
+---
+name: database-tools
+description: Query optimization, schema migrations, and index design for PostgreSQL/MySQL. Use when writing SQL queries, diagnosing slow queries, designing foreign keys, or running Alembic/Flyway migrations.
+---
+```
 
-### 1. Progressive Disclosure & Token Efficiency
-- Keep the main `SKILL.md` focused on essential workflows, checklists, and common rules.
-- Place extensive reference tables, schemas, or large examples in separate `references/` or `examples/` files and link to them using markdown links.
-- Avoid repeating general programming advice; focus strictly on domain-specific idioms and constraints.
+---
 
-### 2. Actionable & Procedural Structure
-Organize skills around sequential phases or clear operational steps:
-1. **Context & Prerequisites**: What information or files must be verified first.
-2. **Step-by-Step Procedure**: Clear, imperative guidance with copy-pasteable patterns.
-3. **Quality Gates & Checklists**: Specific criteria that must be verified before completing the task.
-4. **Common Pitfalls & Anti-Patterns**: What NOT to do.
+## 📁 Directory Architecture for Complex Skills
 
-### 3. Clear Code Patterns
-Provide minimal, idiomatic code snippets that demonstrate:
-- Recommended imports and module structures.
-- Error handling and edge-case management.
-- Integration with project wrappers (e.g. `./dc.sh` or project CLI).
+When a skill contains large reference tables, schemas, or automation scripts, split them cleanly:
 
-## Quality Checklist for New Skills
+```plaintext
+my-specialized-skill/
+├── SKILL.md                  # Main procedural playbook and checklists
+├── scripts/
+│   ├── validate_schema.py   # Executable verification scripts
+│   └── seed_fixtures.sh
+├── references/
+│   ├── error_codes.md        # Extended lookup tables
+│   └── api_contracts.json
+└── examples/
+    ├── basic_example.ts      # Minimal working sample
+    └── advanced_example.ts   # Edge case handling sample
+```
 
-- [ ] Directory name is kebab-case (`my-new-skill/`).
-- [ ] `SKILL.md` has valid YAML frontmatter with `name` and `description`.
-- [ ] Description clearly states triggering conditions without generic filler.
-- [ ] All code examples are tested, syntactic, and follow project standards.
-- [ ] References to other rules or skills use standard relative paths.
+---
+
+## 📋 Skill Quality Gate Checklist
+
+- [ ] Directory name is kebab-case (`my-skill-name/`).
+- [ ] Frontmatter description is under 40 words and contains distinct scenario keywords.
+- [ ] Main `SKILL.md` contains actionable, sequential phases (Prerequisites → Procedure → Checklists).
+- [ ] Code snippets use standardized project wrappers (`./dc.sh` or project CLI).
+- [ ] No hardcoded secrets or broken relative links.

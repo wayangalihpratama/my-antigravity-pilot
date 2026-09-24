@@ -3,54 +3,106 @@ name: design-tokens-scaffolder
 description: Bridge between design tools (Figma) and code. Use when extracting, scaffolding, or maintaining design tokens, CSS custom properties, and Tailwind theme configurations.
 ---
 
-# Design Tokens Scaffolder
+# Design Tokens Scaffolder: Figma to Code Architecture
 
-## Overview
-Design tokens encapsulate the visual atoms of a design system (colors, spacing, typography, radii, elevations) into platform-agnostic variables that bridge design files and production code.
+A systematic guide for translating design systems and Figma Dev Mode specs into strict, maintainable CSS custom properties and framework theme configurations.
 
 ---
 
-## 🎨 Token Architecture
+## 🎨 3-Tier Design Token Architecture
 
-### 1. CSS Custom Properties (`:root`)
-Define semantic color and typography scales in CSS variables:
+Structure design tokens into 3 distinct tiers to ensure maintainability:
+
+```
+[ Tier 1: Global / Primitives ] ──> [ Tier 2: Semantic / Context ] ──> [ Tier 3: Component Scoped ]
+  e.g. --blue-500: #3b82f6            e.g. --color-action-primary        e.g. --btn-primary-bg
+```
+
+### 1. Primitive Tokens (`:root`)
 ```css
 :root {
-  /* Primitive Tokens */
-  --color-brand-primary-base: #2563eb;
-  --color-brand-primary-hover: #1d4ed8;
-  --color-neutral-surface: #ffffff;
-  --color-neutral-text: #0f172a;
+  /* Primitive Colors */
+  --blue-50: #eff6ff;
+  --blue-500: #3b82f6;
+  --blue-700: #1d4ed8;
+  --slate-900: #0f172a;
+  --slate-500: #64748b;
 
-  /* Semantic Tokens */
-  --radius-button: 0.75rem;
-  --spacing-section-y: clamp(3rem, 6vw, 6rem);
-  --font-family-display: 'Inter', -apple-system, sans-serif;
+  /* Primitive Spacing (4px grid) */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem;  /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem;    /* 16px */
+  --space-6: 1.5rem;  /* 24px */
+  --space-8: 2rem;    /* 32px */
+
+  /* Primitive Radii */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
 }
 ```
 
-### 2. Tailwind Theme Integration
-Map tokens cleanly into `tailwind.config.js`:
+### 2. Semantic Tokens
+```css
+:root {
+  /* Semantic Roles */
+  --color-bg-canvas: #ffffff;
+  --color-bg-surface: #f8fafc;
+  --color-text-body: var(--slate-900);
+  --color-text-muted: var(--slate-500);
+
+  --color-action-primary-default: var(--blue-500);
+  --color-action-primary-hover: var(--blue-700);
+}
+
+/* Dark Mode Tokens */
+[data-theme='dark'] {
+  --color-bg-canvas: #0f172a;
+  --color-bg-surface: #1e293b;
+  --color-text-body: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-action-primary-default: #60a5fa;
+  --color-action-primary-hover: #3b82f6;
+}
+```
+
+---
+
+## 🛠️ Tailwind Theme Mapping
+
+Integrate CSS variables cleanly into `tailwind.config.js`:
+
 ```javascript
+/** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
-        brand: {
-          DEFAULT: 'var(--color-brand-primary-base)',
-          hover: 'var(--color-brand-primary-hover)'
+        canvas: 'var(--color-bg-canvas)',
+        surface: 'var(--color-bg-surface)',
+        action: {
+          primary: {
+            DEFAULT: 'var(--color-action-primary-default)',
+            hover: 'var(--color-action-primary-hover)'
+          }
         }
       },
       borderRadius: {
-        button: 'var(--radius-button)'
+        theme: 'var(--radius-lg)'
       }
     }
   }
 };
 ```
 
-### 3. Figma Dev Mode MCP Translation
-When extracting tokens via Figma MCP:
-- Map Figma Color Styles directly to named semantic tokens rather than arbitrary hex strings.
-- Convert Figma Auto Layout padding/gap values directly to standard spacing increments (`4px`, `8px`, `12px`, `16px`, `24px`, `32px`).
-- Export typography as unified styles including `font-size`, `line-height`, `letter-spacing`, and `font-weight`.
+---
+
+## 🔍 Figma Dev Mode Extraction Protocol
+
+When using Figma Dev Mode MCP:
+1. Extract named **Color Styles** and map them to Semantic Tokens (avoid arbitrary one-off hex codes).
+2. Read **Auto Layout** padding/spacing and snap to the 4px primitive grid scale (`space-1` to `space-8`).
+3. Extract **Typography Styles** (font family, weight, line-height, letter-spacing) as complete composite font classes.
