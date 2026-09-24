@@ -26,13 +26,31 @@ Every feature branch MUST be linked to an issue number (following Akvo Developer
 ### Git Rebase Mandate (`git pull --rebase`)
 - **Always** use `git pull --rebase` instead of `git merge` or merge commits when syncing your branch with `origin/main` to keep a clean, linear commit history.
 
-### Pull Request Strategy
+### Batch Staging Safeguards & No Blind `git add -A`
+- **NEVER** run blind blanket staging commands like `git add -A` or `git add .` on repository roots.
+- **Always** stage explicitly declared touchpoint files: `git add <file1> <file2>`.
+- Review `git status` before staging to verify that no accidental editor temp files, credential caches, or unrelated files are included.
 
+### AI Scratchpad & Artifact Isolation
+- Agent scratchpad files (e.g. `scratch/`, `.system_generated/`, temporary test harnesses, and draft notes) MUST be isolated and never committed to application source trees.
+
+
+### Peer PR Review & Changes Requested Standard
+When assigned to review another engineer's PR:
+1. **Interactive Audit**: Run `/bmad-peer-review <PR_NUMBER>` to perform multi-vector inspection across security, performance, DRY, scope containment, and contract parity.
+2. **Review Calibration**: Calibrate review items with human oversight before posting to avoid nit-picking and maintain high signal-to-noise.
+3. **Structured GitHub Submission**:
+   - Use `gh pr review <PR_NUMBER> --request-changes --body "..."` when Critical `[SEC]`/`[DATA]` or Major `[ARCH]`/`[PERF]`/`[SCOPE]` issues are present.
+   - Use `gh pr review <PR_NUMBER> --comment --body "..."` for non-blocking inquiries.
+   - Use `gh pr review <PR_NUMBER> --approve --body "..."` when all quality gates and test coverage pass.
+
+### Pull Request Strategy
 
 When creating a PR:
 1. **Title Format**: `[#issue_number] <Clear group/feature name> - <Short Description>`
 2. **Safety Audit**: If applicable, attach or link the `safety-audit-issue-[issue_number].md` file.
 3. **QA Guide**: If applicable, reference the `qa-guide-issue-[issue_number].md`.
+
 
 ### Components
 

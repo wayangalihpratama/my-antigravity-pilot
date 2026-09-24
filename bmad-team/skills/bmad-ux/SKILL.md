@@ -106,7 +106,8 @@ When UX specification is complete, hand off to:
 - **bmad-dev** for implementation guided by UX specs
 - **bmad-architect** if technical constraints require design revision
 
-## Related Rules
+## Related Rules & Skills
+- Frontend Design Skill @frontend-design/SKILL.md
 - BMAD Team @bmad-team.md
 - Token Conservation @token-conservation.md
 - Documentation Hierarchy @documentation-hierarchy.md
