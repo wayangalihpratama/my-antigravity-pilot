@@ -478,7 +478,7 @@ main() {
     touch "$gitignore"
 
     local entries_added=0
-    for entry in ".agent/" "agent_docs/"; do
+    for entry in ".agent/" "agent_docs/" ".env" ".env.*" "node_modules/" "test-results/" "playwright-report/" ".strix/" "*.log"; do
         if ! grep -qxF "$entry" "$gitignore" 2>/dev/null; then
             echo "$entry" >> "$gitignore"
             entries_added=$((entries_added + 1))

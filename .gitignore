@@ -1,3 +1,8 @@
+# ============================================================================
+# Git Ignore Configuration — My Antigravity Pilot
+# ============================================================================
+
+# Operating System
 .DS_Store
 .DS_Store?
 ._*
@@ -5,10 +10,12 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Agent Framework & Local State
 .agent/
 agent_docs/
 
-# Environment & Secrets
+# Environment, Credentials & Secrets
 .env
 .env.*
 !.env.example
@@ -16,4 +23,72 @@ agent_docs/
 *.key
 *.token
 *.pid
+credentials.json
+client_secret*.json
 
+# 9Router Local Runtime & Database
+.9router/
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.db-wal
+*.db-shm
+
+# Node.js & Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-store/
+
+# Playwright & Testing Artifacts
+test-results/
+playwright-report/
+playwright/.cache/
+blob-report/
+
+# Security Scanners (Strix, etc.)
+.strix/
+strix-out/
+strix-report.*
+
+# Logs & Diagnostics
+logs/
+*.log
+
+# Python Artifacts & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Build Outputs & Bundlers
+dist/
+build/
+.next/
+out/
+.nuxt/
+.output/
+.turbo/
+
+# IDE & Editors
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
