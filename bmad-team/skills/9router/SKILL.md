@@ -76,20 +76,16 @@ To maximize your 2 Gemini Pro subscriptions across your agent team:
 
 ---
 
-## 💻 Antigravity Desktop & IDE Integration
+## 💻 Antigravity IDE Integration
 
-### 1. Launch Antigravity Desktop with 9Router Proxy
-```bash
-HTTP_PROXY=http://127.0.0.1:20128 HTTPS_PROXY=http://127.0.0.1:20128 open -a "Antigravity"
-```
+To route coding assistant traffic through 9Router inside Antigravity IDE (with RTK token compression & auto-fallback):
 
-### 2. Antigravity IDE (VS Code based) Settings (`settings.json`)
-```json
-{
-  "http.proxy": "http://127.0.0.1:20128",
-  "http.proxySupport": "on"
-}
-```
+1. Install an AI assistant extension (e.g. **Continue** or **Cline**) from the Extension marketplace (`Cmd+Shift+X`).
+2. Configure the extension:
+   - **Provider**: OpenAI Compatible
+   - **Base URL**: `http://127.0.0.1:20128/v1`
+   - **API Key**: `[from 9router dashboard]`
+   - **Model**: `antigravity-stack` (or `ag/gemini-3.8-flash-high`)
 
 Default URLs:
 - **Dashboard**: `http://127.0.0.1:20128/dashboard`
