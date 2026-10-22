@@ -14,6 +14,7 @@ Thumbs.db
 # Agent Framework & Local State
 .agent/
 agent_docs/
+.claude
 .claude/history/
 .claude/sessions/
 .claude/cache/
