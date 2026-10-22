@@ -145,11 +145,17 @@ Gunakan skrip pengelola di root repositori:
 # Menjalankan 9Router di background
 ./9router-service.sh start
 
-# Memeriksa status layanan
+# Memeriksa status layanan (menampilkan status LaunchAgent)
 ./9router-service.sh status
 
 # Membuka Web Dashboard di browser
 ./9router-service.sh dashboard
+
+# Mengaktifkan Auto-Start otomatis saat macOS Boot/Login (via LaunchAgent)
+./9router-service.sh enable-autostart
+
+# Menonaktifkan Auto-Start
+./9router-service.sh disable-autostart
 
 # Menghentikan layanan
 ./9router-service.sh stop
@@ -162,6 +168,39 @@ Gunakan skrip pengelola di root repositori:
 * **Web UI:** `http://127.0.0.1:20128/dashboard`
 * **API Base:** `http://127.0.0.1:20128/v1`
 * **Default Password:** `123456`
+
+### Panduan Setup Khusus: Antigravity Desktop (macOS)
+
+Terdapat 2 metode untuk mengarahkan Antigravity Desktop melewati gateway 9Router:
+
+#### Metode A: Launching dengan Environment Proxy (Direkomendasikan)
+Menjalankan aplikasi Antigravity Desktop dengan melewatkan HTTP/HTTPS proxy ke port 9Router (20128):
+```bash
+# Buka Antigravity Desktop via terminal dengan proxy 9Router
+HTTP_PROXY=http://127.0.0.1:20128 HTTPS_PROXY=http://127.0.0.1:20128 open -a "Antigravity"
+```
+
+*Tips:* Buat alias di `~/.zshrc` agar cukup mengetik `agyd`:
+```bash
+echo 'alias agyd="HTTP_PROXY=http://127.0.0.1:20128 HTTPS_PROXY=http://127.0.0.1:20128 open -a Antigravity"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+#### Metode B: Antigravity IDE (VS Code-based)
+Jika Anda menggunakan Antigravity IDE, tambahkan konfigurasi proxy pada `settings.json`:
+```json
+{
+  "http.proxy": "http://127.0.0.1:20128",
+  "http.proxySupport": "on"
+}
+```
+
+#### Metode C: Terminal & Agent Workspace Environment
+Agar terminal bawaan di dalam Antigravity Desktop otomatis menggunakan 9Router:
+```bash
+export OPENAI_BASE_URL="http://127.0.0.1:20128/v1"
+export OPENAI_API_KEY="[your-9router-api-key]"
+```
 
 ### Menghubungkan Akun Antigravity & Provider Lain:
 1. Buka dashboard di `http://127.0.0.1:20128/dashboard`.

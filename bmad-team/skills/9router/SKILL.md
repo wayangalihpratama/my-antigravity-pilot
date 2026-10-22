@@ -24,10 +24,16 @@ A complete guide for integrating coding agents (Antigravity, Claude Code, Codex,
 
 Control 9Router using the project helper:
 ```bash
-# Check status
+# Check status (including macOS LaunchAgent state)
 ./9router-service.sh status
 
-# Start service in background
+# Enable auto-start on macOS boot/login (LaunchAgent daemon)
+./9router-service.sh enable-autostart
+
+# Disable auto-start on macOS boot/login
+./9router-service.sh disable-autostart
+
+# Start service manually in background
 ./9router-service.sh start
 
 # Open Web Dashboard in browser
@@ -35,6 +41,23 @@ Control 9Router using the project helper:
 
 # Stop service
 ./9router-service.sh stop
+```
+
+---
+
+## 💻 Antigravity Desktop & IDE Integration
+
+### 1. Launch Antigravity Desktop with 9Router Proxy
+```bash
+HTTP_PROXY=http://127.0.0.1:20128 HTTPS_PROXY=http://127.0.0.1:20128 open -a "Antigravity"
+```
+
+### 2. Antigravity IDE (VS Code based) Settings (`settings.json`)
+```json
+{
+  "http.proxy": "http://127.0.0.1:20128",
+  "http.proxySupport": "on"
+}
 ```
 
 Default URLs:
