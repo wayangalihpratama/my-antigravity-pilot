@@ -1,2 +1,10 @@
 .agent/
 agent_docs/
+.claude/
+.env
+.env.*
+node_modules/
+test-results/
+playwright-report/
+.strix/
+*.log

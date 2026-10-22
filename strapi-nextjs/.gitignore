@@ -23,3 +23,9 @@ Thumbs.db
 db/docker-entrypoint-initdb.d/001-*.sql
 .agent/
 agent_docs/
+.claude/
+.env.*
+node_modules/
+test-results/
+playwright-report/
+.strix/

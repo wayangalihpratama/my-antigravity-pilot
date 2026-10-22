@@ -268,6 +268,34 @@ update_directory() {
     fi
 }
 
+ensure_gitignore() {
+    local target_dir="$1"
+    local gitignore="${target_dir}/.gitignore"
+    local entries=(".agent/" "agent_docs/" ".claude/" ".env" ".env.*" "node_modules/" "test-results/" "playwright-report/" ".strix/" "*.log")
+    local added=0
+
+    if [[ "$DRY_RUN" == true ]]; then
+        for entry in "${entries[@]}"; do
+            if [[ ! -f "$gitignore" ]] || ! grep -qxF "$entry" "$gitignore" 2>/dev/null; then
+                echo -e "${GREEN}[DRY] Would add to .gitignore: ${entry}${NC}"
+            fi
+        done
+        return 0
+    fi
+
+    touch "$gitignore"
+    for entry in "${entries[@]}"; do
+        if ! grep -qxF "$entry" "$gitignore" 2>/dev/null; then
+            echo "$entry" >> "$gitignore"
+            added=$((added + 1))
+        fi
+    done
+
+    if [[ $added -gt 0 ]]; then
+        print_success ".gitignore updated (added ${added} entries, ensuring .claude/ ignored)"
+    fi
+}
+
 # ---- Main Logic -------------------------------------------------------------
 
 main() {
@@ -364,6 +392,9 @@ main() {
                     fi
                 fi
             fi
+
+            # Ensure .gitignore includes .claude/ and local configs
+            ensure_gitignore "$project"
             echo ""
         done
 
@@ -474,24 +505,9 @@ main() {
 
     # Step 6: Update .gitignore
     print_info "Updating .gitignore ..."
-    local gitignore="${target_path}/.gitignore"
-    touch "$gitignore"
+    ensure_gitignore "$target_path"
 
-    local entries_added=0
-    for entry in ".agent/" "agent_docs/" ".env" ".env.*" "node_modules/" "test-results/" "playwright-report/" ".strix/" "*.log"; do
-        if ! grep -qxF "$entry" "$gitignore" 2>/dev/null; then
-            echo "$entry" >> "$gitignore"
-            entries_added=$((entries_added + 1))
-        fi
-    done
-
-    if [[ $entries_added -gt 0 ]]; then
-        print_success ".gitignore updated (added ${entries_added} entries)"
-    else
-        print_warn ".gitignore already contains required entries"
-    fi
-
-    # Step 6: Summary
+    # Step 7: Summary
     local total_rules=$(find "${target_agent_dir}/rules" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
     local total_skills=$(find "${target_agent_dir}/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
     local total_workflows=$(find "${target_agent_dir}/workflows" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
