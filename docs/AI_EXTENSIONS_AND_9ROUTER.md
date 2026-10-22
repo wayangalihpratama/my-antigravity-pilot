@@ -138,30 +138,30 @@ Konfigurasi MCP telah disiapkan di level root dan template project:
    * **Tier 3 (Free Forever):** Kiro AI (Claude 4.5 free), OpenCode Free, Vertex AI ($300 credits).
 3. **Multi-Account Balancing:** Menghubungkan beberapa akun Google/Antigravity sekaligus untuk menghindari batas rate limit.
 
-### Manajemen Layanan (`9router-service.sh`):
-Gunakan skrip pengelola di root repositori:
+### Manajemen Layanan (`9r` / `9router-service.sh`):
+Perintah pengelola telah tersedia secara global di terminal Anda (`9r` atau `9router-service` dari folder mana pun, atau `./9router-service.sh` dari root repositori):
 
 ```bash
 # Menjalankan 9Router di background
-./9router-service.sh start
+9r start
 
 # Memeriksa status layanan (menampilkan status LaunchAgent)
-./9router-service.sh status
+9r status
 
 # Membuka Web Dashboard di browser
-./9router-service.sh dashboard
+9r dashboard
 
 # Mengaktifkan Auto-Start otomatis saat macOS Boot/Login (via LaunchAgent)
-./9router-service.sh enable-autostart
+9r enable-autostart
 
 # Menonaktifkan Auto-Start
-./9router-service.sh disable-autostart
+9r disable-autostart
 
 # Menghentikan layanan
-./9router-service.sh stop
+9r stop
 
 # Melihat log real-time
-./9router-service.sh logs
+9r logs
 ```
 
 ### Dashboard & Port:

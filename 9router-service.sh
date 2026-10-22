@@ -156,6 +156,7 @@ enable_autostart() {
         <string>--port</string>
         <string>${PORT}</string>
         <string>--skip-update</string>
+        <string>--log</string>
         <string>-n</string>
     </array>
     <key>EnvironmentVariables</key>
@@ -164,6 +165,8 @@ enable_autostart() {
         <string>$(dirname "$node_path"):$PATH</string>
         <key>HOME</key>
         <string>${HOME}</string>
+        <key>ENABLE_REQUEST_LOGS</key>
+        <string>true</string>
     </dict>
     <key>RunAtLoad</key>
     <true/>

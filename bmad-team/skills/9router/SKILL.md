@@ -22,25 +22,28 @@ A complete guide for integrating coding agents (Antigravity, Claude Code, Codex,
 
 ## 🚀 Service Management
 
-Control 9Router using the project helper:
+Control 9Router globally from any terminal using `9r` (or `./9router-service.sh`):
 ```bash
 # Check status (including macOS LaunchAgent state)
-./9router-service.sh status
+9r status
 
 # Enable auto-start on macOS boot/login (LaunchAgent daemon)
-./9router-service.sh enable-autostart
+9r enable-autostart
 
 # Disable auto-start on macOS boot/login
-./9router-service.sh disable-autostart
+9r disable-autostart
 
 # Start service manually in background
-./9router-service.sh start
+9r start
 
 # Open Web Dashboard in browser
-./9router-service.sh dashboard
+9r dashboard
+
+# View live request logs
+9r logs
 
 # Stop service
-./9router-service.sh stop
+9r stop
 ```
 
 ---
