@@ -169,34 +169,23 @@ Perintah pengelola telah tersedia secara global di terminal Anda (`9r` atau `9ro
 * **API Base:** `http://127.0.0.1:20128/v1`
 * **Default Password:** `123456`
 
-### Panduan Setup Khusus: Antigravity Desktop (macOS)
+### Panduan Setup: Antigravity IDE & Coding Extensions
 
-Terdapat 2 metode untuk mengarahkan Antigravity Desktop melewati gateway 9Router:
+Antigravity Desktop dan IDE memiliki dua permukaan (*surfaces*):
+1. **Jendela Chat Bawaan Antigravity Desktop:** Berkomunikasi langsung ke Google Cloud via protokol gRPC internal Google (menggunakan login akun Google di aplikasi).
+2. **Koding & AI Extensions di Antigravity IDE:** Menggunakan model Antigravity via 9Router untuk mendapatkan manfaat **RTK Token Saver (hemat 20–40%)** dan **Smart Fallback**.
 
-#### Metode A: Launching dengan Environment Proxy (Direkomendasikan)
-Menjalankan aplikasi Antigravity Desktop dengan melewatkan HTTP/HTTPS proxy ke port 9Router (20128):
-```bash
-# Buka Antigravity Desktop via terminal dengan proxy 9Router
-HTTP_PROXY=http://127.0.0.1:20128 HTTPS_PROXY=http://127.0.0.1:20128 open -a "Antigravity"
-```
+#### Cara Menggunakan 9Router di dalam Antigravity IDE:
+1. Buka tab Extensions di Antigravity IDE (`Cmd + Shift + X`).
+2. Pasang extension koding seperti **Continue** atau **Cline**.
+3. Di pengaturan extension, pilih provider **OpenAI-Compatible**:
+   * **Base URL:** `http://127.0.0.1:20128/v1`
+   * **API Key:** `[your-9router-api-key]`
+   * **Model:** `antigravity-stack` (atau `ag/gemini-3.8-flash-high`)
+4. Seluruh aktivitas koding, auto-complete, atau prompt via extension tersebut akan **100% dialirkan melalui 9Router**.
 
-*Tips:* Buat alias di `~/.zshrc` agar cukup mengetik `agyd`:
-```bash
-echo 'alias agyd="HTTP_PROXY=http://127.0.0.1:20128 HTTPS_PROXY=http://127.0.0.1:20128 open -a Antigravity"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-#### Metode B: Antigravity IDE (VS Code-based)
-Jika Anda menggunakan Antigravity IDE, tambahkan konfigurasi proxy pada `settings.json`:
-```json
-{
-  "http.proxy": "http://127.0.0.1:20128",
-  "http.proxySupport": "on"
-}
-```
-
-#### Metode C: Terminal & Agent Workspace Environment
-Agar terminal bawaan di dalam Antigravity Desktop otomatis menggunakan 9Router:
+#### Penggunaan di Terminal Antigravity IDE / Desktop:
+Terminal terintegrasi di Antigravity otomatis menggunakan 9Router melalui variabel lingkungan di `~/.zshrc`:
 ```bash
 export OPENAI_BASE_URL="http://127.0.0.1:20128/v1"
 export OPENAI_API_KEY="[your-9router-api-key]"
