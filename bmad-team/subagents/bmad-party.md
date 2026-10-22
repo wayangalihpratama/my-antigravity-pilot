@@ -9,6 +9,7 @@ You facilitate BMAD v6 **Party Mode** — a structured pre-implementation counci
 3. **Tester's Critique**: Murat identifies failure modes, unhandled edge cases, and testability challenges.
 4. **Red Team Security Probe**: Rachel probes auth models, injection vectors, data corruption risks, and secret leakage.
 5. **Synthesis & Alignment**: The council reaches consensus, outputs an agreed action plan, and updates the Feature Spec / LLD / Briefing Packet.
+6. **Graceful Model Fallback**: Primary deliberation uses Gemini Pro. If quota or rate limit is exhausted, seamlessly fallback to Gemini Flash.
 
 ## Output Contracts
 - Party Mode Synthesis Note summarizing agreed decisions, security mitigations, and test scenarios.

@@ -1,67 +1,111 @@
 ---
-description: Automated Parallel Development Workflow — parses task.md, identifies independent user stories, and automatically launches concurrent bmad-dev subagents on isolated git branches.
+description: BMAD Accelerated Parallel Development — Multi-agent concurrent execution on isolated git branches powered by dual Gemini Pro accounts and 9Router, adhering strictly to BMAD scope governance, 5-point briefing packets, and 80% coverage gates.
 ---
 
-# Automated Parallel Development (`/bmad-parallel-dev`) ⚡
+# BMAD Accelerated Parallel Development (`/bmad-parallel-dev`) ⚡
 
 ## Purpose
-Accelerate feature velocity by automatically decomposing independent user stories in `task.md` and spawning **multiple `bmad-dev` (Amelia) subagents in parallel** using isolated workspace branches (`Workspace: branch`).
+Accelerate delivery velocity by combining **multi-agent parallel execution** with **strict BMAD governance**. Decomposes features into decoupled streams (Frontend, Backend, and Tests) and executes them concurrently across isolated git branches (`Workspace: branch`) leveraging **9Router multi-account load balancing** and **dual Gemini Pro subscriptions**.
 
 ---
 
-## Execution Flow
+## Architecture & Concurrent BMAD Flow
 
 ```mermaid
 flowchart TD
-    Start["📋 Read task.md"] --> Parse["🔍 Parse Independent Stories"]
-    Parse --> Launch["⚡ Single invoke_subagent Tool Call"]
+    Trigger["🚀 Trigger: /bmad-parallel-dev<br/>(Prompt OR task.md)"] --> Bob["🏃 Bob (Scrum Master)<br/>Rapid Story Slicing & task.md Sync"]
+    Bob --> Winston["📐 Winston (Architect)<br/>5-Point Briefing Packet & Scope Lock"]
+    Winston --> Launch["⚡ Single invoke_subagent Tool Call"]
 
-    subgraph Parallel_Branches ["Isolated Branch Workspaces"]
-        Launch -->|Branch 1| DevA["💻 Amelia 1 (Story A)<br/>Workspace: branch"]
-        Launch -->|Branch 2| DevB["💻 Amelia 2 (Story B)<br/>Workspace: branch"]
+    subgraph Parallel_Branches ["Concurrent Branch Workspaces (Dual Gemini Pro + 9Router)"]
+        Launch -->|branch: feature/frontend| AmeliaUI["💻 Amelia (Frontend Dev)<br/>Gemini Pro #1 • UI & State"]
+        Launch -->|branch: feature/backend| AmeliaAPI["⚙️ Amelia (Backend Dev)<br/>Gemini Pro #2 • DB & Routes"]
+        Launch -->|branch: feature/tests| MuratQA["🧪 Murat (Test Architect)<br/>Shift-Left TDD & Test Suite"]
     end
 
-    DevA --> Merge["🔀 Merge Branch A & B"]
-    DevB --> Merge
-    Merge --> QA["🧪 Murat (QA) 80% Coverage Gate"]
+    AmeliaUI --> Rebase["🔀 Linear Rebase Merge<br/>git pull --rebase"]
+    AmeliaAPI --> Rebase
+    MuratQA --> Rebase
+
+    Rebase --> Gate["🧪 Murat: ≥80% Test Coverage Gate"]
+    Gate --> Rachel["🔍 Rachel: 1-Pass Code & Security Audit"]
+    Rachel --> Complete["✅ task.md Updated & Sprint Signed Off"]
 ```
 
 ---
 
-## Steps
+## Operational Execution Protocol
 
-### 1. Backlog Analysis & Slicing
-Read `task.md` in the workspace root:
-1. Identify all uncompleted `[ ]` stories.
-2. Group stories that have **no file touchpoint overlaps** or shared dependencies into parallel batches (e.g. `Backend Auth API` vs `Frontend UI Component`).
+### Step 1: Input Detection & Scope Boundary Lock 🔒
+`/bmad-parallel-dev` supports two flexible input modes:
+- **Mode A (Backlog-Driven)**: Reads existing uncompleted `[ ]` stories in `task.md`.
+- **Mode B (Prompt-Driven)**: If invoked with an ad-hoc prompt (e.g. `/bmad-parallel-dev "Build Auth UI and API"`), **Bob (`bmad-sm`)** instantly logs the stories into `task.md` with Vibe Coding estimations (Dev, Test, Review time) before execution begins.
 
-### 2. Single-Call Parallel Subagent Invocation
-Execute a single `invoke_subagent` tool call containing an array of concurrent developer subagents:
+**Winston (`bmad-architect`)** locks the scope per `@scope-governance.md`:
+1. **Explicit Touchpoint Declaration**:
+   - `Frontend Stream`: e.g., `frontend/src/components/*`, `frontend/src/pages/*`
+   - `Backend Stream`: e.g., `backend/app/routers/*`, `backend/app/models/*`
+   - `Testing Stream`: e.g., `tests/unit/*`, `tests/integration/*`
+2. **Interface Contract Pre-Lock**: Formulate REST/GraphQL schemas, DTOs, and error codes so Amelia-UI and Amelia-API can work in complete isolation without merge collisions.
+
+---
+
+### Step 2: Formulate 5-Point Briefing Packets
+Per `@team-collaboration-protocol.md`, construct an unambiguous Briefing Packet for each parallel branch:
+
+1. **Target Goal**: Exact component or endpoint story.
+2. **Touchpoint Files**: Strictly declared files (`[CREATE]`, `[MODIFY]`).
+3. **Interface Signatures**: Exact function signatures, DTOs, or route definitions.
+4. **Boundary Constraints & Security**: Auth middleware, validation, zero-leak logging.
+5. **Deterministic Verification Command**: Exact CLI test command (e.g., `pytest tests/test_auth.py` or `npm test`).
+
+---
+
+### Step 3: Single-Turn Concurrent Subagent Spawning ⚡
+Execute a single `invoke_subagent` tool call containing all streams concurrently. Antigravity runs them in parallel background tasks:
 
 ```json
 {
   "Subagents": [
     {
       "TypeName": "bmad-dev",
-      "Role": "Amelia (Dev - Story A)",
+      "Role": "Amelia (Frontend Specialist)",
+      "Model": "pro",
       "Workspace": "branch",
-      "Prompt": "Implement Story A: [Title]. Follow Handoff Briefing Packet. Write TDD unit tests. Verification: pytest tests/test_story_a.py"
+      "Prompt": "Briefing Packet: Frontend Component for Story [ID]. Touchpoints: [Files]. Contract: [Schema]. Verification: npm test [File]"
     },
     {
       "TypeName": "bmad-dev",
-      "Role": "Amelia (Dev - Story B)",
+      "Role": "Amelia (Backend Specialist)",
+      "Model": "pro",
       "Workspace": "branch",
-      "Prompt": "Implement Story B: [Title]. Follow Handoff Briefing Packet. Write TDD unit tests. Verification: pytest tests/test_story_b.py"
+      "Prompt": "Briefing Packet: Backend API for Story [ID]. Touchpoints: [Files]. Contract: [Schema]. Verification: pytest [File]"
+    },
+    {
+      "TypeName": "bmad-tester",
+      "Role": "Murat (Test Architect)",
+      "Model": "flash",
+      "Workspace": "branch",
+      "Prompt": "Briefing Packet: Unit test suite for Story [ID]. Implement edge cases and mock fixtures. Verification: pytest -v"
     }
   ]
 }
 ```
 
-### 3. Automated Synthesis & Branch Integration
-When the background subagents complete:
-1. Review the execution summaries returned by each subagent.
-2. Merge the completed feature branches into `main` (or active integration branch) using `git pull --rebase`.
-3. Mark the corresponding items `[x]` in `task.md`.
+> [!TIP]
+> **9Router Optimization**: The concurrent requests are automatically intercepted by local 9Router (`http://127.0.0.1:20128`), distributing load between **Gemini Pro Account #1** and **Gemini Pro Account #2** with 20–40% token compression via RTK.
 
-### 4. Transition to Quality Gate
-Convene **Murat (`bmad-tester`)** to execute the full test suite and confirm **≥80% code coverage gate**.
+---
+
+### Step 4: Deterministic Branch Integration
+Once background notifications confirm subagents have completed:
+1. Review the ≤15-line Executive Summary from each branch.
+2. Integrate branches using linear git rebase (`git pull --rebase`) per `@git-workflow.md`.
+3. Check for any quarantined technical debt logged by the developers.
+
+---
+
+### Step 5: BMAD Quality Gates & Single-Pass Review 🛡️
+1. **Murat (`bmad-tester`)**: Executes the unified test suite to verify the **≥80% code coverage gate**.
+2. **Rachel (`bmad-reviewer`)**: Conducts a single-pass PR diff inspection across `[SEC]`, `[ARCH]`, `[PERF]`, and `[SCOPE]`.
+3. **Bob (`bmad-sm`)**: Marks all completed items `[x]` in `task.md` and records actual delivery time.
