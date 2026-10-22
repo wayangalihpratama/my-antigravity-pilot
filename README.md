@@ -52,6 +52,20 @@ The **BMAD v6 (Breakthrough Method for Agile AI-Driven Development)** framework 
 
 ---
 
+## 🔌 AI Extensions, MCP Tools & 9Router
+
+This repository includes a pre-configured suite of modern AI agent tools, Model Context Protocol (MCP) integrations, and smart token-saving routing:
+
+- 🎭 **Playwright Testing (CLI & MCP)**: Automated browser verification, element interaction, and visual snapshot testing.
+- 🛡️ **Strix Security**: Autonomous penetration testing with real PoC exploit generation and AI fix workflows.
+- 🎨 **Frontend Design Skill**: Anti-slop UI design system enforcing bespoke tokens, intentional typography, and editorial layouts.
+- 📚 **Context7 MCP**: Real-time official documentation lookup to eliminate hallucinated or outdated APIs.
+- ⚡ **9Router Integration**: Local AI gateway with RTK token saving (20–40% context reduction), 3-tier smart fallback, and multi-account Antigravity/Claude management. Manage with `./9router-service.sh`.
+
+👉 **Read the complete guide:** [`docs/AI_EXTENSIONS_AND_9ROUTER.md`](./docs/AI_EXTENSIONS_AND_9ROUTER.md)
+
+---
+
 ## Core Principles
 
 ### 1. Mandatory User Validation

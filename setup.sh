@@ -273,6 +273,10 @@ update_directory() {
 main() {
     print_banner
 
+    local selected_stack=""
+    local target_path=""
+    local mode=""
+
     # Validate bmad-team exists
     if [[ ! -d "$BMAD_TEAM_DIR" ]]; then
         print_error "BMAD team directory not found at: ${BMAD_TEAM_DIR}"
@@ -337,6 +341,29 @@ main() {
             update_directory "${BMAD_TEAM_DIR}/templates" "${project_agent_dir}/templates"
             update_directory "${BMAD_TEAM_DIR}/subagents" "${project_agent_dir}/subagents"
             update_directory "${BMAD_TEAM_DIR}/scripts" "${project_agent_dir}/scripts"
+
+            # Sync MCP configurations (.claude/mcp.json and .mcp.json)
+            if [[ -f "${SCRIPT_DIR}/.claude/mcp.json" ]]; then
+                [[ "$DRY_RUN" == false ]] && mkdir -p "${project}/.claude"
+                if [[ ! -f "${project}/.claude/mcp.json" ]] || ! diff -q "${SCRIPT_DIR}/.claude/mcp.json" "${project}/.claude/mcp.json" > /dev/null 2>&1; then
+                    if [[ "$DRY_RUN" == true ]]; then
+                        echo -e "${BLUE}[DRY] Would Sync: .claude/mcp.json${NC}"
+                    else
+                        cp "${SCRIPT_DIR}/.claude/mcp.json" "${project}/.claude/mcp.json"
+                        print_info "Synced: .claude/mcp.json"
+                    fi
+                fi
+            fi
+            if [[ -f "${SCRIPT_DIR}/.mcp.json" ]]; then
+                if [[ ! -f "${project}/.mcp.json" ]] || ! diff -q "${SCRIPT_DIR}/.mcp.json" "${project}/.mcp.json" > /dev/null 2>&1; then
+                    if [[ "$DRY_RUN" == true ]]; then
+                        echo -e "${BLUE}[DRY] Would Sync: .mcp.json${NC}"
+                    else
+                        cp "${SCRIPT_DIR}/.mcp.json" "${project}/.mcp.json"
+                        print_info "Synced: .mcp.json"
+                    fi
+                fi
+            fi
             echo ""
         done
 
@@ -379,7 +406,7 @@ main() {
     echo ""
 
     # Confirm
-    if [[ $# -lt 2 ]]; then
+    if [[ "$INTERACTIVE" == true ]]; then
         read -rp "$(echo -e "${BOLD}Proceed? (y/n): ${NC}")" confirm
         if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
             print_info "Aborted."
@@ -422,13 +449,30 @@ main() {
     fi
     print_success "BMAD team rules, skills, workflows, templates, subagents, and scripts merged"
 
+    # Step 4: Setup MCP Server Configurations (.claude/mcp.json and .mcp.json)
+    print_info "Setting up MCP server configurations ..."
+    if [[ -f "${SCRIPT_DIR}/.claude/mcp.json" ]]; then
+        mkdir -p "${target_path}/.claude"
+        if [[ ! -f "${target_path}/.claude/mcp.json" ]]; then
+            cp "${SCRIPT_DIR}/.claude/mcp.json" "${target_path}/.claude/mcp.json"
+            print_success "MCP configuration initialized (.claude/mcp.json)"
+            ((STATS_ADDED++)) || true
+        fi
+    fi
+    if [[ -f "${SCRIPT_DIR}/.mcp.json" ]]; then
+        if [[ ! -f "${target_path}/.mcp.json" ]]; then
+            cp "${SCRIPT_DIR}/.mcp.json" "${target_path}/.mcp.json"
+            print_success "Root MCP configuration initialized (.mcp.json)"
+            ((STATS_ADDED++)) || true
+        fi
+    fi
 
-    # Step 4: Bootstrap docs/ directory
+    # Step 5: Bootstrap docs/ directory
     print_info "Bootstrapping docs/ directory ..."
     mkdir -p "${target_path}/docs"
     print_success "docs/ directory ready"
 
-    # Step 5: Update .gitignore
+    # Step 6: Update .gitignore
     print_info "Updating .gitignore ..."
     local gitignore="${target_path}/.gitignore"
     touch "$gitignore"
@@ -472,6 +516,7 @@ main() {
     echo -e "    📂 agent_docs/     → Local (gitignored): sprint plans + stories"
     echo -e "    📂 .agent/         → Local (gitignored): rules, skills, workflows, subagents"
     echo -e "    ⚙️  .agent/config.yaml → Skill pruning (reduces token usage)"
+    echo -e "    🔌 .claude/mcp.json → MCP Servers (Playwright, Context7)"
     echo ""
     echo -e "  ${BOLD}BMAD v6 Subagent Personas Available:${NC}"
     echo -e "    📋 PM (John)       📊 Analyst (Mary)     🏗️  Architect (Winston)"
