@@ -85,16 +85,25 @@ When running `/align-stack` in a target project, our plan document template MUST
 5. **Report to User**:
    - Summarize the discovered plan template, sections added/removed, and the configured target plan folder.
 
-### 7. Update `.agent/` Configs for Conflicts Only
+### 7. Update Project Configs & External AI Instructions (CLAUDE.md & AGENTS.md)
 
-Update only files that conflict with project standards:
+- **Pre-Existing `CLAUDE.md` / `AGENTS.md` (Authoritative Benchmark & Strictly Read-Only)**:
+  - If the destination project **already has** `CLAUDE.md` or `AGENTS.md` prior to BMAD setup:
+    - **DO NOT update, modify, or overwrite them.** They remain strictly untouched.
+    - Treat them as the **authoritative benchmark and single source of truth** for the entire alignment process.
+    - Extract coding conventions, architectural decisions, run/test/lint commands, and directory layouts from them to populate `.agent/rules/project-context.md`, `.agent/workflows/`, and `.agent/templates/FEATURE_SPEC.md`.
+- **Freshly Bootstrapped `CLAUDE.md` / `AGENTS.md` (Created by setup.sh)**:
+  - ONLY if the project did NOT have them previously (newly initialized by BMAD `setup.sh`), align them to the detected project stack:
+    - Update project description and title.
+    - Replace `bmad-team/` reference paths with `.agent/` paths.
+    - Document detected native build, test, and verification commands (`npm test`, `pytest`, `php artisan test`, etc.) so Claude Code & Codex execute the real stack commands.
 - `4-verify.md` — actual test/lint commands
 - `2-implement.md` — correct directory paths
 - `5-commit.md` — commit conventions
 - `coding-standards.md` — project addendums (do not replace BMAD defaults)
 - `bmad-dev/SKILL.md` — real stack and commands
 
-> Only modify files that *conflict*. Leave BMAD defaults that aren't contradicted.
+> Only modify sections that reflect project realities. Leave BMAD core guardrails (TDD, scope quarantine, 80% coverage gate) intact.
 
 ### 8. Configure & Filter Unneeded Agent Skills (Token Optimization)
 
@@ -166,11 +175,11 @@ Sanity check: confirm runtime accessible, test discovery works, dir layout match
 - [ ] `project-context.md` created/updated in `.agent/rules/`
 - [ ] Non-destructive environment merging executed (no existing verified secrets or port bindings overwritten)
 - [ ] Target project scanned for existing plan docs/templates; `.agent/templates/FEATURE_SPEC.md` updated to adopt the project's exact plan doc template (added missing parts, removed unused parts)
-- [ ] Target project scanned for existing plan docs/templates; `.agent/templates/FEATURE_SPEC.md` updated to adopt the project's exact plan doc template (added missing parts, removed unused parts)
 - [ ] Target project's plan doc folder location respected and recorded in `project-context.md` and `documentation-hierarchy.md`
 - [ ] All document links and file paths verified to be strictly project-root-relative with no local computer or user references (#6)
 - [ ] `.agent/config.yaml` created/updated with optimized `skills.allowlist` and `skills.blocklist`
 - [ ] `antigravity reload --clear-cache` executed to apply skill filtering immediately
+- [ ] Pre-existing `CLAUDE.md`/`AGENTS.md` preserved untouched as alignment benchmark (or bootstrapped ones aligned to detected stack)
 - [ ] `.agent/workflows/` updated to project's actual commands
 - [ ] No BMAD rule silently overrides project's external conventions
 - [ ] Alignment confirmed with the user

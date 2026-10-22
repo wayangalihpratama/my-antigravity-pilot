@@ -271,8 +271,34 @@ update_directory() {
 ensure_gitignore() {
     local target_dir="$1"
     local gitignore="${target_dir}/.gitignore"
-    local entries=(".agent/" "agent_docs/" ".claude/" ".env" ".env.*" "node_modules/" "test-results/" "playwright-report/" ".strix/" "*.log")
+    local entries=(
+        ".agent/"
+        "agent_docs/"
+        ".claude/history/"
+        ".claude/sessions/"
+        ".claude/cache/"
+        ".claude/projects/"
+        ".claude/telemetry/"
+        ".claude/*.local.json"
+        ".claude/*.log"
+        ".claude/state.json"
+        ".env"
+        ".env.*"
+        "node_modules/"
+        "test-results/"
+        "playwright-report/"
+        ".strix/"
+        "*.log"
+    )
     local added=0
+
+    # If gitignore has blanket .claude/ rule, remove it to preserve .claude/skills and .claude/mcp.json
+    if [[ -f "$gitignore" ]] && grep -qxF ".claude/" "$gitignore" 2>/dev/null; then
+        if [[ "$DRY_RUN" == false ]]; then
+            sed -i.bak '/^\.claude\/$/d' "$gitignore" && rm -f "${gitignore}.bak"
+            print_info "Removed broad .claude/ from .gitignore to preserve .claude/skills & mcp.json"
+        fi
+    fi
 
     if [[ "$DRY_RUN" == true ]]; then
         for entry in "${entries[@]}"; do
@@ -292,7 +318,53 @@ ensure_gitignore() {
     done
 
     if [[ $added -gt 0 ]]; then
-        print_success ".gitignore updated (added ${added} entries, ensuring .claude/ ignored)"
+        print_success ".gitignore updated (added ${added} entries, preserved .claude/skills)"
+    fi
+}
+
+setup_claude_codex() {
+    local target_dir="$1"
+    local agent_dir="${target_dir}/.agent"
+
+    # 1. Sync CLAUDE.md and AGENTS.md (Non-destructive: do NOT overwrite if target already has them)
+    for doc in "CLAUDE.md" "AGENTS.md"; do
+        if [[ -f "${SCRIPT_DIR}/${doc}" ]]; then
+            if [[ -f "${target_dir}/${doc}" ]]; then
+                print_info "Preserving existing ${doc} in target project (will not overwrite)"
+                ((STATS_SKIPPED++)) || true
+            else
+                if [[ "$DRY_RUN" == true ]]; then
+                    echo -e "${GREEN}[DRY] Would Add: ${doc}${NC}"
+                else
+                    cp "${SCRIPT_DIR}/${doc}" "${target_dir}/${doc}"
+                    print_success "Added: ${doc}"
+                fi
+                ((STATS_ADDED++)) || true
+            fi
+        fi
+    done
+
+    # 2. Setup .claude/skills symlinks pointing to .agent/skills
+    if [[ -d "${agent_dir}/skills" ]]; then
+        if [[ "$DRY_RUN" == false ]]; then
+            mkdir -p "${target_dir}/.claude/skills"
+        fi
+        for skill_dir in "${agent_dir}/skills"/*; do
+            if [[ -d "$skill_dir" ]]; then
+                local skill_name="$(basename "$skill_dir")"
+                local link_path="${target_dir}/.claude/skills/${skill_name}"
+                if [[ ! -e "$link_path" && ! -L "$link_path" ]]; then
+                    if [[ "$DRY_RUN" == true ]]; then
+                        echo -e "${GREEN}[DRY] Would link skill: .claude/skills/${skill_name}${NC}"
+                    else
+                        ln -s "../../.agent/skills/${skill_name}" "$link_path"
+                    fi
+                fi
+            fi
+        done
+        if [[ "$DRY_RUN" == false ]]; then
+            print_success "Claude Code skills synchronized (.claude/skills/)"
+        fi
     fi
 }
 
@@ -393,7 +465,10 @@ main() {
                 fi
             fi
 
-            # Ensure .gitignore includes .claude/ and local configs
+            # Setup Claude Code & Codex integration (CLAUDE.md, AGENTS.md, .claude/skills)
+            setup_claude_codex "$project"
+
+            # Ensure .gitignore includes granular .claude state and local configs
             ensure_gitignore "$project"
             echo ""
         done
@@ -503,11 +578,15 @@ main() {
     mkdir -p "${target_path}/docs"
     print_success "docs/ directory ready"
 
-    # Step 6: Update .gitignore
+    # Step 6: Setup Claude Code & Codex integration
+    print_info "Configuring Claude Code & Codex integration ..."
+    setup_claude_codex "$target_path"
+
+    # Step 7: Update .gitignore
     print_info "Updating .gitignore ..."
     ensure_gitignore "$target_path"
 
-    # Step 7: Summary
+    # Step 8: Summary
     local total_rules=$(find "${target_agent_dir}/rules" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
     local total_skills=$(find "${target_agent_dir}/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
     local total_workflows=$(find "${target_agent_dir}/workflows" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
