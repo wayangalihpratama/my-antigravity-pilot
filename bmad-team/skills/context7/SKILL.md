@@ -30,11 +30,14 @@ When Context7 MCP is configured:
 3. Generate code using the retrieved official examples rather than training data assumptions.
 
 ### 2. Context7 CLI Mode (`ctx7`)
-When working in the terminal:
+Context7 CLI is installed globally. The agent does not need to install it in target projects:
 ```bash
-# Run on demand to inspect package docs
-npx ctx7 query "how to use server actions in next.js"
+# Pre-flight: Check global version
+ctx7 --version || npx -y ctx7 --version
 
-# Setup Context7 for Claude / agents
-npx ctx7 setup --claude
+# Query official docs and code examples
+ctx7 query "how to use server actions in next.js"
+
+# Setup Context7 configuration if needed
+ctx7 setup --claude
 ```

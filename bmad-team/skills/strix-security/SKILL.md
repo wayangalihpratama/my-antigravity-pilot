@@ -19,28 +19,26 @@ A specialized guide for running autonomous security assessments, validating vuln
 
 ## 🛠️ Usage & Commands
 
-### 1. Installation & Skill Setup
-To equip the agent with Strix capabilities:
+### 1. Global Installation & Pre-Flight Check
+Strix is installed globally via `uv tool` or standalone binary. Never install per project:
 ```bash
-# Add Strix skill via skills registry
-npx skills add usestrix/strix
+# Pre-flight: Check global version
+strix -v || uv tool run strix-agent -v
 
-# Or install Strix CLI globally / locally
-npm install -g strix
-# or run on demand:
-npx strix --help
+# If missing, install globally in one command:
+uv tool install strix-agent  # or: curl -sSL https://strix.ai/install | bash
 ```
 
 ### 2. Running Security Scans
 ```bash
-# Scan local codebase and web application
-npx strix scan
+# Scan a local codebase / directory
+strix --target .
 
 # Scan a running local service (e.g. localhost:3000 or staging API)
-npx strix scan --target http://localhost:3000
+strix --target http://localhost:3000
 
-# Scan specific modules or route handlers
-npx strix scan --path ./src/api
+# Quick scan mode (faster turnaround for active development)
+strix -m quick --target http://localhost:3000
 ```
 
 ### 3. Remediation Workflow

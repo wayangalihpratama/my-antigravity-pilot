@@ -35,6 +35,16 @@ Ensure the code can be built for production without errors.
 ### 4. Coverage Audit
 Verify that domain logic meets the project's coverage mandates (default target: >85%).
 
+### 5. Global Tooling Pre-Flight (Playwright, Context7, Strix)
+Before running E2E browser tests or security audits, verify global tool readiness:
+```bash
+# Quick pre-flight check across all global CLI tools
+.agent/scripts/check-global-tools.sh
+```
+- **Playwright**: Verify version (`playwright --version`) before UI automation.
+- **Context7**: Verify version (`ctx7 --version`) before external API/doc lookups.
+- **Strix Security**: Verify version (`strix -v`) before pentest/vulnerability scans.
+
 ## Development Commands
 
 > [!NOTE]

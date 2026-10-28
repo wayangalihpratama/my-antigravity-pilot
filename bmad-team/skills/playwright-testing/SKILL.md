@@ -29,19 +29,22 @@ When the Playwright MCP server is active (`@modelcontextprotocol/server-playwrig
 - `playwright_evaluate`: Execute arbitrary JavaScript in the page context.
 
 ### 2. Playwright CLI Mode
-Run Playwright directly in the terminal via CLI:
+Playwright is installed globally (`playwright --version`) with browser binaries stored in the global OS cache (`~/Library/Caches/ms-playwright/`). The agent executes it directly without per-project installation:
 ```bash
+# Pre-flight: Check global version
+playwright --version || npx playwright --version
+
 # Run tests headlessly
-npx playwright test
+playwright test  # or: npx playwright test
 
 # Run specific test file
-npx playwright test tests/e2e/auth.spec.ts
+playwright test tests/e2e/auth.spec.ts
 
 # Inspect test with UI / trace viewer
-npx playwright show-trace trace.zip
+playwright show-trace trace.zip
 
 # Generate code / test recorder
-npx playwright codegen http://localhost:3000
+playwright codegen http://localhost:3000
 ```
 
 ---

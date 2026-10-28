@@ -63,7 +63,9 @@ This repository includes a pre-configured suite of modern AI agent tools, Model 
 - 📚 **Context7 MCP**: Real-time official documentation lookup to eliminate hallucinated or outdated APIs.
 - ⚡ **9Router Integration**: Local AI gateway with RTK token saving (20–40% context reduction), 3-tier smart fallback, and multi-account Antigravity/Claude management. Manage with `./9router-service.sh`.
 
-👉 **Read the complete guide:** [`docs/AI_EXTENSIONS_AND_9ROUTER.md`](./docs/AI_EXTENSIONS_AND_9ROUTER.md)
+👉 **Read the complete guides:**
+- [`docs/GLOBAL_TOOLING.md`](./docs/GLOBAL_TOOLING.md) — Centralized architecture, version verification (`--check-tools`), and upstream tool upgrades (`--update-tools`) for Playwright, Context7, Strix, and 9Router.
+- [`docs/AI_EXTENSIONS_AND_9ROUTER.md`](./docs/AI_EXTENSIONS_AND_9ROUTER.md) — Setup and usage instructions for 9Router, MCP integrations, and token compression.
 
 ---
 

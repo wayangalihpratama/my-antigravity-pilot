@@ -13,6 +13,8 @@ set -euo pipefail
 #
 # Flags:
 #   -s, --sync-all                      # Update BMAD assets in ALL projects
+#   -c, --check-tools                   # Verify versions of global AI tools (Playwright, Context7, Strix, 9Router)
+#   -u, --update-tools                  # Upgrade all global AI tools and browser binaries to latest releases
 #   -d, --dry-run                       # Show changes without applying them
 #   -p, --prune                         # Detect orphaned skills in projects
 #   -h, --help                          # Show this help message
@@ -20,6 +22,8 @@ set -euo pipefail
 # Example:
 #   ./setup.sh laravel ./my-new-app
 #   ./setup.sh --sync-all --dry-run
+#   ./setup.sh --check-tools
+#   ./setup.sh --update-tools
 # ============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -396,11 +400,19 @@ main() {
     # ---- Argument Parsing ----
     while [[ $# -gt 0 ]]; do
         case "$1" in
-            -s|--sync-all) SYNC_ALL=true; INTERACTIVE=false; shift ;;
-            -d|--dry-run)  DRY_RUN=true; shift ;;
-            -p|--prune)    PRUNE_CHECK=true; shift ;;
+            -s|--sync-all)    SYNC_ALL=true; INTERACTIVE=false; shift ;;
+            -c|--check-tools)
+                "${BMAD_TEAM_DIR}/scripts/check-global-tools.sh"
+                exit $?
+                ;;
+            -u|--update-tools)
+                "${BMAD_TEAM_DIR}/scripts/update-global-tools.sh"
+                exit $?
+                ;;
+            -d|--dry-run)     DRY_RUN=true; shift ;;
+            -p|--prune)       PRUNE_CHECK=true; shift ;;
             -h|--help)
-                grep '^# ' "$0" | head -n 25 | sed 's/^# //'
+                grep '^# ' "$0" | head -n 27 | sed 's/^# //'
                 exit 0
                 ;;
             -*) print_error "Unknown option: $1"; exit 1 ;;

@@ -69,4 +69,6 @@ Commits must follow the conventional issue format:
 * `.claude/skills/` — Native Claude Code skill symlinks.
 * `setup.sh` — Stack selector, BMAD team merger, and MCP synchronizer.
   * `./setup.sh --sync-all` — Propagates upstream BMAD assets to all stacks.
+  * `./setup.sh --check-tools` — Verifies readiness & versions of global AI tools (Playwright, Context7, Strix, 9Router).
+  * `./setup.sh --update-tools` — Upgrades all global AI tools and browser engines to latest releases.
   * `./setup.sh <stack> <path> agent` — Bootstraps agent configuration into another project.
