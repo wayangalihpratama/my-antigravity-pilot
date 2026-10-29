@@ -13,17 +13,9 @@ Thumbs.db
 
 # Agent Framework & Local State
 .agent/
+.claude/
 agent_docs/
-.claude
-.claude/history/
-.claude/sessions/
-.claude/cache/
-.claude/projects/
-.claude/telemetry/
-.claude/statsig/
-.claude/*.local.json
-.claude/*.log
-.claude/state.json
+task.md
 
 # Environment, Credentials & Secrets
 .env

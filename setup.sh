@@ -277,15 +277,9 @@ ensure_gitignore() {
     local gitignore="${target_dir}/.gitignore"
     local entries=(
         ".agent/"
+        ".claude/"
         "agent_docs/"
-        ".claude/history/"
-        ".claude/sessions/"
-        ".claude/cache/"
-        ".claude/projects/"
-        ".claude/telemetry/"
-        ".claude/*.local.json"
-        ".claude/*.log"
-        ".claude/state.json"
+        "task.md"
         ".env"
         ".env.*"
         "node_modules/"
@@ -295,14 +289,6 @@ ensure_gitignore() {
         "*.log"
     )
     local added=0
-
-    # If gitignore has blanket .claude/ rule, remove it to preserve .claude/skills and .claude/mcp.json
-    if [[ -f "$gitignore" ]] && grep -qxF ".claude/" "$gitignore" 2>/dev/null; then
-        if [[ "$DRY_RUN" == false ]]; then
-            sed -i.bak '/^\.claude\/$/d' "$gitignore" && rm -f "${gitignore}.bak"
-            print_info "Removed broad .claude/ from .gitignore to preserve .claude/skills & mcp.json"
-        fi
-    fi
 
     if [[ "$DRY_RUN" == true ]]; then
         for entry in "${entries[@]}"; do
@@ -322,7 +308,7 @@ ensure_gitignore() {
     done
 
     if [[ $added -gt 0 ]]; then
-        print_success ".gitignore updated (added ${added} entries, preserved .claude/skills)"
+        print_success ".gitignore updated (added ${added} entries, including .claude/ and .agent/)"
     fi
 }
 

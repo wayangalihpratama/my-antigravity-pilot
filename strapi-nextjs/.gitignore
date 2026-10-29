@@ -22,17 +22,11 @@ Thumbs.db
 # Database dumps
 db/docker-entrypoint-initdb.d/001-*.sql
 .agent/
+.claude/
 agent_docs/
+task.md
 .env.*
 node_modules/
 test-results/
 playwright-report/
 .strix/
-.claude/history/
-.claude/sessions/
-.claude/cache/
-.claude/projects/
-.claude/telemetry/
-.claude/*.local.json
-.claude/*.log
-.claude/state.json
