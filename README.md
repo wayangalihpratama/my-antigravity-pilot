@@ -50,6 +50,7 @@ The **BMAD v6 (Breakthrough Method for Agile AI-Driven Development)** framework 
 - `/bmad-orchestrator` — Full multi-agent lifecycle orchestration with automated subagent spawning.
 - `/bmad-fastpath` — Scale-adaptive 2-step *Quick-Spec + Ship* flow for minor bugfixes and refactors.
 - `/parallel` — Concurrent multi-agent execution across isolated git branches powered by dual Gemini Pro and 9Router.
+- `/time-track` — Accurate working time breakdown, idle/break gap detection, and active effort reporting.
 
 ---
 

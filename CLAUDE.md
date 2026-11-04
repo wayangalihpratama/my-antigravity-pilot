@@ -21,7 +21,7 @@ When executing tasks, adopt the appropriate BMAD specialist persona:
 | 🏃 **SM** | Bob | Scrum Master | `bmad-sm` | Story slicing, sprint checklist tracking in `task.md`. |
 | 🎨 **UX** | Sally | UX Designer | `bmad-ux` / `frontend-design` | Anti-slop UI design, bespoke tokens, intentional typography. |
 
-*All 33 BMAD skills are natively available in `.claude/skills/` and `bmad-team/skills/`.*
+*All 34 BMAD skills are natively available in `.claude/skills/` and `bmad-team/skills/`.*
 
 ---
 
