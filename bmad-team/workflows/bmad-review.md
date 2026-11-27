@@ -19,11 +19,12 @@ Executes a comprehensive, senior-staff code review and security audit on active 
 2. Identify all modified files, routes, schemas, and tests.
 
 ### 2. Invoke Code Reviewer Subagent (`bmad-reviewer`)
-Spawn or simulate **Rachel (`bmad-reviewer`)** to perform line-by-line inspection across the 7 severity categories:
+Spawn or simulate **Rachel (`bmad-reviewer`)** to perform line-by-line inspection across the severity categories:
 - **`[SEC]` (Critical)**: Injection flaws, unprotected endpoints, hardcoded credentials.
 - **`[DATA]` (Critical)**: Unhandled transactions, data corruption risks, concurrency issues.
 - **`[ARCH]` (Major)**: SOLID violations, architecture boundary leaks, circular imports.
 - **`[PERF]` (Major)**: N+1 database queries, unindexed queries, blocking I/O on async loops.
+- **`[BLOAT]` (Major/Minor)**: Premature abstractions, single-use interfaces, or avoidable dependencies violating the Pre-Code Decision Ladder.
 - **`[TEST]` (Major)**: Missing test cases for critical paths or untested error handling.
 - **`[ERR]` (Major)**: Swallowed exceptions, empty try/except blocks.
 - **`[PAT]` (Minor)**: Deviations from project standards or framework anti-patterns.

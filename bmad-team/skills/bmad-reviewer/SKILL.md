@@ -20,6 +20,7 @@ Audits `git diff` against the repository rules and coding standards:
 - **`[DRY]` Structural Duplication Check**: Flags any new function sharing $>70\%$ structural/AST similarity with existing code; requires adapter/strategy extraction.
 - **`[SCOPE]` Boundary Check**: Verifies that diff only touches declared in-scope files. Out-of-scope refactoring must be quarantined.
 - **`[PERF]` Unbatched I/O Check**: Rejects any per-item external network, DB, or file I/O operations inside iteration loops.
+- **`[BLOAT]` Complexity & Over-Engineering Check**: Flags single-implementation interfaces, speculative abstractions, avoidable new dependencies, or helpers replaceable by stdlib.
 - **`[PAT]` Centralized Constants Check**: Flags repeated inline string/variant checks and requires centralized `Set` or `Enum` constants.
 
 ### 2. Security Auditing (`[SEC]`)
@@ -34,6 +35,7 @@ Uses standardized severity tags:
 - **`[ARCH]`** (Major): SOLID violation, layer leak, circular dependency, missing adapter.
 - **`[SCOPE]`** (Major): Out-of-scope file modifications; must quarantine to separate backlog issue.
 - **`[DRY]`** (Major): Cloned parallel logic/AST duplication $>70\%$.
+- **`[BLOAT]`** (Major/Minor): Premature abstraction, single-use wrapper, or avoidable dependency violating the Pre-Code Decision Ladder.
 - **`[PERF]`** (Major/Minor): Unbatched I/O in loops, N+1 query, blocking I/O on async event loop.
 - **`[TEST]`** (Major): Untested logic branch, contract mismatch, or test coverage below 80%.
 - **`[ERR]`** (Major): Swallowed exception, missing error handling.
