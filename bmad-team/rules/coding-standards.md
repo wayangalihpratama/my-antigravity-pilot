@@ -16,6 +16,16 @@ description: BMAD Coding Standards — DRY, KISS, YAGNI, TDD, SOC, BDUF, SOLID. 
 | **SOC** | Separation of Concerns | One function/class = one responsibility |
 | **BDUF** | Avoid Big Design Up Front | Start small, iterate; design only for the current phase |
 
+### Pre-Code Decision Ladder (Ponytail Minimalism)
+Step through in order before writing new code:
+1. **Skip (YAGNI)**: Does this need to exist at all?
+2. **Reuse**: Does an existing function or module in the repo already solve it?
+3. **Stdlib**: Can the language standard library handle it?
+4. **Native Platform**: Can a native browser, SQL, or OS primitive handle it?
+5. **Existing Dependency**: Does an already-installed package cover it?
+6. **One-Liner**: Can a clear inline expression replace a helper or wrapper?
+7. **Minimal Code**: Write the smallest implementation; no single-use interfaces.
+
 ---
 
 ## 2. SOLID Principles
@@ -64,6 +74,7 @@ description: BMAD Coding Standards — DRY, KISS, YAGNI, TDD, SOC, BDUF, SOLID. 
 
 Before finalizing any implementation:
 - [ ] DRY, KISS, YAGNI, SOC, TDD followed
+- [ ] **Decision Ladder**: Checked reuse/stdlib/existing deps; zero premature abstractions
 - [ ] SOLID: SRP, OCP, LSP, ISP, DIP respected
 - [ ] **Adapter-First**: No duplicate parallel execution paths cloned for new variants
 - [ ] **Centralized Enums**: No scattered inline compound checks repeated across files

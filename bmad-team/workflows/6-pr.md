@@ -25,7 +25,7 @@ Collect the following information:
 - **Screenshots**: Visual evidence (if UI changes).
 
 ### 2. Generate PR Description
-Draft the description using the `bmad-team/templates/PULL_REQUEST.md` template.
+Draft the description using the `bmad-team/templates/PULL_REQUEST.md` template. Apply @humanizer/SKILL.md so the What/Why/How summary states direct facts with zero AI filler or buzzwords.
 
 #### Akvo Requester Checklist:
 - [ ] Linked GitHub issue in PR title (`[#issue] <type>(<scope>): <description>`).

@@ -44,13 +44,14 @@ The **BMAD v6 (Breakthrough Method for Agile AI-Driven Development)** framework 
 **Interactive Workflows:**
 - `/bmad-help` — Context-aware CLI/IDE guidance to inspect active branch mode, sprint state, and recommend the next action.
 - `/bmad-party` — Multi-agent pre-flight deliberation between Architect, Dev, and Tester to resolve edge cases and trade-offs.
-- `/bmad-review` — Senior staff code review and security audit on PR diffs (`[SEC]`, `[DATA]`, `[ARCH]`, `[PERF]`, `[DRY]`, `[SCOPE]`).
+- `/bmad-review` — Senior staff code review and security audit on PR diffs (`[SEC]`, `[DATA]`, `[ARCH]`, `[PERF]`, `[DRY]`, `[BLOAT]`, `[SCOPE]`).
 - `/bmad-peer-review` — Interactive peer review assistant for colleagues' PRs with live GitHub comment submission and `REQUEST_CHANGES` calibration.
 - `/bmad-retrospective` — Post-sprint retrospective to extract DOs/DONTs and synthesize persistent rules.
 - `/bmad-orchestrator` — Full multi-agent lifecycle orchestration with automated subagent spawning.
 - `/bmad-fastpath` — Scale-adaptive 2-step *Quick-Spec + Ship* flow for minor bugfixes and refactors.
 - `/parallel` — Concurrent multi-agent execution across isolated git branches powered by dual Gemini Pro and 9Router.
 - `/time-track` — Accurate working time breakdown, idle/break gap detection, and active effort reporting.
+- `/handoff` — Session compaction workflow emitting a <=25-line checkpoint to reset context windows cleanly.
 
 ---
 
@@ -61,6 +62,7 @@ This repository includes a pre-configured suite of modern AI agent tools, Model 
 - 🎭 **Playwright Testing (CLI & MCP)**: Automated browser verification, element interaction, and visual snapshot testing.
 - 🛡️ **Strix Security**: Autonomous penetration testing with real PoC exploit generation and AI fix workflows.
 - 🎨 **Frontend Design Skill**: Anti-slop UI design system enforcing bespoke tokens, intentional typography, and editorial layouts.
+- ✍️ **Humanizer Skill**: Anti-AI-prose filter stripping puffery, forced triads, and stock LLM buzzwords from docs and PRs.
 - 📚 **Context7 MCP**: Real-time official documentation lookup to eliminate hallucinated or outdated APIs.
 - ⚡ **9Router Integration**: Local AI gateway with RTK token saving (20–40% context reduction), 3-tier smart fallback, and multi-account Antigravity/Claude management. Manage with `./9router-service.sh`.
 

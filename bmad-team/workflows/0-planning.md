@@ -23,6 +23,10 @@ Analyze the user's request with a 5W1H lens:
 - **Why**: User pain point addressed
 - **How**: High-level logic flow
 
+### 1b. Domain Glossary & Ambiguity Check
+- **Domain Glossary (Ubiquitous Language)**: Lock exact entity, table, and route names matching the existing codebase; ban synonym drift.
+- **Decision-Tree Ambiguity Check**: Surface unresolved branches (auth, error states, edge inputs, migration safety) and ask targeted questions before drafting the spec.
+
 > Research boundary: read-only on interfaces, models, routes, and component boundaries only. No helper logic, no optimization paths.
 
 ### 2. Check Upstream Docs (Do NOT Auto-Create)
@@ -53,6 +57,7 @@ The spec MUST cover:
 ## Completion Criteria
 
 - [ ] 5W1H requirements analyzed
+- [ ] Domain Glossary locked and decision-tree ambiguities resolved
 - [ ] PRD/LLD checked (read if present, skipped if not — not created)
 - [ ] Feature Specification created at the project-native path
 - [ ] All tasks estimated with 3-part Vibe Coding breakdown (Dev + Testing + QA)
