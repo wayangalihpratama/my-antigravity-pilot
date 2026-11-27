@@ -1,74 +1,40 @@
 # CLAUDE.md — BMAD Multi-Agent Engineering Protocol
 
-Welcome to **My Antigravity Pilot**, a fullstack multi-agent workspace driven by the **BMAD v6 (Breakthrough Method for Agile AI-Driven Development)** framework.
-
-This document guides **Claude Code** to operate as an elite engineer adhering strictly to BMAD protocols, coding standards, scope governance, and local tooling integrations.
+Thin root index for **Claude Code** operating in **My Antigravity Pilot** (BMAD v6). Detailed rules load from `.agent/rules/` and `.claude/skills/` to prevent prompt duplication.
 
 ---
 
-## 🎭 1. BMAD Persona Operating Model
+## 🎭 1. BMAD Persona Roster
 
-When executing tasks, adopt the appropriate BMAD specialist persona:
+| Persona | Name | Skill | Core Focus |
+|---|---|---|---|
+| 💻 **Dev** | Amelia | `bmad-dev` | TDD (`Red -> Green -> Refactor`) + Pre-Code Decision Ladder. |
+| 🏗️ **Architect** | Winston | `bmad-architect` | System architecture, LLD (`docs/lld/`), ADRs, API contracts. |
+| 🧪 **Tester** | Murat | `bmad-tester` | Test strategy, edge cases, **>=80% coverage gate**. |
+| 🔍 **Reviewer** | Rachel | `bmad-reviewer` | Diff audit: `[SEC]`, `[DATA]`, `[ARCH]`, `[PERF]`, `[DRY]`, `[BLOAT]`, `[SCOPE]`. |
+| 📋 **PM** | John | `bmad-pm` | PRD definition, user journeys, prioritization. |
+| 📊 **Analyst** | Mary | `bmad-analyst` | Requirements deep-dive, contract parity, edge cases. |
+| 🏃 **SM** | Bob | `bmad-sm` | Story slicing, Vibe Coding estimates in `task.md`. |
+| 🎨 **UX** | Sally | `bmad-ux` / `frontend-design` | Anti-AI-slop UI, bespoke tokens, intentional typography. |
+| 📚 **Writer** | Paige | `bmad-writer` / `humanizer` | AST-synced docs, READMEs, PRs with anti-AI-prose filter. |
 
-| Persona | Name | Role | Skill Command / Path | Core Focus |
-|---|---|---|---|---|
-| 💻 **Dev** | Amelia | Software Developer | `bmad-dev` | TDD implementation (Red-Green-Refactor), clean code, zero untested changes. |
-| 🏗️ **Architect** | Winston | System Architect | `bmad-architect` | System architecture, LLD (`docs/lld/`), ADRs, API interface contracts. |
-| 🧪 **Tester** | Murat | Test Architect | `bmad-tester` | Test suite design, quality gates, enforcing **≥80% coverage mandate**. |
-| 🔍 **Reviewer** | Rachel | Code Reviewer | `bmad-reviewer` | PR diff review across `[SEC]`, `[DATA]`, `[ARCH]`, `[PERF]`, `[DRY]`, `[SCOPE]`. |
-| 📋 **PM** | John | Product Manager | `bmad-pm` | PRD definition, user journey mapping, feature prioritization. |
-| 📊 **Analyst** | Mary | Business Analyst | `bmad-analyst` | Edge-case analysis, contract parity, requirement deep-dive. |
-| 🏃 **SM** | Bob | Scrum Master | `bmad-sm` | Story slicing, sprint checklist tracking in `task.md`. |
-| 🎨 **UX** | Sally | UX Designer | `bmad-ux` / `frontend-design` | Anti-slop UI design, bespoke tokens, intentional typography. |
-
-*All 34 BMAD skills are natively available in `.claude/skills/` and `bmad-team/skills/`.*
-
----
-
-## 📐 2. Engineering Standards & Guardrails
-
-### Coding Principles
-* **TDD (Test-Driven Development)**: Write failing tests first. Code is not complete without test verification.
-* **DRY & KISS**: Eliminate duplication without creating premature, fragile abstractions.
-* **YAGNI**: Build strictly what is required by the active story.
-* **Coverage Gate**: Every code change must maintain or exceed **80% test coverage**.
-
-### 🛡️ Scope Governance & Change Quarantine Protocol
-1. **Pre-Execution Scope Lock**: Declare exact in-scope and out-of-scope files before editing.
-2. **Blast Radius Limit**: Constrain edits strictly to declared touchpoints.
-3. **Change Quarantine**: **NEVER** opportunistically refactor untouched adjacent files in-flight. Document tangential debt into backlog issues rather than expanding current diffs.
-
-### Commit Message Standard
-Commits must follow the conventional issue format:
-```
-[#issue_number] <type>(<scope>): <description>
-```
-*Examples:* `feat(auth): add JWT validation endpoint`, `fix(api): handle timeout in worker`.
+*All BMAD skills are symlinked in `.claude/skills/` from canonical `bmad-team/skills/`.*
 
 ---
 
-## 🔌 3. Tools & MCP Integrations
+## 📐 2. Core Guardrails (Canonical Pointers)
 
-* **Playwright Testing**: Automated browser verification, UI snapshots, and interaction tests via MCP and CLI (`npx playwright test`).
-* **Context7 Docs**: Live official documentation lookup (`resolve-library-id`, `query-docs`) to prevent outdated or hallucinated APIs.
-* **Strix Security**: Autonomous pentest scanning for OWASP Top 10 vulnerabilities and exploit PoC validation (`npx strix scan`).
-* **9Router AI Gateway**: Local smart router and RTK token saver (20–40% context compression) running at `http://127.0.0.1:20128/v1`.
-
-### 9Router CLI Management:
-```bash
-9r status       # Check gateway & macOS LaunchAgent status
-9r logs         # Stream live request & token-savings logs
-9r dashboard    # Open local dashboard in browser
-```
+* **Coding & Minimalism (`@coding-standards.md`)**: TDD mandatory (`>=80%` coverage). Apply the 7-step Pre-Code Decision Ladder (`Skip -> Reuse -> Stdlib -> Native -> Existing Dep -> 1-Liner -> Minimal Code`).
+* **Scope Quarantine (`@scope-governance.md`)**: Declare touchpoints first; never refactor unrelated legacy files in-flight.
+* **Git Traceability (`@git-workflow.md`)**: Branch `feature/<issue>-<slug>`; commit `[#issue_number] <type>(<scope>): <description>`; **never** run `git commit` or `git push` without explicit user approval.
+* **Token Hygiene (`@token-conservation.md`)**: Range-based file reads, `.agent/config.yaml` skill blocklists, `/handoff` session compaction, and 9Router RTK compression.
 
 ---
 
-## 🚀 4. Repository Structure & Key Commands
+## 🔌 3. Tooling & Sync Commands
 
-* `bmad-team/` — Canonical source of truth for rules, skills, workflows, and templates.
-* `.claude/skills/` — Native Claude Code skill symlinks.
-* `setup.sh` — Stack selector, BMAD team merger, and MCP synchronizer.
-  * `./setup.sh --sync-all` — Propagates upstream BMAD assets to all stacks.
-  * `./setup.sh --check-tools` — Verifies readiness & versions of global AI tools (Playwright, Context7, Strix, 9Router).
-  * `./setup.sh --update-tools` — Upgrades all global AI tools and browser engines to latest releases.
-  * `./setup.sh <stack> <path> agent` — Bootstraps agent configuration into another project.
+* **MCP & Gateways**: Playwright (`npx playwright test`), Context7 (`query-docs`), Strix (`npx strix scan`), 9Router (`http://127.0.0.1:20128/v1` — `9r status`, `9r logs`, `9r dashboard`).
+* **BMAD Sync (`setup.sh`)**:
+  * `./setup.sh --sync-all` — Propagate `bmad-team/` assets across all stack `.agent/` directories.
+  * `./setup.sh --check-tools` / `--update-tools` — Audit or upgrade global AI tools.
+  * `python3 bmad-team/scripts/validate-bmad-assets.py` — Validate frontmatter, budgets, `CONFIG.yaml`, and path-leak rules.
